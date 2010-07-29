@@ -1,0 +1,3 @@
+* We need to build in an admin interface for merchants and disable the store model on django admin.
+* Write tests! (Models and views).
+* Refactor and remove style redundancies. DRY!
