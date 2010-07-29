@@ -9,6 +9,17 @@ var options = {
     }
 }
 
+function checkOut() {
+    var sessionId = getCookie("sessionid");
+    options["data"] = "session_id=" + sessionId;
+    options["url"] = "/order/checkout/";
+    options["success"] = function(response) {
+	document.location = response.data.body;
+    }
+
+    $.ajax(options);
+}
+
 function getCookie(cookieName)	{
     if (document.cookie)    {
 	var results = document.cookie.match('(^|;) ?' + cookieName + '=([^;]*)(;|$)');

@@ -13,6 +13,8 @@ import base64
 import urllib2
 from BeautifulSoup import BeautifulStoneSoup
 
+import helpers as h
+
 # Fix this - DRY!
 class FormSet:
     store_select_form = StoreSelectForm
@@ -103,7 +105,9 @@ def preview_cart(request, session_id, template="mall/cart.html", form_set=FormSe
 	    "shopping_cart": shopping_cart,
     }, context_instance=RequestContext(request))
 
+@h.json_response
 def checkout(request):
+    session_id = request.POST["session_id"]
     auth_token = base64.b64encode(settings.MERCHANT_CODE + ':' + settings.MERCHANT_KEY)
     t = get_template("store/request.xml")
 
@@ -119,4 +123,5 @@ def checkout(request):
     response = urllib2.urlopen(req)
     soup = BeautifulStoneSoup(response.read())
     url = soup.find("redirect-url").string
-    return redirect(url)
+
+    return ("string", url)
