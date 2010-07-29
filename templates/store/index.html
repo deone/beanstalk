@@ -1,0 +1,53 @@
+{% extends "base_inner.html" %}
+
+{% block sidebar %}
+    <div id="store_logo" class="space_bottom"><img src="/site_media/{{ store.logo }}" alt="{{ store.name }}"/></div>
+    <div id="store_search" class="space_bottom viewport">
+	<form>
+	    {{ form_set.store_search_form.query }}
+	    <input value="Search" type="submit"/>
+	</form>
+    </div>
+    <div class="menu viewport">
+	<h2>Browse Products</h2>
+	{% for pg in store.productgroup_set.all %}
+	    {% if product_group %}
+		{% ifequal pg.id product_group.id %}
+		    <a class="cat selected" href="/store/{{ store.account_name }}/browse/{{ pg.id }}/">{{ pg.name }}</a>
+		{% else %}
+		    <a class="cat" href="/store/{{ store.account_name }}/browse/{{ pg.id }}/">{{ pg.name }}</a>
+		{% endifequal %}
+	    {% else %}
+		<a class="cat" href="/store/{{ store.account_name }}/browse/{{ pg.id }}/">{{ pg.name }}</a>
+	    {% endif %}
+	{% endfor %}
+    </div>
+{% endblock %}
+
+{% block breadcrumbs %}
+
+    <div class="space_bottom">
+    {% if store and not product_group and not product %}
+	<a href="/">Home</a> &rsaquo; {{ store.name }}
+    {% endif %}
+    {% if store and product_group and not product %}
+	<a href="/">Home</a> &rsaquo; <a href="/store/{{ store.account_name}}/">{{ store.name }}</a> &rsaquo; {{ product_group.name }}
+    {% endif %}
+    {% if store and product %}
+	<a href="/">Home</a> &rsaquo; <a href="/store/{{ store.account_name}}/">{{ store.name }}</a> &rsaquo; <a href="/store/{{ store.account_name }}/browse/{{ product.product_group.id }}/">{{ product.product_group.name }}</a> &rsaquo; {{ product.name }}
+    {% endif %}
+    </div>
+
+{% endblock %}
+
+{% block content_body %}
+
+    <div class="banner viewport"></div>
+
+    <ul class="product_list"><ul>
+
+{% endblock %}
+
+{% block custom_js %}
+    <script type="text/javascript" src="/site_media/js/mall.js"></script>
+{% endblock %}

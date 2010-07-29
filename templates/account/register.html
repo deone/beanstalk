@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <div class="grid_2">&nbsp;</div>
+    <div class="grid_12 viewport">
+	<form id="register" action="/account/register/?redirect_to={{ redirect_to }}" method="post">
+	    <fieldset>
+		<legend>Register with Pay4Me Mall</legend>
+		<p>All fields are required.</p>
+		{{ form_set.register_form.as_p }}
+	    </fieldset>
+	    <fieldset>
+		<input type="submit" value="Register Now"/>
+	    </fieldset>
+	</form>
+    </div>
+{% endblock %}
+
+{% block custom_js %}
+    <script type="text/javascript" src="/site_media/js/account.js"></script>
+{% endblock %}

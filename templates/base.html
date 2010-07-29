@@ -1,0 +1,75 @@
+<html xmlns="http://www.w3.org/1999/xhtml">
+    <head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+	<title>Pay4Me Mall</title>
+	<link rel="stylesheet" type="text/css" href="/site_media/css/reset.css" media="screen"/>
+	<link rel="stylesheet" type="text/css" href="/site_media/css/text.css" media="screen"/>
+	<link rel="stylesheet" type="text/css" href="/site_media/css/960.css" media="screen"/>
+	<link rel="stylesheet" type="text/css" href="/site_media/css/main.css" media="screen"/>
+    </head>
+    {% block body_id %}<body id="mall_home">{% endblock %}
+	<div class="container_16">
+	    <div id="header">
+		<div id="logo" class="grid_4"><img src="/site_media/img/logo_pay4me.png"/></div>
+		<div class="grid_12">
+		    <div id="user_area" class="space_bottom">
+			<div id="space" class="grid_8 alpha">
+			    {% if user.is_authenticated %}
+				<b>Welcome {{ user.first_name }}</b> | <a href="#">Account</a> | 
+				{% if user.is_staff %}
+				    <a href="/admin/">Admin</a> | 
+				{% endif %}
+				<a href="/account/logout/">Sign Out</a>
+			    {% else %}
+				<a href="">Sign In</a>
+			    {% endif %}
+			</div>
+			<div class="grid_4 omega">
+			    {% block cart_indicator %}
+				<div id="cart_indicator" class="viewport">
+				    <p>Your Shopping Cart</p>
+				    <p id="cart_details"></p>
+				    <form action="javascript:previewCart();">
+					<input type="submit" value="Preview & Checkout"/>
+				    </form>
+				</div>
+			    {% endblock %}
+			</div>
+			<div class="clear"></div>
+		    </div>
+		    <div class="clear"></div>
+		    <div id="header_forms" class="viewport space_bottom">
+			<form id="store_select">
+			    <legend>Stores</legend>
+			    {{ form_set.store_select_form.as_p }}
+			</form>
+			<form id="dept_select">
+			    <legend>Departments</legend>
+			    {{ form_set.dept_select_form.as_p }}
+			</form>
+			<form id="mall_search">
+			    <p><legend>Mall Search</legend></p>
+			    {{ form_set.mall_search_form.query }}
+			    <input value="Search" type="submit"/>
+			</form>
+			<div class="clear"></div>
+		    </div>
+		</div>
+		<div class="clear"></div>
+	    </div>
+	    <hr class="grid_16"/>
+	    <div class="clear"></div>
+	    <div id="content">
+		{% block content %}{% endblock %}
+		<div class="clear"></div>
+	    </div>
+	    <div class="clear"></div>
+	    <div id="footer" class="grid_16">
+		<p>&copy; Pay4Me Mall 2010. All rights reserved.</p>
+	    </div>
+	</div>
+    </body>
+    <script type="text/javascript" src="/site_media/js/jquery.js"></script>
+    <script type="text/javascript" src="/site_media/js/main.js"></script>
+    {% block custom_js %}{% endblock %}
+</html>

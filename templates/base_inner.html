@@ -1,0 +1,13 @@
+{% extends "base.html" %}
+
+{% block body_id %}<body id="store">{% endblock %}
+
+{% block content %}
+    <div class="grid_4">
+	{% block sidebar %}{% endblock %}
+    </div>
+    <div class="grid_12">
+	{% block breadcrumbs %}{% endblock %}
+	{% block content_body %}{% endblock %}
+    </div>
+{% endblock %}

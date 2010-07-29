@@ -1,0 +1,64 @@
+{% extends "store/index.html" %}
+
+{% block content_body %}
+    <div class="page_control_bar space_bottom">
+	<div id="page_views">
+	    <img src="/site_media/img/viewOptions1.gif" title="Expanded View"/>
+	    <img src="/site_media/img/viewOptions2.gif" title="Thumbnail View"/>
+	</div>
+	<div id="paginator">
+	    <span>Found {{ product_list_length }} items.</span>
+	    {% if products.has_previous %}
+		<a href="?page={{ products.previous_page_number }}">Previous</a>
+	    {% endif %}
+	    Page {{ products.number }} of {{ products.paginator.num_pages }}.</span>
+	    {% if products.has_next %}
+		<a href="?page={{ products.next_page_number }}">Next</a>
+	    {% endif %}
+	</div>
+	<form id="product_sorter">
+	    <span>Sort By:</span>
+	    {{ form_set.store_sorter_form.sort_items }}
+	</form>
+	<div class="clear"></div>
+    </div>
+
+    <div id="product_list" class="viewport space_bottom">
+	<ul class="product_list">
+	{% for product in products.object_list %}
+	    <li>
+		<a href="/store/{{ store.account_name }}/product/{{ product.id }}/" title="{{ product.name }}">
+		    <img src="/site_media/{{ product.thumbnail }}"/>
+		    {{ product.name }}<br/>
+		    <span id="price"><strong>Price: N{{ product.price }}</strong></span>
+		</a>
+	    </li>
+	{% empty %}
+	    <p>There are no products in your store. You can upload products in your <a href="#">Store Administration panel</a>.</p>
+	{% endfor %}
+	<ul>
+	<div class="clear"></div>
+    </div>
+
+    <div class="page_control_bar">
+	<div id="page_views">
+	    <img src="/site_media/img/viewOptions1.gif" title="Expanded View"/>
+	    <img src="/site_media/img/viewOptions2.gif" title="Thumbnail View"/>
+	</div>
+	<div id="paginator">
+	    <span>Found {{ product_list_length }} items.</span>
+	    {% if products.has_previous %}
+		<a href="?page={{ products.previous_page_number }}">Previous</a>
+	    {% endif %}
+	    Page {{ products.number }} of {{ products.paginator.num_pages }}.</span>
+	    {% if products.has_next %}
+		<a href="?page={{ products.next_page_number }}">Next</a>
+	    {% endif %}
+	</div>
+	<form id="product_sorter">
+	    <span>Sort By:</span>
+	    {{ form_set.store_sorter_form.sort_items }}
+	</form>
+	<div class="clear"></div>
+    </div>
+{% endblock %}

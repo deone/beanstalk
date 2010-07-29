@@ -1,0 +1,53 @@
+{% extends "store/index.html" %}
+
+{% block cart_indicator %}{% endblock %}
+
+{% block sidebar %}
+    <div class="viewport"></div>
+{% endblock %}
+
+{% block breadcrumbs %}{% endblock %}
+
+{% block content_body %}
+    <div class="viewport">
+	<form id="checkout" method="post" action="/order/checkout/">
+	    <input type="submit" value="Checkout Now"/>
+	</form>
+	<table id="shopping_cart">
+	    <tr>
+		<th>Item</th>
+		<th>Store</th>
+		<th>Quantity</th>
+		<th>Item Price</th>
+		<th>Total Cost</th>
+	    </tr>
+	    {% for item in shopping_cart.items %}
+	    <tr>
+		<td>
+		    <img src="/site_media/{{ item.thumbnail }}"/>
+		    <p>{{ item.name }}</p>
+		</td>
+		<td>
+		    {{ item.product_group.store.name }}
+		</td>
+		<td>
+		    {{ item.quantity }}
+		</td>
+		<td>
+		    {{ item.price }}
+		</td>
+		<td>
+		    {{ item.total_cost }}
+		</td>
+	    </tr>
+	    {% endfor %}
+	    <tr>
+		<td>&nbsp;</td>
+		<td>&nbsp;</td>
+		<td>&nbsp;</td>
+		<td><b>Order Total</b></td>
+		<td><b>{{ shopping_cart.order_total }}</b></td>
+	    </tr>
+	</table>
+    </div>
+{% endblock %}
