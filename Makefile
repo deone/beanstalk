@@ -28,7 +28,7 @@ dist: distclean
 	@cp -r conf $(NAME)-$(VERSION)/
 	@cp -r apache $(NAME)-$(VERSION)/
 	@cp -r account/ mall/ store/ templates/ site_media/ sql/ $(NAME)-$(VERSION)/
-	@cp helpers.* __init__.* manage.py settings* urls.* $(NAME)-$(VERSION)/
+	@cp helpers.* __init__.* manage.py settings* urls.* abstract_model.* $(NAME)-$(VERSION)/
 	@cp INSTALL MANIFEST.in Makefile README TODO $(NAME)-$(VERSION)/
 	@cp install.sh install.conf pay4memall.spec $(NAME)-$(VERSION)/
 	@tar -czvf $(NAME)-$(VERSION).tar.gz $(NAME)-$(VERSION)/*

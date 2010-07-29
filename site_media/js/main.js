@@ -10,11 +10,13 @@ var options = {
 }
 
 function getCookie(cookieName)	{
-    var results = document.cookie.match('(^|;) ?' + cookieName + '=([^;]*)(;|$)');
-    if (results)    {
-	return (unescape(results[2]));
-    } else  {
-	return null;
+    if (document.cookie)    {
+	var results = document.cookie.match('(^|;) ?' + cookieName + '=([^;]*)(;|$)');
+	if (results)    {
+	    return (unescape(results[2]));
+	} else  {
+	    return null;
+	}
     }
 }
 
