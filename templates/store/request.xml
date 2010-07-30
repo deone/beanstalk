@@ -1,19 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
 <order xmlns="http://www.pay4me.com/schema/pay4meorder/v1">
     <merchant-service id="{{ merchant_service_id }}">
-        <item number="105">
-            <transaction-number>2010282727736678</transaction-number>
+        <item number="{{ cart_id }}">
+            <transaction-number>{{ txn_no }}</transaction-number>
             <name>
 		Payment for shopping at Pay4Me shopping mall.
             </name>
             <description>
 		Payment for shopping at Pay4Me shopping mall.
             </description>
-            <price>100</price>
+            <price>{{ order_total }}</price>
             <currency>naira</currency>
             <parameters>
                 <parameter name="app_id">4096</parameter>
-                <parameter name="ref_num">2010282727736678</parameter>
+                <parameter name="ref_num">{{ txn_no }}</parameter>
             </parameters>
         </item>
     </merchant-service>

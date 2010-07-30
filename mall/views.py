@@ -14,6 +14,7 @@ import urllib2
 from BeautifulSoup import BeautifulStoneSoup
 
 import helpers as h
+import datetime, random
 
 # Fix this - DRY!
 class FormSet:
@@ -105,15 +106,34 @@ def preview_cart(request, session_id, template="mall/cart.html", form_set=FormSe
 	    "shopping_cart": shopping_cart,
     }, context_instance=RequestContext(request))
 
+def generate_id():
+    digits = datetime.datetime.now().timetuple()[:6] + (random.randint(0, 999),)
+    return ''.join(map(str, digits))
+
 @h.json_response
 def checkout(request):
     session_id = request.POST["session_id"]
+    session_object = Session.objects.get(pk=session_id).get_decoded()
+
+    cart = get_cart_from_session(session_object)
+    order_total = 0
+
+    for item in cart:
+	product = get_object_or_404(Product, pk=item[0])
+	total_cost = item[1][0] * item[1][1]
+	order_total += int(total_cost)
+
     auth_token = base64.b64encode(settings.MERCHANT_CODE + ':' + settings.MERCHANT_KEY)
     t = get_template("store/request.xml")
 
     data = t.render(Context({
+	'cart_id': generate_id(),
 	'merchant_service_id': settings.MERCHANT_SERVICE_ID,
+	'txn_no': generate_id(),
+	'order_total': order_total
     }))
+
+    print data
 
     req = urllib2.Request(settings.PAYMENT_URL, data)
     req.add_header("Authorization", "Basic %s" % auth_token)
@@ -123,5 +143,7 @@ def checkout(request):
     response = urllib2.urlopen(req)
     soup = BeautifulStoneSoup(response.read())
     url = soup.find("redirect-url").string
+
+    request.session.flush()
 
     return ("string", url)
