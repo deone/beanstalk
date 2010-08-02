@@ -58,9 +58,10 @@ function previewCart()	{
     document.location = "/cart/" + sessionId + "/preview/";
 }
 
-$(function()	{
-
-    sessionId = getCookie("sessionid");
-    displayShoppingCart(sessionId);
-
+$(function(){
+    $("#id_stores").change(function()   {
+	if (this.options[this.selectedIndex].value != "")	{
+	    document.location = this.options[this.selectedIndex].value;
+	}
+    });
 });

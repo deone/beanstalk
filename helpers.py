@@ -8,10 +8,13 @@ from traceback import print_exc
 def fetch(model):
     result_list = []
 
-    result_list.append((0, u"Select"))
-
+    result_list.append(("", u"Select"))
+    
     for item in model.objects.all():
-	result_list.append((item.id, item.name))
+	if "account_name" in dir(item):
+	    store_link = "/store/%s/" % item.account_name
+
+	result_list.append((store_link, item.name))
 	
     return result_list
 
