@@ -3,6 +3,8 @@ from django.contrib.auth.models import User
 
 from pay4memall.abstract_model import CommonInfo
 
+import datetime
+
 GENDER_CHOICES = (
 	("Male", "Male"),
 	("Female", "Female"),
@@ -42,6 +44,9 @@ class Product(CommonInfo):
     thumbnail = models.ImageField(upload_to="products/thumbs")
     large_image = models.ImageField(upload_to="products/large")
     price = models.DecimalField(max_digits=20, decimal_places=2)
+    quantity = models.IntegerField()
+    date_added = models.DateTimeField(default=datetime.datetime.now)
+    last_modified = models.DateTimeField(default=datetime.datetime.now)
 
     def __unicode__(self):
 	return self.name

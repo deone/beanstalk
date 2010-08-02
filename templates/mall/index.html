@@ -3,6 +3,17 @@
 {% block content %}
     <div class="grid_12">
 	<div class="banner viewport">&nbsp;</div>
+	<h2>Featured Products</h2>
+	<ul class="product_list">
+	    {% for product in products %}
+		<li>
+		    <a href="#">
+			<img src="/site_media/{{ product.thumbnail }}"/>
+			{{ product.name }}<br/>
+		    </a>
+		</li>
+	    {% endfor %}
+	<ul>
     </div>
     <div class="grid_4">
 	<div id="menu" class="viewport">

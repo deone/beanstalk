@@ -44,7 +44,17 @@
 
     <div class="banner viewport"></div>
 
-    <ul class="product_list"><ul>
+    <h2>Recently Added</h2>
+    <ul class="product_list">
+	{% for product in products %}
+	    <li>
+		<a href="#">
+		    <img src="/site_media/{{ product.thumbnail }}"/>
+		    {{ product.name }}<br/>
+		</a>
+	    </li>
+	{% endfor %}
+    <ul>
 
 {% endblock %}
 
