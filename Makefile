@@ -1,6 +1,6 @@
 VERSION=0.1
 NAME=pay4memall
-TOPDIR=/home/zedd/rpmbuild
+TOPDIR=/home/$(HOST)/rpmbuild
 
 all: build
 	@echo "All Done"
