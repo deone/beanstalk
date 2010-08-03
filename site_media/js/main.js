@@ -42,7 +42,7 @@ function displayShoppingCart(sessionId)	{
 	} else	{
 	    $("#cart_indicator input").attr("disabled", "");
 	}
-	$("#cart_details").html(quantity + " items, " + "N" + price + ".00");
+	$("#cart_details").html(quantity + " ITEMS | " + "N" + price + ".00");
     }
 
     $.ajax(options);

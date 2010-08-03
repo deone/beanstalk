@@ -9,10 +9,30 @@
 	<div id="heading">
 	    <div id="logo"><img src="/site_media/img/logo.gif" alt="Pay4Me Mall" /></div>
 	    <div id="checkout">
-		<div class="cartUpdate">MY SHOPPING CART: 3 ITEMS | N 500000<br />SIGN IN | REGISTER</div>
-		<div class="btn"><a href="#"><img src="/site_media/img/checkout.gif"  alt="CHECKOUT"/></a></div>
+		    {% block cart_indicator %}
+			<div id="cart_indicator" class="cartUpdate">
+			    MY SHOPPING CART: <span id="cart_details"></span>
+			    <br/>
+			    {% if user.is_authenticated %}
+				<b>Welcome {{ user.first_name }}</b> | <a href="#">ACCOUNT</a> | 
+				{% if user.is_staff %}
+				    <a href="/admin/">ADMIN</a> | 
+				{% endif %}
+				<a href="/account/logout/">SIGN OUT</a>
+			    {% else %}
+				<a href="#">SIGN IN</a> | <a href="#">REGISTER</a>
+			    {% endif %}
+			</div>
+			<div class="btn">
+			    <a href="javascript:previewCart();"><img src="/site_media/img/checkout.gif" alt="CHECKOUT"/></a>
+			</div>
+			<div class="clear"></div>
+			<form id="mall_search">
+			    {{ form_set.mall_search_form.query }}
+			</form>
+		    {% endblock %}
+		</div>
 		<div class="clear"></div>
-		<input name="" type="text" class="search" value="Search: Products, Store, Departments" />
 	    </div>
 	    <div class="clear"></div>
 	</div>

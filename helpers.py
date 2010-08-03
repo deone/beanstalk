@@ -12,7 +12,7 @@ def add(x, y):
 def fetch(model):
     result_list = []
 
-    result_list.append(("", u"Select"))
+    result_list.append(("", u"Stores"))
     
     for item in model.objects.all():
 	if "account_name" in dir(item):
