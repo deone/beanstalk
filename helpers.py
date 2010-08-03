@@ -4,6 +4,10 @@ from django.utils.functional import Promise
 from django.utils.encoding import force_unicode
 
 from traceback import print_exc
+import datetime, random
+
+def add(x, y):
+    return x+y
 
 def fetch(model):
     result_list = []
@@ -62,3 +66,7 @@ def create_response(code, type=None, value=None):
 	}
 
     return simplejson.dumps(response, cls=LazyEncoder)
+
+def generate_id():
+    digits = datetime.datetime.now().timetuple()[:6] + (random.randint(0, 999),)
+    return ''.join(map(str, digits))
