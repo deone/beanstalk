@@ -24,7 +24,7 @@ class FormSet:
 
 def index(request, template="mall/index.html", store_select_form=StoreSelectForm, form_set=FormSet):
 
-    products = random.sample([product for product in Product.objects.all()], 5)
+    products = random.sample([product for product in Product.objects.all()], 4)
 
     return render_to_response(template, {
 	    "form_set": form_set(),
