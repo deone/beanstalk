@@ -10,7 +10,7 @@
 
 {% block content_body %}
     <div class="viewport">
-	<form id="checkout" action="javascript:checkOut();">
+	<form id="checkout" action="javascript:checkOut({{ user.id }});">
 	    <input type="submit" value="Checkout Now"/>
 	</form>
 	<table id="shopping_cart">

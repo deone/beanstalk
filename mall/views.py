@@ -4,17 +4,17 @@ from django.contrib.sessions.models import Session
 from django.conf import settings
 from django.template.loader import get_template
 
-from pay4memall.mall.models import *
-from pay4memall.store.models import Product
-from pay4memall.mall.forms import *
-from pay4memall.store.forms import *
+from mall.models import *
+from mall.forms import *
+from store.models import Product
+from store.forms import *
 
 import base64
 import urllib2
 from BeautifulSoup import BeautifulStoneSoup
 
 import helpers as h
-import datetime, random
+import random
 
 # Fix this - DRY!
 class FormSet:
@@ -109,34 +109,45 @@ def preview_cart(request, session_id, template="mall/cart.html", form_set=FormSe
 	    "shopping_cart": shopping_cart,
     }, context_instance=RequestContext(request))
 
-def generate_id():
-    digits = datetime.datetime.now().timetuple()[:6] + (random.randint(0, 999),)
-    return ''.join(map(str, digits))
+
 
 @h.json_response
 def checkout(request):
+    """
+	* Generate transaction_id.
+	* Insert transaction_id and total_amount into transaction table.
+	* Insert each item into ordered_item table.
+	* Make payment through pay4me API.
+	* Receive and process response.
+    """
     session_id = request.POST["session_id"]
-    session_object = Session.objects.get(pk=session_id).get_decoded()
+    user_id = request.POST["user_id"]
 
+    # Grab cart items from session
+    session_object = Session.objects.get(pk=session_id).get_decoded()
     cart = get_cart_from_session(session_object)
-    order_total = 0
+
+    # Create entry in transaction table
+    total = reduce(h.add, [item[1][0] * item[1][1] for item in cart])
+    transaction = Transaction.objects.create(transaction_id=h.generate_id(), amount=str(total))
+
+    # Create ordered item entries
+    user = User.objects.get(pk=user_id)
 
     for item in cart:
-	product = get_object_or_404(Product, pk=item[0])
-	total_cost = item[1][0] * item[1][1]
-	order_total += int(total_cost)
+	product = Product.objects.get(pk=item[0])
+	OrderedItem.objects.create(transaction=transaction, user=user, \
+		product=product, quantity=item[1][0], cost=str(item[1][0] * item[1][1]))
 
     auth_token = base64.b64encode(settings.MERCHANT_CODE + ':' + settings.MERCHANT_KEY)
     t = get_template("store/request.xml")
 
     data = t.render(Context({
-	'cart_id': generate_id(),
+	'cart_id': h.generate_id(),
 	'merchant_service_id': settings.MERCHANT_SERVICE_ID,
-	'txn_no': generate_id(),
-	'order_total': order_total
+	'txn_no': h.generate_id(),
+	'order_total': total
     }))
-
-    print data
 
     req = urllib2.Request(settings.PAYMENT_URL, data)
     req.add_header("Authorization", "Basic %s" % auth_token)

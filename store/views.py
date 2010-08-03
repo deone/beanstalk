@@ -11,6 +11,8 @@ from pay4memall.store.forms import *
 
 import pay4memall.helpers as h
 
+# We need to remove redundancies in these views.
+
 # Fix this - DRY!
 class FormSet:
     store_select_form = StoreSelectForm

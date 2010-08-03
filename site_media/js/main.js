@@ -9,15 +9,15 @@ var options = {
     }
 }
 
-function checkOut() {
+function checkOut(userId) {
     var sessionId = getCookie("sessionid");
-    options["data"] = "session_id=" + sessionId;
-    options["url"] = "/order/checkout/";
-    options["success"] = function(response) {
-	document.location = response.data.body;
-    }
 
-    $.ajax(options);
+    $.post("/order/checkout/", { session_id: sessionId, user_id: userId },
+	    function(response)	{
+		alert(response.data.body);
+		document.location = response.data.body;
+	    }
+    );
 }
 
 function getCookie(cookieName)	{
@@ -64,4 +64,7 @@ $(function(){
 	    document.location = this.options[this.selectedIndex].value;
 	}
     });
+
+    var sessionId = getCookie("sessionid");
+    displayShoppingCart(sessionId);
 });
