@@ -3,6 +3,9 @@ from django.utils import simplejson
 from django.utils.functional import Promise
 from django.utils.encoding import force_unicode
 
+from mall.models import Department
+from store.models import Store
+
 from traceback import print_exc
 import datetime, random
 
@@ -12,7 +15,11 @@ def add(x, y):
 def fetch(model):
     result_list = []
 
-    result_list.append(("", u"Stores"))
+    # There should be a better way to do this.
+    if model == Store:
+	result_list.append(("", u"Stores"))
+    elif model == Department:
+	result_list.append(("", u"Department"))
     
     for item in model.objects.all():
 	if "account_name" in dir(item):
