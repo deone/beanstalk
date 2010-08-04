@@ -44,25 +44,24 @@ def add_to_cart(request, product_id):
     return ("boolean", True)
 
 @h.json_response
-def display_cart(request, session_id):
-
-    session_object = Session.objects.get(pk=session_id).get_decoded()
+def display_cart(request, **kwargs):
+    session_object = request.session._session
 
     if not session_object.has_key("_auth_user_id"):
 	cart = session_object.iteritems()
     else:
 	cart = h.get_cart_from_session(session_object)
 
-    item_qty = item_price = 0
+    items_qty = items_price = 0
 
     for item in cart:
-	item_qty += item[1][0]
+	items_qty += item[1][0]
 	total_price = item[1][0] * item[1][1]
-	item_price += total_price
+	items_price += total_price
 
     cart_object = {
-	"items_quantity": item_qty,
-	"items_price": item_price
+	"quantity": items_qty,
+	"price": items_price
     }
 
     return ("object", cart_object)

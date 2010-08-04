@@ -3,7 +3,6 @@ from django.http import Http404
 from django.template import RequestContext
 from django.core.paginator import Paginator, InvalidPage, EmptyPage
 from django.conf import settings
-from django.contrib.sessions.models import Session
 
 from pay4memall.store.models import *
 from pay4memall.mall.forms import *
