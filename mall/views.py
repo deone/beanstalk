@@ -2,25 +2,17 @@ from django.shortcuts import render_to_response, get_object_or_404
 from django.template import Context, RequestContext
 from django.contrib.sessions.models import Session
 
-from mall.forms import *
 from store.models import Product
-from store.forms import *
-
 import helpers as h
+import all_forms as af
+
 import random
 
-# Fix this - DRY!
-class FormSet:
-    store_select_form = StoreSelectForm
-    dept_select_form = DepartmentSelectForm
-    mall_search_form = MallSearchForm
-
-def index(request, template="mall/index.html", store_select_form=StoreSelectForm, form_set=FormSet):
-
+def index(request, template="mall/index.html"):
     products = random.sample([product for product in Product.objects.all()], 4)
 
     return render_to_response(template, {
-	    "form_set": form_set(),
+	    "form_set": af.mall_forms,
 	    "products": products,
     }, context_instance=RequestContext(request))
 
@@ -66,7 +58,7 @@ def show_cart_details(request):
 
     return ("object", cart_object)
 
-def preview_cart(request, template="mall/cart.html", form_set=FormSet):
+def preview_cart(request, template="mall/cart.html"):
     session_object = request.session._session
 
     # Fix this, replicated from show_cart_details.
@@ -90,6 +82,6 @@ def preview_cart(request, template="mall/cart.html", form_set=FormSet):
     shopping_cart["order_total"] = "N" + str(shopping_cart["order_total"]) + "0"
 
     return render_to_response(template, {
-	    "form_set": form_set(),
+	    "form_set": af.mall_forms,
 	    "shopping_cart": shopping_cart,
     }, context_instance=RequestContext(request))
