@@ -44,7 +44,7 @@ def add_to_cart(request, product_id):
     return ("boolean", True)
 
 @h.json_response
-def display_cart(request, **kwargs):
+def show_cart_details(request):
     session_object = request.session._session
 
     if not session_object.has_key("_auth_user_id"):
@@ -66,10 +66,10 @@ def display_cart(request, **kwargs):
 
     return ("object", cart_object)
 
-def preview_cart(request, session_id, template="mall/cart.html", form_set=FormSet):
-    session_object = Session.objects.get(pk=session_id).get_decoded()
+def preview_cart(request, template="mall/cart.html", form_set=FormSet):
+    session_object = request.session._session
 
-    # Fix this, replicated from display_cart
+    # Fix this, replicated from show_cart_details.
     if not session_object.has_key("_auth_user_id"):
 	cart = session_object.iteritems()
     else:
@@ -79,6 +79,7 @@ def preview_cart(request, session_id, template="mall/cart.html", form_set=FormSe
     shopping_cart["order_total"] = 0
     shopping_cart["items"] = []
 
+    # Can't we use recursion in cases like this?
     for item in cart:
 	product = get_object_or_404(Product, pk=item[0])
 	product.quantity = item[1][0]

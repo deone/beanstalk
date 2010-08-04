@@ -9,22 +9,12 @@ function checkOut(userId) {
 }
 
 function displayShoppingCart()	{
-    $.getJSON("/cartdetails/", function(response)	{
+    $.getJSON("/cart/details/", function(response)   {
 	    var price = response.data.body.price;
 	    var quantity = response.data.body.quantity;
 
 	    $("#cart_details").html(quantity + " ITEMS | " + "N" + price + ".00");
     });
-}
-
-// Temporary hack - demo purposes.
-// Using session_id in this url is problematic.
-// If a user logs in or registers from the checkout button,
-// the session_id in the cookie changes and this url becomes bogus.
-// And we can't redirect to the shopping cart page anymore.
-function previewCart()	{
-    sessionId = getCookie("sessionid");
-    document.location = "/cart/" + sessionId + "/preview/";
 }
 
 $(function(){
