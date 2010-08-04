@@ -1,14 +1,3 @@
-var options = {
-    url: null,
-    type: "POST",
-    data: null,
-    dataType: "json",
-    success: null,
-    error: function(response)	{
-	alert(response);
-    }
-}
-
 function checkOut(userId) {
     var sessionId = getCookie("sessionid");
 
@@ -19,32 +8,13 @@ function checkOut(userId) {
     );
 }
 
-function getCookie(cookieName)	{
-    if (document.cookie)    {
-	var results = document.cookie.match('(^|;) ?' + cookieName + '=([^;]*)(;|$)');
-	if (results)    {
-	    return (unescape(results[2]));
-	} else  {
-	    return null;
-	}
-    }
-}
+function displayShoppingCart()	{
+    $.getJSON("/cartdetails/", function(response)	{
+	    var price = response.data.body.price;
+	    var quantity = response.data.body.quantity;
 
-function displayShoppingCart(sessionId)	{
-
-    options["url"] = "/cart/" + sessionId + "/";
-    options["success"] = function(response) {
-	quantity = response.data.body.items_quantity
-	price = response.data.body.items_price
-	if (quantity < 1)   {
-	    $("#cart_indicator input").attr("disabled", "disabled");
-	} else	{
-	    $("#cart_indicator input").attr("disabled", "");
-	}
-	$("#cart_details").html(quantity + " ITEMS | " + "N" + price + ".00");
-    }
-
-    $.ajax(options);
+	    $("#cart_details").html(quantity + " ITEMS | " + "N" + price + ".00");
+    });
 }
 
 // Temporary hack - demo purposes.
@@ -64,6 +34,5 @@ $(function(){
 	}
     });
 
-    var sessionId = getCookie("sessionid");
-    displayShoppingCart(sessionId);
+    displayShoppingCart();
 });

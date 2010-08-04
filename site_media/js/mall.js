@@ -1,18 +1,18 @@
 function addToCart()    {
-    productId = $("#add_to_cart #product_id").val();
-    quantity = $("#add_to_cart #id_quantity").val();
+    var productId = $("#add_to_cart #product_id").val();
+    var qty = $("#add_to_cart #id_quantity").val();
 
-    options["data"] = "quantity=" + quantity;
-    options["url"] = "/product/" + productId + "/add_to_cart/";
-    options["success"] = function(response) {
-	if (response.data.type != "boolean")	{
-	    alert("Internal Server Error");
-	} else	{
-	    displayShoppingCart(getCookie("sessionid"));
+    var url = "/product/" + productId + "/add_to_cart/";
+
+    $.post(url, { quantity: qty }, 
+	function(response)  {
+	    if (response.data.type != "boolean")	{
+		alert("Failed data type check");
+	    } else	{
+		displayShoppingCart();
+	    }
 	}
-    }
-
-    $.ajax(options);
+    );
 }
 
 // Merge these two!

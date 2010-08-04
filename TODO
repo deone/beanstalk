@@ -16,3 +16,4 @@ BUGS
 * We should also be able to get at session_id from request instead of sending session_id from the template.
 * Fix forms anomalies.
 * Don't forget post_save signal.
+* Do we need **kwargs in functions with h.json_response as helper?
