@@ -2,7 +2,7 @@ from django import forms
 from django.contrib.auth import authenticate, login
 from django.contrib.auth.models import User
 
-from pay4memall.account.models import Account
+from account.models import Profile
 
 TITLE_CHOICES = (
 	    ("Mr.", "Mr."),
@@ -47,7 +47,7 @@ class RegisterForm(forms.Form):
 	user.first_name = first_name
 	user.last_name = last_name
 	user.save()
-	account = Account.objects.create(user=user, title=title, mobile=mobile, address=address, 
+	account = Profile.objects.create(user=user, title=title, mobile=mobile, address=address, 
 		city=city, state=state, country=country)
 
 	return username, password

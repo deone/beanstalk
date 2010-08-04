@@ -3,9 +3,9 @@ from django.template import RequestContext
 
 from django.contrib.auth import authenticate, login
 
-from pay4memall.mall.forms import *
-from pay4memall.store.forms import *
-from pay4memall.account.forms import *
+from mall.forms import *
+from store.forms import *
+from account.forms import *
 
 class FormSet:
     store_select_form = StoreSelectForm

@@ -15,3 +15,4 @@ BUGS
 * Once a user is logged in, we can access their user details from HttpRequest, so we don't need to pass user_id from template to view.
 * We should also be able to get at session_id from request instead of sending session_id from the template.
 * Fix forms anomalies.
+* Don't forget post_save signal.
