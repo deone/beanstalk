@@ -19,7 +19,7 @@ def fetch(model):
     if model == Store:
 	result_list.append(("", u"Stores"))
     elif model == Department:
-	result_list.append(("", u"Department"))
+	result_list.append(("", u"Departments"))
     
     for item in model.objects.all():
 	if "account_name" in dir(item):
