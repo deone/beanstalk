@@ -29,8 +29,6 @@ def index(request, store_name, template="store/index.html"):
     }, context_instance=RequestContext(request))
 
 def display_product_group(request, store_name, product_group_id, template="store/product_group.html"):
-
-    store = get_object_or_404(Store, account_name=store_name)
     product_group = get_object_or_404(ProductGroup, pk=product_group_id)
     product_list = product_group.product_set.all()
     product_list_length = product_list.count()
@@ -50,7 +48,6 @@ def display_product_group(request, store_name, product_group_id, template="store
 	raise Http404
 
     return render_to_response(template, {
-	    "store": store,
 	    "product_group": product_group,
 	    "products": products,
 	    "product_list_length": product_list_length,
@@ -58,12 +55,9 @@ def display_product_group(request, store_name, product_group_id, template="store
     }, context_instance=RequestContext(request))
 
 def display_product(request, store_name, product_id, template="store/product.html"):
-
-    store = get_object_or_404(Store, account_name=store_name)
     product = get_object_or_404(Product, pk=product_id)
 
     return render_to_response(template, {
-	    "store": store,
 	    "product": product,
 	    "form_set": af.store_forms,
     }, context_instance=RequestContext(request))

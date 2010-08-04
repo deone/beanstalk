@@ -27,7 +27,7 @@
 	<ul class="product_list">
 	{% for product in products.object_list %}
 	    <li>
-		<a href="/store/{{ store.account_name }}/product/{{ product.id }}/" title="{{ product.name }}">
+		<a href="/store/{{ product_group.store.account_name }}/product/{{ product.id }}/" title="{{ product.name }}">
 		    <img src="/site_media/{{ product.thumbnail }}"/>
 		    {{ product.name }}<br/>
 		    <span id="price"><strong>Price: N{{ product.price }}</strong></span>

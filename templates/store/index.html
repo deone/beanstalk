@@ -27,14 +27,14 @@
 {% block breadcrumbs %}
 
     <div class="space_bottom">
-    {% if store and not product_group and not product %}
+    {% if store %}
 	<a href="/">Home</a> &rsaquo; {{ store.name }}
     {% endif %}
-    {% if store and product_group and not product %}
-	<a href="/">Home</a> &rsaquo; <a href="/store/{{ store.account_name}}/">{{ store.name }}</a> &rsaquo; {{ product_group.name }}
+    {% if product_group %}
+	<a href="/">Home</a> &rsaquo; <a href="/store/{{ product_group.store.account_name}}/">{{ product_group.store.name }}</a> &rsaquo; {{ product_group.name }}
     {% endif %}
-    {% if store and product %}
-	<a href="/">Home</a> &rsaquo; <a href="/store/{{ store.account_name}}/">{{ store.name }}</a> &rsaquo; <a href="/store/{{ store.account_name }}/browse/{{ product.product_group.id }}/">{{ product.product_group.name }}</a> &rsaquo; {{ product.name }}
+    {% if product %}
+	<a href="/">Home</a> &rsaquo; <a href="/store/{{ product.product_group.store.account_name}}/">{{ product.product_group.store.name }}</a> &rsaquo; <a href="/store/{{ product.product_group.store.account_name }}/browse/{{ product.product_group.id }}/">{{ product.product_group.name }}</a> &rsaquo; {{ product.name }}
     {% endif %}
     </div>
 
