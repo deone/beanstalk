@@ -1,6 +1,9 @@
 from django.db import models
 from django.contrib.auth.models import User
 
+# Be better by providing methods in the models already, instead of doing everything from the views.
+# Reporting would be easy this way.
+
 class Account(models.Model):
     user = models.ForeignKey(User, unique=True)
     title = models.CharField(max_length=4)
@@ -11,4 +14,4 @@ class Account(models.Model):
     country = models.CharField(max_length=50)
     
     def __unicode__(self):
-	return self.user.email
+	return self.user.username

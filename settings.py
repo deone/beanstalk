@@ -79,9 +79,9 @@ INSTALLED_APPS = (
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.admin',
-    'pay4memall.account',
-    'pay4memall.store',
-    'pay4memall.mall',
+    'account',
+    'store',
+    'mall',
 )
 
 RESULTS_PER_PAGE = 5
@@ -90,3 +90,5 @@ MERCHANT_CODE = '1785919655' #'1211523582'
 MERCHANT_KEY = '6dc1b236b36cefbdf5570e3edaa4073e' #'daa5a077f2b0493e94590c2d344acaa8'
 MERCHANT_SERVICE_ID = '60'
 PAYMENT_URL = 'http://spark.swgindia.com/~akumar/PAY4ME-V38-13-Mar-2010-ITR2/web/frontend_dev.php/order/payment/payprocess/v1/PID/' + MERCHANT_CODE
+
+AUTH_PROFILE_MODULE = "account.Account"

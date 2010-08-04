@@ -10,3 +10,6 @@ BUGS
 * Fix ajax session shopping cart display issues.
 * Session urls should be not contain session_id.
 * mall/views display_cart should be show_cart_details.
+* Use django's UserProfile technique to store additional information about users.
+* User -> Store relationship should be OneToOne.
+* Once a user is logged in, we can access their user details from HttpRequest, so we don't need to pass user_id from template to view.
