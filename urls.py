@@ -19,7 +19,7 @@ urlpatterns = patterns('',
     (r'^product/(?P<product_id>\d+)/add_to_cart/$', mall.views.add_to_cart),
     (r'^cart/(?P<session_id>\w+)/$', mall.views.display_cart),
     (r'^cart/(?P<session_id>\w+)/preview/$', mall.views.preview_cart),
-    (r'^order/checkout/$', mall.views.checkout),
+    (r'^checkout/$', include('payment.urls')),
     (r'^admin/', include(admin.site.urls)),
 )
 

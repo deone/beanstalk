@@ -12,9 +12,8 @@ var options = {
 function checkOut(userId) {
     var sessionId = getCookie("sessionid");
 
-    $.post("/order/checkout/", { session_id: sessionId, user_id: userId },
+    $.post("/checkout/", { session_id: sessionId, user_id: userId },
 	    function(response)	{
-		alert(response.data.body);
 		document.location = response.data.body;
 	    }
     );
