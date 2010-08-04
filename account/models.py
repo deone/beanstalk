@@ -4,7 +4,7 @@ from django.contrib.auth.models import User
 # Be better by providing methods in the models already, instead of doing everything from the views.
 # Reporting would be easy this way.
 
-class Account(models.Model):
+class Profile(models.Model):
     user = models.ForeignKey(User, unique=True)
     title = models.CharField(max_length=4)
     mobile = models.CharField(max_length=15)

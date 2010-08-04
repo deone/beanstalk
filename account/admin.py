@@ -1,4 +1,4 @@
 from django.contrib import admin
-from pay4memall.account.models import Account
+from pay4memall.account.models import Profile
 
-admin.site.register(Account)
+admin.site.register(Profile)

@@ -77,3 +77,11 @@ def create_response(code, type=None, value=None):
 def generate_id():
     digits = datetime.datetime.now().timetuple()[:6] + (random.randint(0, 999),)
     return ''.join(map(str, digits))
+
+def get_cart_from_session(session_object):
+    cart = []
+	
+    for item in session_object.iteritems():
+	if isinstance(item[0], unicode):
+	    cart.append(item)
+    return cart
