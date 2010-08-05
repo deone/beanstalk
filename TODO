@@ -3,7 +3,8 @@
 * We should be able to import abstract_model and helpers the same way.
 * Decouple all components.
 * Decouple templates: Use url names instead of actual urls.
-* We need to make related changes (csrf enable, EmailBackends disable) and upgrade Django to latest version on both pay4me mall development and production.
+* We need to make related changes (csrf enable, EmailBackend disable) and upgrade Django to latest version on both pay4me mall development and production.
+* We can actually run this 1.1.1 project in a 1.2.1 environment and bypass EmailBackend because 1.2.1 has support for using email as usernames.
 
 BUGS
 * Don't forget post_save signal when registering users.

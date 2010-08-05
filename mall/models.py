@@ -2,8 +2,6 @@ from django.db import models
 
 from pay4memall.abstract_model import CommonInfo
 
-import helpers as h
-
 class Department(CommonInfo):
 
     def __unicode__(self):

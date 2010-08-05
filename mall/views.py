@@ -9,7 +9,10 @@ import all_forms as af
 import random
 
 def index(request, template="mall/index.html"):
-    products = random.sample([product for product in Product.objects.all()], 4)
+    try:
+	products = random.sample([product for product in Product.objects.all()], 4)
+    except ValueError:
+	products = None
 
     return render_to_response(template, {
 	    "form_set": af.mall_forms,

@@ -93,8 +93,3 @@ MERCHANT_SERVICE_ID = '60'
 PAYMENT_URL = 'http://spark.swgindia.com/~akumar/PAY4ME-V38-13-Mar-2010-ITR2/web/frontend_dev.php/order/payment/payprocess/v1/PID/' + MERCHANT_CODE
 
 AUTH_PROFILE_MODULE = "account.Profile"
-
-AUTHENTICATION_BACKENDS = (
-	"pay4memall.account.backends.EmailBackend",
-	"django.contrib.auth.backends.ModelBackend",
-)
