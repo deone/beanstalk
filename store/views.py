@@ -21,7 +21,7 @@ def index(request, store_name, template="store/index.html"):
 	    product_group.id for product_group in ProductGroup.objects.filter(store=store)
 	]
     ]
-    
+
     return render_to_response(template, {
 	    "store": store,
 	    "products": products[:5],

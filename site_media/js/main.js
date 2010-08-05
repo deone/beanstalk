@@ -1,7 +1,6 @@
-function checkOut(userId) {
-    var sessionId = getCookie("sessionid");
+function checkOut() {
 
-    $.post("/checkout/", { session_id: sessionId, user_id: userId },
+    $.post("/checkout/",
 	    function(response)	{
 		document.location = response.data.body;
 	    }

@@ -22,23 +22,17 @@ def index(request):
 	* Make payment through pay4me API.
 	* Receive and process response.
     """
-    session_id = request.POST["session_id"]
-    user_id = request.POST["user_id"]
-
     # Grab cart items from session
-    session_object = Session.objects.get(pk=session_id).get_decoded()
+    session_object = request.session._session
     cart = h.get_cart_from_session(session_object)
 
     # Create entry in transaction table
     total = reduce(h.add, [item[1][0] * item[1][1] for item in cart])
     transaction = Transaction.objects.create(transaction_id=h.generate_id(), amount=str(total))
 
-    # Create ordered item entries
-    user = User.objects.get(pk=user_id)
-
     for item in cart:
 	product = Product.objects.get(pk=item[0])
-	OrderedItem.objects.create(transaction=transaction, user=user, \
+	OrderedItem.objects.create(transaction=transaction, user=request.user, \
 		product=product, quantity=item[1][0], cost=str(item[1][0] * item[1][1]))
 
     auth_token = base64.b64encode(settings.MERCHANT_CODE + ':' + settings.MERCHANT_KEY)
