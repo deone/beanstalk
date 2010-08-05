@@ -66,6 +66,9 @@ class LoginForm(forms.Form):
 
 	if user is None:
 	    raise forms.ValidationError("Wrong Username and Password combination")
+	else:
+	    self.user = user
+
 	return self.cleaned_data
 
     def login(self, request):
