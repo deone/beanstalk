@@ -2,9 +2,9 @@
 * Write tests! (Models and views).
 * We should be able to import abstract_model and helpers the same way.
 * Decouple all components.
+* Decouple templates: Use url names instead of actual urls.
+* We need to make related changes and upgrade Django to latest version on both pay4me mall development and production.
 
 BUGS
-* User -> Store relationship should be OneToOne.
-* Once a user is logged in, we can access their details from HttpRequest, so we don't need to pass user_id from template to view.
 * Don't forget post_save signal when registering users.
 * Do we need **kwargs in functions with h.json_response as helper?
