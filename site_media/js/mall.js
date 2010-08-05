@@ -14,14 +14,3 @@ function addToCart()    {
 	}
     );
 }
-
-// Merge these two!
-function redirectToRegister()	{
-    redirectTo = document.location.pathname;
-    document.location = "/account/register/?redirect_to=" + redirectTo;
-}
-
-function redirectToLogin()  {
-    redirectTo = document.location.pathname;
-    document.location = "/account/login/?redirect_to=" + redirectTo;
-}

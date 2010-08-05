@@ -1,3 +1,20 @@
+// Remove these mad hacks. Django should have a better way to do redirects.
+function redirectToRegister()	{
+    redirectTo = document.location.pathname;
+    if (redirectTo == "/account/logout/")   {
+	redirectTo = "/";
+    }
+    document.location = "/account/register/?redirect_to=" + redirectTo;
+}
+
+function redirectToLogin()  {
+    redirectTo = document.location.pathname;
+    if (redirectTo == "/account/logout/")   {
+	redirectTo = "/";
+    }
+    document.location = "/account/login/?redirect_to=" + redirectTo;
+}
+
 function checkOut() {
 
     $.post("/checkout/",
