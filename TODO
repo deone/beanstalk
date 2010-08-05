@@ -1,19 +1,10 @@
 * We need to build in an admin interface for merchants and disable the store model on django admin.
 * Write tests! (Models and views).
-* Refactor and remove style redundancies. DRY!
-* Find solution to forms replication in views using FormSet class.
-* Create payment flow.
 * We should be able to import abstract_model and helpers the same way.
 * Decouple all components.
 
 BUGS
-* Fix ajax session shopping cart display issues.
-* Session urls should be not contain session_id.
-* mall/views display_cart should be show_cart_details.
-* Use django's UserProfile technique to store additional information about users.
 * User -> Store relationship should be OneToOne.
-* Once a user is logged in, we can access their user details from HttpRequest, so we don't need to pass user_id from template to view.
-* We should also be able to get at session_id from request instead of sending session_id from the template.
-* Fix forms anomalies.
-* Don't forget post_save signal.
+* Once a user is logged in, we can access their details from HttpRequest, so we don't need to pass user_id from template to view.
+* Don't forget post_save signal when registering users.
 * Do we need **kwargs in functions with h.json_response as helper?

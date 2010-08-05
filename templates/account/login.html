@@ -3,7 +3,7 @@
 {% block content %}
     <div class="grid_2">&nbsp;</div>
     <div class="grid_12 viewport">
-	<form action="/account/login/?redirect_to={{ redirect_to }}" method="post">{% csrf_token %}
+	<form action="/account/login/" method="post">
 	    <legend>Log In</legend>
 	    {{ form_set.login_form.as_p }}
 	    <input type="submit" value="Sign In"/>

@@ -11,7 +11,7 @@ GENDER_CHOICES = (
 )
 
 class Store(CommonInfo):
-    user = models.ForeignKey(User, unique=True)
+    user = models.OneToOneField(User, primary_key=True)
     account_name = models.CharField(max_length=100, unique=True)
     logo = models.ImageField(upload_to="store/logos")
     office_number = models.CharField(max_length=9, null=True, blank=True)

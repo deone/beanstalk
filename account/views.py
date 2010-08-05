@@ -1,26 +1,16 @@
 from django.shortcuts import render_to_response, redirect
 from django.template import RequestContext
-
 from django.contrib.auth import authenticate, login
 
-from mall.forms import *
-from store.forms import *
-from account.forms import *
+import all_forms as af
 
-class FormSet:
-    store_select_form = StoreSelectForm
-    dept_select_form = DepartmentSelectForm
-    mall_search_form = MallSearchForm
-    register_form = RegisterForm
-    login_form = LoginForm
-
-def index(request, template="account/index.html", form_set=FormSet):
+def index(request, template="account/index.html"):
     """ Account home, shows the user's account settings. """
 
     return render_to_response(template, {
     }, context_instance=RequestContext(request))
 
-def register(request, template="account/register.html", form_set=FormSet):
+def register(request, template="account/register.html"):
     """ Buyers' registration page. """
 
     try:
@@ -29,24 +19,25 @@ def register(request, template="account/register.html", form_set=FormSet):
 	pass
 
     if request.method == "POST":
-	form = RegisterForm(request.POST)
-	if form.is_valid():
-	    username, password = form.save()
+	forms = af.register_forms
+	forms["register_form"](request.POST)
+
+	if forms["register_form"].is_valid():
+	    username, password = forms["register_form"].save()
 	    user = authenticate(username=username, password=password)
 	    login(request, user)
 	    return redirect(redirect_to)
-	form_set.register_form = form
     else:
-	form = RegisterForm()
-	form_set.register_form = form
+	forms = af.register_forms
 	
     return render_to_response(template, {
 		"redirect_to": redirect_to,
-		"form_set": form_set(),
+		"form_set": forms,
 	    }, context_instance=RequestContext(request))
 
-def logout(request, template="mall/index.html", form_set=FormSet):
+def logout(request, template="mall/index.html"):
     request.session.flush()
+
     return render_to_response(template, {
-	    "form_set": form_set(),
+	    "form_set": af.mall_forms,
     }, context_instance=RequestContext(request))
