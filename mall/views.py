@@ -1,6 +1,5 @@
 from django.shortcuts import render_to_response, get_object_or_404
-from django.template import Context, RequestContext
-from django.contrib.sessions.models import Session
+from django.template import RequestContext
 
 from store.models import Product
 import helpers as h

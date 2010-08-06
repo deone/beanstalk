@@ -11,15 +11,22 @@ import store.views
 import mall.views
 
 urlpatterns = patterns('',
+    # Mall
     (r'^$', mall.views.index),
     (r'^product/(?P<product_id>\d+)/add_to_cart/$', mall.views.add_to_cart),
     (r'^cart/details/$', mall.views.show_cart_details),
     (r'^cart/preview/$', mall.views.preview_cart),
+    # Account
     (r'^account/', include('account.urls')),
+    # Payment
     (r'^checkout/$', include('payment.urls')),
+    # Store
     (r'^store/(?P<store_name>\w+)/$', store.views.index),
     (r'^store/(?P<store_name>\w+)/browse/(?P<product_group_id>\d+)/$', store.views.display_product_group),
     (r'^store/(?P<store_name>\w+)/product/(?P<product_id>\d+)/$', store.views.display_product),
+    # Merchant Admin
+    (r'^merchantadmin/', include('merchantadmin.urls')),
+    # Admin
     (r'^admin/', include(admin.site.urls)),
 )
 

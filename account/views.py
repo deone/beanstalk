@@ -49,7 +49,7 @@ def login(request, template="account/login.html", form_class=LoginForm):
 	    if form.login(request):
 		try:
 		    store = request.user.store
-		    print store
+		    return redirect("/merchantadmin/")
 		except:
 		    pass
 		    
@@ -66,8 +66,6 @@ def login(request, template="account/login.html", form_class=LoginForm):
 	    }, context_instance=RequestContext(request))
 
 def logout(request, template="mall/index.html"):
-    request.session.flush()
 
-    return render_to_response(template, {
-	    "form_set": af.mall_forms,
-    }, context_instance=RequestContext(request))
+    request.session.flush()
+    return redirect("/")
