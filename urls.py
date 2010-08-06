@@ -24,8 +24,6 @@ urlpatterns = patterns('',
     (r'^store/(?P<store_name>\w+)/$', store.views.index),
     (r'^store/(?P<store_name>\w+)/browse/(?P<product_group_id>\d+)/$', store.views.display_product_group),
     (r'^store/(?P<store_name>\w+)/product/(?P<product_id>\d+)/$', store.views.display_product),
-    # Merchant Admin
-    (r'^merchantadmin/', include('merchantadmin.urls')),
     # Admin
     (r'^admin/', include(admin.site.urls)),
 )
