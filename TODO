@@ -8,3 +8,4 @@
 
 BUGS
 * Do we need **kwargs in functions with h.json_response as helper?
+* Form validations.
