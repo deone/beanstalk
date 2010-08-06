@@ -11,7 +11,7 @@ GENDER_CHOICES = (
 )
 
 class Store(CommonInfo):
-    user = models.OneToOneField(User, primary_key=True)
+    owner = models.OneToOneField(User)
     account_name = models.CharField(max_length=100, unique=True)
     logo = models.ImageField(upload_to="store/logos")
     office_number = models.CharField(max_length=9, null=True, blank=True)
@@ -21,14 +21,6 @@ class Store(CommonInfo):
 
     def __unicode__(self):
 	return self.name
-
-class StoreOwner(models.Model):
-    store = models.ForeignKey(Store, unique=True)
-    gender = models.CharField(max_length=6, choices=GENDER_CHOICES)
-    mobile_number = models.CharField(max_length=11, unique=True)
-
-    def __unicode__(self):
-	return "%s %s" % (self.store.user.first_name, self.store.user.last_name)
 
 class ProductGroup(CommonInfo):
     store = models.ForeignKey(Store)

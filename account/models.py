@@ -1,12 +1,11 @@
 from django.db import models
-from django.db.models.signals import post_save
 from django.contrib.auth.models import User
 
 # Be better by providing methods in the models already, instead of doing everything from the views.
 # Reporting would be easy this way.
 
 class Profile(models.Model):
-    user = models.OneToOneField(User, primary_key=True)
+    user = models.OneToOneField(User)
     title = models.CharField(max_length=4)
     mobile = models.CharField(max_length=15)
     address = models.CharField(max_length=200)

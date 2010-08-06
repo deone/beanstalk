@@ -3,7 +3,6 @@ from django.template import RequestContext
 from django.contrib.auth import authenticate, login as auth_login
 
 import all_forms as af
-
 from account.forms import *
 
 def index(request, template="account/index.html"):
@@ -48,6 +47,12 @@ def login(request, template="account/login.html", form_class=LoginForm):
 
 	if form.is_valid():
 	    if form.login(request):
+		try:
+		    store = request.user.store
+		    print store
+		except:
+		    pass
+		    
 		return redirect(redirect_to)
 	return False
 
