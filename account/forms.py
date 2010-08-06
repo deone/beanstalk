@@ -47,8 +47,8 @@ class RegisterForm(forms.Form):
 	user.first_name = first_name
 	user.last_name = last_name
 	user.save()
-	account = Profile.objects.create(user=user, title=title, mobile=mobile, address=address, 
-		city=city, state=state, country=country)
+	profile = Profile.objects.create(user=user, title=title, mobile=mobile, 
+		address=address, city=city, state=state, country=country)
 
 	return username, password
 

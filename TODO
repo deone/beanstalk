@@ -7,5 +7,4 @@
 * We can actually run this 1.1.1 project in a 1.2.1 environment and bypass EmailBackend because 1.2.1 has support for using email as usernames.
 
 BUGS
-* Don't forget post_save signal when registering users.
 * Do we need **kwargs in functions with h.json_response as helper?
