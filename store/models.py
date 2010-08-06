@@ -22,8 +22,9 @@ class Store(CommonInfo):
     def __unicode__(self):
 	return self.name
 
-class ProductGroup(CommonInfo):
-    store = models.ForeignKey(Store)
+class ProductGroup(models.Model):
+    name = models.CharField(max_length=100)
+    description = models.TextField(blank=True)
     
     def __unicode__(self):
 	return self.name
@@ -32,6 +33,7 @@ class ProductGroup(CommonInfo):
 	verbose_name_plural = "Product Groups"
 
 class Product(CommonInfo):
+    store = models.ForeignKey(Store)
     product_group = models.ForeignKey(ProductGroup)
     thumbnail = models.ImageField(upload_to="products/thumbs")
     large_image = models.ImageField(upload_to="products/large")
