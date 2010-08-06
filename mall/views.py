@@ -41,7 +41,6 @@ def add_to_cart(request, product_id):
 @h.json_response
 def show_cart_details(request):
     session_object = request.session._session
-    print session_object
 
     if not session_object.has_key("_auth_user_id"):
 	cart = session_object.iteritems()
