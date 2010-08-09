@@ -2,7 +2,9 @@
 
 {% block sidebar %}
     <div id="storeLogo"><a href="#"><img src="{{ MEDIA_URL }}img/amazeLogo.jpg" alt="{{ store.name }}"></a></div>
-    <input name="" type="text" id="storeSearch" value="Search Store"/>
+    <form id="store_search">
+	{{ form_set.store_search_form.query }}
+    </form>
     <ul>
 	{% for pg in store.productgroup_set.all %}
 	    {% if product_group %}
@@ -20,22 +22,25 @@
 
 {% block breadcrumbs %}
     <div id="breadCrum">
-    {% if store %}
-	<a href="/">Home</a> &rsaquo; {{ store.name }}
-    {% endif %}
-    {% if product_group %}
-	<a href="/">Home</a> &rsaquo; <a href="/store/{{ product_group.store.account_name}}/">{{ product_group.store.name }}</a> &rsaquo; {{ product_group.name }}
-    {% endif %}
-    {% if product %}
-	<a href="/">Home</a> &rsaquo; <a href="/store/{{ product.product_group.store.account_name}}/">{{ product.product_group.store.name }}</a> &rsaquo; <a href="/store/{{ product.product_group.store.account_name }}/browse/{{ product.product_group.id }}/">{{ product.product_group.name }}</a> &rsaquo; {{ product.name }}
-    {% endif %}
+	<div id="url">
+	    {% if store %}
+		<a href="/">Home</a> &rsaquo; {{ store.name }}
+	    {% endif %}
+	    {% if product_group %}
+		<a href="/">Home</a> &rsaquo; <a href="/store/{{ product_group.store.account_name}}/">{{ product_group.store.name }}</a> &rsaquo; {{ product_group.name }}
+	    {% endif %}
+	    {% if product %}
+		<a href="/">Home</a> &rsaquo; <a href="/store/{{ product.product_group.store.account_name}}/">{{ product.product_group.store.name }}</a> &rsaquo; <a href="/store/{{ product.product_group.store.account_name }}/browse/{{ product.product_group.id }}/">{{ product.product_group.name }}</a> &rsaquo; {{ product.name }}
+	    {% endif %}
+	</div>
+	{% block pagination %}{% endblock %}
+	<div class="clear"></div>
     </div>
-
 {% endblock %}
 
 {% block content_body %}
     <div id="pageCtrl">
-	<div id="pageTitle">{{ store.name }}</div>
+	<div style="margin:0" id="pageTitle">{{ store.name }}</div>
 	<div class="clear"></div>
     </div>
     <div class="clear"></div>
@@ -43,11 +48,10 @@
     <h2>Recently Added</h2>
     {% for product in products %}
 	<div id="productItem">
-	    <a href="#">
+	    <a href="/store/{{ store.account_name }}/product/{{ product.id }}/">
 		<img src="{{ MEDIA_URL }}{{ product.thumbnail }}"/>
-	    </a>
-	    <div class="clear"></div>
-	    <a href="#">{{ product.name }}<br/><b>{{ product.product_group.store.name }}</b></a>
+		<div class="clear"></div>
+		<span>{{ product.name }}<br/><b>{{ product.product_group.store.name }}</b></a></span>
 	    <h2>{{ product.price }}</h2>
 	</div>
     {% endfor %}

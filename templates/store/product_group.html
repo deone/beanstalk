@@ -1,64 +1,42 @@
 {% extends "store/index.html" %}
 
+{% block pagination %}
+    <div id="pager">
+	<span>Found {{ product_list_length }} items.</span>
+	{% if products.has_previous %}
+	    <a href="?page={{ products.previous_page_number }}">Previous</a>
+	{% endif %}
+	Page {{ products.number }} of {{ products.paginator.num_pages }}.</span>
+	{% if products.has_next %}
+	    <a href="?page={{ products.next_page_number }}">Next</a>
+	{% endif %}
+    </div>
+{% endblock %}
+
 {% block content_body %}
-    <div class="page_control_bar space_bottom">
-	<div id="page_views">
-	    <img src="{{ MEDIA_URL }}img/viewOptions1.gif" title="Expanded View"/>
-	    <img src="{{ MEDIA_URL }}img/viewOptions2.gif" title="Thumbnail View"/>
-	</div>
-	<div id="paginator">
-	    <span>Found {{ product_list_length }} items.</span>
-	    {% if products.has_previous %}
-		<a href="?page={{ products.previous_page_number }}">Previous</a>
-	    {% endif %}
-	    Page {{ products.number }} of {{ products.paginator.num_pages }}.</span>
-	    {% if products.has_next %}
-		<a href="?page={{ products.next_page_number }}">Next</a>
-	    {% endif %}
-	</div>
-	<form id="product_sorter">
+    <div id="pageCtrl">
+	<div id="pageTitle">{{ product_group.name }}</div>
+	<div id="productDetailsCtrl">
 	    <span>Sort By:</span>
 	    {{ form_set.store_sorter_form.sort_items }}
-	</form>
-	<div class="clear"></div>
-    </div>
-
-    <div id="product_list" class="viewport space_bottom">
-	<ul class="product_list">
-	{% for product in products.object_list %}
-	    <li>
-		<a href="/store/{{ product_group.store.account_name }}/product/{{ product.id }}/" title="{{ product.name }}">
-		    <img src="{{ MEDIA_URL }}{{ product.thumbnail }}"/>
-		    {{ product.name }}<br/>
-		    <span id="price"><strong>Price: N{{ product.price }}</strong></span>
-		</a>
-	    </li>
-	{% empty %}
-	    <p>There are no products in your store. You can upload products in your <a href="#">Store Administration panel</a>.</p>
-	{% endfor %}
-	<ul>
-	<div class="clear"></div>
-    </div>
-
-    <div class="page_control_bar">
-	<div id="page_views">
-	    <img src="{{ MEDIA_URL }}img/viewOptions1.gif" title="Expanded View"/>
-	    <img src="{{ MEDIA_URL }}img/viewOptions2.gif" title="Thumbnail View"/>
+	    Item Per page 
+	    <select name="">
+	      <option>12</option>
+	      <option>14</option>
+	      <option>18</option>
+	    </select>
 	</div>
-	<div id="paginator">
-	    <span>Found {{ product_list_length }} items.</span>
-	    {% if products.has_previous %}
-		<a href="?page={{ products.previous_page_number }}">Previous</a>
-	    {% endif %}
-	    Page {{ products.number }} of {{ products.paginator.num_pages }}.</span>
-	    {% if products.has_next %}
-		<a href="?page={{ products.next_page_number }}">Next</a>
-	    {% endif %}
-	</div>
-	<form id="product_sorter">
-	    <span>Sort By:</span>
-	    {{ form_set.store_sorter_form.sort_items }}
-	</form>
 	<div class="clear"></div>
     </div>
+    <div class="clear"></div>
+    {% for product in products.object_list %}
+	<div id="productItem">
+	    <a href="/store/{{ store.account_name }}/product/{{ product.id }}/">
+		<img src="{{ MEDIA_URL }}{{ product.thumbnail }}"/>
+		<div class="clear"></div>
+		<span>{{ product.name }}<br/><b>{{ product.product_group.store.name }}</b></a></span>
+	    <h2>{{ product.price }}</h2>
+	</div>
+    {% endfor %}
+    <div class="clear"></div>
 {% endblock %}

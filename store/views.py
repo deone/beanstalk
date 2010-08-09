@@ -24,7 +24,7 @@ def index(request, store_name, template="store/index.html"):
 
     return render_to_response(template, {
 	    "store": store,
-	    "products": products[:5],
+	    "products": products[:8],
 	    "form_set": af.store_forms,
     }, context_instance=RequestContext(request))
 

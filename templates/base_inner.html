@@ -8,7 +8,9 @@
 	{% block sidebar %}{% endblock %}
     </div>
     <div id="rightCol">
-	{% block breadcrumbs %}{% endblock %}
+	{% block breadcrumbs %}
+	    {% block pagination %}{% endblock %}
+	{% endblock %}
 	{% block content_body %}{% endblock %}
     </div>
 </div>
