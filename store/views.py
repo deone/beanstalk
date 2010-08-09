@@ -12,7 +12,6 @@ import all_forms as af
 # We need to remove redundancies in these views.
 
 def index(request, store_name, template="store/index.html"):
-
     store = get_object_or_404(Store, account_name=store_name)
 
     products = [
@@ -22,9 +21,12 @@ def index(request, store_name, template="store/index.html"):
 	]
     ]
 
+    product_groups = store.productgroup_set.all()
+
     return render_to_response(template, {
 	    "store": store,
 	    "products": products[:8],
+	    "product_groups": store.productgroup_set.all(),
 	    "form_set": af.store_forms,
     }, context_instance=RequestContext(request))
 
@@ -47,8 +49,11 @@ def display_product_group(request, store_name, product_group_id, template="store
     if not products:
 	raise Http404
 
+    store = get_object_or_404(Store, pk=product_group.store_id)
+
     return render_to_response(template, {
 	    "product_group": product_group,
+	    "product_groups": store.productgroup_set.all(),
 	    "products": products,
 	    "product_list_length": product_list_length,
 	    "form_set": af.store_forms,
@@ -56,8 +61,10 @@ def display_product_group(request, store_name, product_group_id, template="store
 
 def display_product(request, store_name, product_id, template="store/product.html"):
     product = get_object_or_404(Product, pk=product_id)
+    store = get_object_or_404(Store, pk=product.product_group.store_id)
 
     return render_to_response(template, {
 	    "product": product,
+	    "product_groups": store.productgroup_set.all(),
 	    "form_set": af.store_forms,
     }, context_instance=RequestContext(request))

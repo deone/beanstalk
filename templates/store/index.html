@@ -6,16 +6,8 @@
 	{{ form_set.store_search_form.query }}
     </form>
     <ul>
-	{% for pg in store.productgroup_set.all %}
-	    {% if product_group %}
-		{% ifequal pg.id product_group.id %}
-		    <li><a class="cat selected" href="/store/{{ store.account_name }}/browse/{{ pg.id }}/">{{ pg.name }}</a></li>
-		{% else %}
-		    <li><a class="cat" href="/store/{{ store.account_name }}/browse/{{ pg.id }}/">{{ pg.name }}</a></li>
-		{% endifequal %}
-	    {% else %}
-		<li><a class="cat" href="/store/{{ store.account_name }}/browse/{{ pg.id }}/">{{ pg.name }}</a></li>
-	    {% endif %}
+	{% for pg in product_groups %}
+	    <li><a class="cat" href="/store/{{ pg.store.account_name }}/browse/{{ pg.id }}/">{{ pg.name }}</a></li>
 	{% endfor %}
     </ul>
 {% endblock %}

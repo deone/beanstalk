@@ -31,7 +31,7 @@
     <div class="clear"></div>
     {% for product in products.object_list %}
 	<div id="productItem">
-	    <a href="/store/{{ store.account_name }}/product/{{ product.id }}/">
+	    <a href="/store/{{ product_group.store.account_name }}/product/{{ product.id }}/">
 		<img src="{{ MEDIA_URL }}{{ product.thumbnail }}"/>
 		<div class="clear"></div>
 		<span>{{ product.name }}<br/><b>{{ product.product_group.store.name }}</b></a></span>

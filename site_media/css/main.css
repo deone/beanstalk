@@ -16,7 +16,6 @@ a:hover{color:#2c6ca5;}
 #checkout{ float:right;  text-align:right; font-size:11px;  line-height:14px;}
 #checkout .btn{ float:right; margin-left:10px;}
 #checkout .cartUpdate{float:left; }
-#checkout .search{ margin-top:5px; border:1px solid #cacaca; width:220px; line-height:25px; height:25px; color:#838383; padding:}
 #nav{ margin:0px; padding:0px; border:1px solid #cacaca; border-left:none; border-right:none; margin-top:10px; font-size:12px; padding:3px; margin-bottom:10px; text-transform:uppercase;}
 #nav ul{ padding:0px; margin:0px; list-style:none; float:left; font-weight:bold; }
 #nav a:hover{ color:#d61e35;}

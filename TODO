@@ -1,13 +1,19 @@
-* We need to build in an admin interface for merchants and disable the store model on django admin.
-* Write tests! (Models and views).
 * We should be able to import abstract_model and helpers the same way.
-* Decouple all components.
-* Decouple templates: Use url names instead of actual urls.
+* Decouple all components. For templates, use url names instead of actual urls.
 * We need to make related changes (csrf enable, EmailBackend disable) and upgrade Django to latest version on both pay4me mall development and production.
-* We can actually run this 1.1.1 project in a 1.2.1 environment and bypass EmailBackend because 1.2.1 has support for using email as usernames.
 * We might need to change payment app name.
 * There should be a foreign key relationship between mall Category and store Product to enable reporting and accountability.
 
 BUGS
 * Do we need **kwargs in functions with h.json_response as helper?
-* Form validations.
+
+Before We Launch - Beta
+=======================
+* Forms validation.
+* Payment response.
+* Full admin customization.
+* User Interface design.
+* Hosting with mod_wsgi on slicehost.
+* Domain name registration plus DNS configuration.
+* Unit Testing (models/views)**.
+* Image resizing algorithm**.
