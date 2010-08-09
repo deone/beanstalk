@@ -6,6 +6,7 @@
 * We need to make related changes (csrf enable, EmailBackend disable) and upgrade Django to latest version on both pay4me mall development and production.
 * We can actually run this 1.1.1 project in a 1.2.1 environment and bypass EmailBackend because 1.2.1 has support for using email as usernames.
 * We might need to change payment app name.
+* There should be a foreign key relationship between mall Category and store Product to enable reporting and accountability.
 
 BUGS
 * Do we need **kwargs in functions with h.json_response as helper?

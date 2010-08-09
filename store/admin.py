@@ -8,11 +8,24 @@ class StoreAdmin(admin.ModelAdmin):
 	    return qs
 	return qs.filter(owner=request.user)
 
+class ProductDetailInline(admin.StackedInline):
+    model = ProductDetail
+
 class ProductAdmin(admin.ModelAdmin):
+    radio_fields = {"product_group": admin.VERTICAL}
+    readonly_fields = ("date_added", "last_modified")
+    date_hierarchy = "date_added"
+
+    inlines = [
+	ProductDetailInline,
+    ]
+
     def queryset(self, request):
 	qs = super(ProductAdmin, self).queryset(request)
 	if request.user.is_superuser:
 	    return qs
+	
+	# We need to display only product groups that belong to this store.
 	return qs.filter(product_group__store__owner=request.user)
 	
 class ProductGroupAdmin(admin.ModelAdmin):
