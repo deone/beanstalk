@@ -3,8 +3,8 @@
 {% block content_body %}
     <div class="page_control_bar space_bottom">
 	<div id="page_views">
-	    <img src="/site_media/img/viewOptions1.gif" title="Expanded View"/>
-	    <img src="/site_media/img/viewOptions2.gif" title="Thumbnail View"/>
+	    <img src="{{ MEDIA_URL }}img/viewOptions1.gif" title="Expanded View"/>
+	    <img src="{{ MEDIA_URL }}img/viewOptions2.gif" title="Thumbnail View"/>
 	</div>
 	<div id="paginator">
 	    <span>Found {{ product_list_length }} items.</span>
@@ -28,7 +28,7 @@
 	{% for product in products.object_list %}
 	    <li>
 		<a href="/store/{{ product_group.store.account_name }}/product/{{ product.id }}/" title="{{ product.name }}">
-		    <img src="/site_media/{{ product.thumbnail }}"/>
+		    <img src="{{ MEDIA_URL }}{{ product.thumbnail }}"/>
 		    {{ product.name }}<br/>
 		    <span id="price"><strong>Price: N{{ product.price }}</strong></span>
 		</a>
@@ -42,8 +42,8 @@
 
     <div class="page_control_bar">
 	<div id="page_views">
-	    <img src="/site_media/img/viewOptions1.gif" title="Expanded View"/>
-	    <img src="/site_media/img/viewOptions2.gif" title="Thumbnail View"/>
+	    <img src="{{ MEDIA_URL }}img/viewOptions1.gif" title="Expanded View"/>
+	    <img src="{{ MEDIA_URL }}img/viewOptions2.gif" title="Thumbnail View"/>
 	</div>
 	<div id="paginator">
 	    <span>Found {{ product_list_length }} items.</span>
