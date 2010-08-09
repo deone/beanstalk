@@ -9,7 +9,7 @@ import random
 
 def index(request, template="mall/index.html"):
     try:
-	products = random.sample([product for product in Product.objects.all()], 4)
+	products = random.sample([product for product in Product.objects.all()], 8)
     except ValueError:
 	products = None
 
