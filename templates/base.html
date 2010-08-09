@@ -3,11 +3,11 @@
     <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
 	<title>Pay4Me Mall</title>
-	<link href="/site_media/css/main.css" rel="stylesheet" type="text/css"/>
+	<link href="{{ MEDIA_URL }}css/main.css" rel="stylesheet" type="text/css"/>
     </head>
     <body>
 	<div id="heading">
-	    <div id="logo"><img src="/site_media/img/logo.gif" alt="Pay4Me Mall" /></div>
+	    <div id="logo"><img src="{{ MEDIA_URL }}img/logo.gif" alt="Pay4Me Mall" /></div>
 	    <div id="checkout">
 		    {% block cart_indicator %}
 			<div id="cart_indicator" class="cartUpdate">
@@ -24,7 +24,7 @@
 			    {% endif %}
 			</div>
 			<div class="btn">
-			    <a href="/cart/preview/"><img src="/site_media/img/checkout.gif" alt="CHECKOUT"/></a>
+			    <a href="/cart/preview/"><img src="{{ MEDIA_URL }}img/checkout.gif" alt="CHECKOUT"/></a>
 			</div>
 			<div class="clear"></div>
 			<form id="mall_search">
@@ -38,7 +38,7 @@
 	</div>
 	<div id="nav">
 	    <ul>
-		<a href="#" style="float:left;"><img src="/site_media/img/home.gif"  alt="HOME" /></a>
+		<a href="#" style="float:left;"><img src="{{ MEDIA_URL }}img/home.gif"  alt="HOME" /></a>
 		<li><a href="#">GROCERIES</a></li>
 		<li><a href="#">ELECTRONICS</a></li>
 		<li><a href="#">MOBILE PHONES</a></li>
@@ -68,12 +68,12 @@
 		<li><a href="#">CONTACT</a></li>
 		<li><a href="#">CUSTOMER SERVICES</a></li>
 	    </ul>
-	    <img src="/site_media/img/pay4me.gif" style="float:right; margin:10px;">
+	    <img src="{{ MEDIA_URL }}img/pay4me.gif" style="float:right; margin:10px;">
 	    <div class="clear"></div>
 	</div>
 	<p>COPYRIGHT PAY4MEMALL.COM</p>
     </body>
-    <script src="/site_media/js/jquery.js" type="text/javascript"></script>
-    <script src="/site_media/js/main.js" type="text/javascript"></script>
+    <script src="{{ MEDIA_URL }}js/jquery.js" type="text/javascript"></script>
+    <script src="{{ MEDIA_URL }}js/main.js" type="text/javascript"></script>
     {% block custom_js %}{% endblock %}
 </html>

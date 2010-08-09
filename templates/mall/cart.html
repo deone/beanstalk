@@ -24,7 +24,7 @@
 	    {% for item in shopping_cart.items %}
 	    <tr>
 		<td>
-		    <img src="/site_media/{{ item.thumbnail }}"/>
+		    <img src="{{ MEDIA_URL }}{{ item.thumbnail }}"/>
 		    <p>{{ item.name }}</p>
 		</td>
 		<td>

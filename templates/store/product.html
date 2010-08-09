@@ -2,7 +2,7 @@
 
 {% block content_body %}
     <div id="product" class="viewport space_bottom">
-	<img src="/site_media/{{ product.large_image }}"/>
+	<img src="{{ MEDIA_URL }}{{ product.large_image }}"/>
 	<div id="details" class="grid_6">
 	    <h3 id="name">{{ product.name }}</h3>
 	    <div class="description">

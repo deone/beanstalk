@@ -2,16 +2,16 @@
 
 {% block content %}
     <div id="homeAdv">
-	<img src="/site_media/img/adv.jpg">
+	<img src="{{ MEDIA_URL }}img/adv.jpg">
     </div>
     <div id="homeLeftCol">
 	<div id="bannerHome">
-	    <img src="/site_media/img/banner.jpg" alt=""/>
+	    <img src="{{ MEDIA_URL }}img/banner.jpg" alt=""/>
 	</div>
 	<h1>FEATURED PRODUCTS</h1>
 	{% for product in products %}
 	<div id="productItem">
-	    <a href="#"><img src="/site_media/{{ product.thumbnail }}"/></a>
+	    <a href="#"><img src="{{ MEDIA_URL }}{{ product.thumbnail }}"/></a>
 	    <div class="clear"></div>
 	    <a href="#">{{ product.name }}<br/><b>{{ product.product_group.store.name }}</b></a>
 	    <h2>N{{ product.price }}</h2>
