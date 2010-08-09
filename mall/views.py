@@ -39,12 +39,13 @@ def add_to_cart(request, product_id):
 
 @h.json_response
 def show_cart_details(request):
-    session_object = request.session._session
+    if request.session._session.has_key("testcookie"):
+	request.session.delete_test_cookie()
 
-    if not session_object.has_key("_auth_user_id"):
-	cart = session_object.iteritems()
+    if not request.session._session.has_key("_auth_user_id"):
+	cart = request.session._session.iteritems()
     else:
-	cart = h.get_cart_from_session(session_object)
+	cart = h.get_cart_from_session(request.session._session)
 
     items_qty = items_price = 0
 
