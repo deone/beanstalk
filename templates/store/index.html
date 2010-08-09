@@ -32,12 +32,13 @@
 
 {% block content_body %}
     <div id="pageCtrl">
-	<div style="margin:0" id="pageTitle">{{ store.name }}</div>
+	<div id="pageTitle">{{ store.name }}</div>
 	<div class="clear"></div>
     </div>
     <div class="clear"></div>
     <div><img src="{{ MEDIA_URL }}img/amazeBanner.jpg"/></div>
     <h2>Recently Added</h2>
+    <div class="clear"></div>
     {% for product in products %}
 	<div id="productItem">
 	    <a href="/store/{{ store.account_name }}/product/{{ product.id }}/">
@@ -47,6 +48,7 @@
 	    <h2>{{ product.price }}</h2>
 	</div>
     {% endfor %}
+    <div class="clear"></div>
 {% endblock %}
 
 {% block custom_js %}
