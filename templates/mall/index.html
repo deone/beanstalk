@@ -11,9 +11,10 @@
 	<h1>FEATURED PRODUCTS</h1>
 	{% for product in products %}
 	<div id="productItem">
-	    <a href="#"><img src="{{ MEDIA_URL }}{{ product.thumbnail }}"/></a>
-	    <div class="clear"></div>
-	    <a href="#">{{ product.name }}<br/><b>{{ product.product_group.store.name }}</b></a>
+	    <a href="/store/{{ product.product_group.store.account_name }}/product/{{ product.id }}/">
+		<img src="{{ MEDIA_URL }}{{ product.thumbnail }}"/>
+		<div class="clear"></div>
+		<span>{{ product.name }}<br/><b>{{ product.product_group.store.name }}</b></a></span>
 	    <h2>N{{ product.price }}</h2>
 	</div>
 	{% endfor %}
