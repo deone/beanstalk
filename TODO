@@ -2,23 +2,21 @@
 * Decouple all components. For templates, use url names instead of actual urls.
 * We need to make related changes (csrf enable, EmailBackend disable) and upgrade Django to latest version on both pay4me mall development and production.
 * We might need to change payment app name.
-* There should be a foreign key relationship between mall Category and store Product to enable reporting and accountability.
 
 BUGS
 * Do we need **kwargs in functions with h.json_response as helper?
 
 Before We Launch - Beta
 =======================
-* Forms validation.
 * Fine-tune checkout process to include user's shipping address, e.t.c.
 * Ajax indicators.
 * Payment response.
 * Full admin customization.
 * User Interface design.
-- Product.
 - Login.
 - Register.
 - Cart Preview.
+* Foreign key relationship between mall Category and store Product.
 * Hosting with mod_wsgi on slicehost.
 * Domain name registration plus DNS configuration.
 * Unit Testing (models/views)**.

@@ -1,7 +1,7 @@
 {% extends "base_inner.html" %}
 
 {% block sidebar %}
-    <div id="storeLogo"><a href="#"><img src="{{ MEDIA_URL }}img/amazeLogo.jpg" alt="{{ store.name }}"></a></div>
+    <div id="storeLogo"><a href="#"><img src="{{ MEDIA_URL }}{{ store.logo }}" alt="{{ store.name }}"></a></div>
     <form id="store_search">
 	{{ form_set.store_search_form.query }}
     </form>
@@ -36,7 +36,7 @@
 	<div class="clear"></div>
     </div>
     <div class="clear"></div>
-    <div><img src="{{ MEDIA_URL }}img/amazeBanner.jpg"/></div>
+    <div><img src="{{ MEDIA_URL }}{{ store.banner }}"/></div>
     <h2>Recently Added</h2>
     <div class="clear"></div>
     {% for product in products %}
