@@ -10,7 +10,8 @@ BUGS
 Before We Launch - Beta
 =======================
 * Forms validation.
-* Shipping details for user.
+* Fine-tune checkout process to include user's shipping address, e.t.c.
+* Ajax indicators.
 * Payment response.
 * Full admin customization.
 * User Interface design.

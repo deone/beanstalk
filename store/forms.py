@@ -21,3 +21,7 @@ class StoreSorterForm(forms.Form):
 
 class ShoppingCartForm(forms.Form):
     quantity = forms.IntegerField()
+
+    def clean(self):
+	if self._errors:
+	    return
