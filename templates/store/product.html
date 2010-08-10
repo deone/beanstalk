@@ -1,7 +1,7 @@
 {% extends "store/index.html" %}
 
 {% block content_body %}
-    <div id="product" class="viewport space_bottom">
+    <!--<div id="product" class="viewport space_bottom">
 	<img src="{{ MEDIA_URL }}{{ product.large_image }}"/>
 	<div id="details" class="grid_6">
 	    <h3 id="name">{{ product.name }}</h3>
@@ -32,5 +32,51 @@
 	    {% endif %}
 	</div>
 	<div class="clear"></div>
+    </div>-->
+
+    <div id="productDetail">
+	    <div id="productDetailLeft">
+		<div class="imgHolder"><img src="images/img2.jpg" /></div>
+		<div class="enlarge"><a href="#">Click to Enlarge</a></div>
+	    </div>
+	    <div id="productDetailRight">
+		<h1>Purple Pink Large Block Check New England Button Down Men's Casual Shirt - CE12223</h1>
+		<b>CHOICES WEAR</b><br />
+		<p>my Hilfiger men's polo shirt. The classic polo, cut to look and feel like it was made-to-measure just for you. Two-button, plain sleeve. Embroidered micro flag logo on chest. 100% cotton. </p>
+		<form action="" method="get">
+		    <ul>
+			<li><label> QTY:</label> <input name="" type="text" class="qtyTxt" value="1" /></li>
+		    </ul>
+		    <img src="addToCart.png" alt="Add to Cart" />
+		</form>
+	    </div>
+	    <div class="clear"></div>
+	</div>
+	<h1>Suggested Products</h1>
+	<div id="productItem">
+	    <a href="#"><img src="images/phone1" /></a>
+	    <div class="clear"></div>
+	    <a href="#">White Plain 2-Fold Poplin John Francomb Milan Slim Fit Shirt <b>AMEZE MOBILE</b></a>
+	    <h2>N12, 000</h2>
+	</div>
+	<div id="productItem">
+	    <a href="#"><img src="images/phone1" /></a>
+	    <div class="clear"></div>
+	    <a href="#">White Plain 2-Fold Poplin John Francomb Milan Slim Fit Shirt <b>AMEZE MOBILE</b></a>
+	    <h2>N12, 000</h2>
+	</div>
+	<div id="productItem">
+	    <a href="#"><img src="images/phone1" /></a>
+	    <div class="clear"></div>
+	    <a href="#">White Plain 2-Fold Poplin John Francomb Milan Slim Fit Shirt <b>AMEZE MOBILE</b></a>
+	    <h2>N12, 000</h2>
+	</div>
+	<div id="productItem">
+	    <a href="#"><img src="images/phone1" /></a>
+	    <div class="clear"></div>
+	    <a href="#">White Plain 2-Fold Poplin John Francomb Milan Slim Fit Shirt <b>AMEZE MOBILE</b></a>
+	    <h2>N12, 000</h2>
+	</div>
     </div>
+    
 {% endblock %}

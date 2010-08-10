@@ -13,6 +13,10 @@ Before We Launch - Beta
 * Payment response.
 * Full admin customization.
 * User Interface design.
+- Product.
+- Login.
+- Register.
+- Cart Preview.
 * Hosting with mod_wsgi on slicehost.
 * Domain name registration plus DNS configuration.
 * Unit Testing (models/views)**.
