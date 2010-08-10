@@ -7,7 +7,7 @@
 #leftCol  a:hover{color:#d61e35; }
 
 #rightCol{float:right; width:750px; margin-bottom:10px;}
-#breadCrum{ background:url(../images/dotLines.gif) repeat-x bottom; padding:5px; font-size:10px; margin-bottom:10px; padding-top:0px; padding-left:0px; padding-right:0px; text-transform:uppercase;}
+#breadCrum{ background:url("/site_media/img/dotLines.gif") repeat-x bottom; padding:5px; font-size:10px; margin-bottom:10px; padding-top:0px; padding-left:0px; padding-right:0px; text-transform:uppercase;}
 #pager{float:right; font-size:12px; }
 #pager .highlight{ color:#FFF; background:#2c6ca5; padding:3px;}
 #url{ float:left;}
@@ -27,4 +27,3 @@
 #productDetailRight p{ line-height:20px;} 
 
 .enlarge{margin-top:5px; font-style:italic;}
-.qtyTxt{ border: 1px solid #666; margin-bottom:10px; width:40px;}
