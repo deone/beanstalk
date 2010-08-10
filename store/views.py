@@ -52,6 +52,7 @@ def display_product_group(request, store_name, product_group_id, template="store
     store = get_object_or_404(Store, pk=product_group.store_id)
 
     return render_to_response(template, {
+	    "store": store,
 	    "product_group": product_group,
 	    "product_groups": store.productgroup_set.all(),
 	    "products": products,
@@ -64,6 +65,7 @@ def display_product(request, store_name, product_id, template="store/product.htm
     store = get_object_or_404(Store, pk=product.product_group.store_id)
 
     return render_to_response(template, {
+	    "store": store,
 	    "product": product,
 	    "product_groups": store.productgroup_set.all(),
 	    "form_set": af.store_forms,
