@@ -4,7 +4,7 @@
 #leftCol   ul{ font-size:12px; font-weight:bold; line-height:22px;  padding:0px; list-style:none; margin:0px; text-transform:uppercase; color:#2c6ca5}
 #leftCol   li ul { text-indent:20px;} 
 #leftCol  a{color:#2c6ca5;}
-#leftCol a:hover{color:#d61e35;}
+#leftCol  a:hover{color:#d61e35; }
 
 #rightCol{float:right; width:750px; margin-bottom:10px;}
 #breadCrum{ background:url("/site_media/img/dotLines.gif") repeat-x bottom; padding:5px; font-size:10px; margin-bottom:10px; padding-top:0px; padding-left:0px; padding-right:0px; text-transform:uppercase;}
@@ -14,15 +14,16 @@
 
 #productDetailsCtrl{ float:right; padding:0px;}
 #productDetailsCtrl  h1{ margin:0px; padding:0px; line-height:18px;}
-#pageTitle  {
-    float: left;
-    color: #2c6ca5;
-    font-size: 18px;
-    font-weight: normal;
-    line-height: 18px;
-    margin-bottom: 10px;
-    margin-top: 0px;
-    text-transform: uppercase;
-}}
+#pageTitle{float:left;  color:#2c6ca5;  font-size:18px; font-weight:normal; line-height:18px; margin-bottom:10px; margin-top:0px; text-transform:uppercase;}}
 #pageCtrl{ margin-bottom:20px; float:left; }
 #storeLogo{margin-bottom:10px;}
+#storeSearch{border:1px solid #9e9e9e; width:160px; margin-bottom:10px; line-height:20px; height:20px;}
+
+
+#productDetail{ margin-bottom:40px;}
+#productDetailLeft{ float:left; margin-right:15px; width:360px; }
+#productDetail .imgHolder{border:1px solid #cacaca; text-align:center; padding:10px;}
+#productDetailRight{ float:right; width:370px;}
+#productDetailRight p{ line-height:20px;} 
+
+.enlarge{margin-top:5px; font-style:italic;}

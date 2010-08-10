@@ -10,9 +10,14 @@ BUGS
 Before We Launch - Beta
 =======================
 * Forms validation.
+* Shipping details for user.
 * Payment response.
 * Full admin customization.
 * User Interface design.
+- Product.
+- Login.
+- Register.
+- Cart Preview.
 * Hosting with mod_wsgi on slicehost.
 * Domain name registration plus DNS configuration.
 * Unit Testing (models/views)**.

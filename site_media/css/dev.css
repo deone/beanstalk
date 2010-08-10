@@ -7,3 +7,4 @@
 }
 #mall_search #id_query	{margin-top:5px; border:1px solid #cacaca; width:220px; line-height:25px; height:25px; color:#838383; padding:}
 #store_search #id_query{border:1px solid #9e9e9e; width:160px; margin-bottom:10px; line-height:20px; height:20px;}
+#add_to_cart input[type=text]	{ border: 1px solid #666; margin-bottom:10px; width:40px;}

@@ -1,35 +1,25 @@
 {% extends "store/index.html" %}
 
 {% block content_body %}
-    <div id="product" class="viewport space_bottom">
-	<img src="{{ MEDIA_URL }}{{ product.large_image }}"/>
-	<div id="details" class="grid_6">
-	    <h3 id="name">{{ product.name }}</h3>
-	    <div class="description">
-		<p>
-		    {{ product.description }}
-		</p>
-		<h3>Price: <span>N</span><span style="margin-left: -13px; font-size: 140%; font-weight: normal">=</span>{{ product.price }}</h3>
-	    </div>
+    <div id="productDetail">
+	<div id="productDetailLeft">
+	    <div class="imgHolder"><img src="{{ MEDIA_URL }}{{ product.large_image }}"/></div>
+	    <div class="enlarge"><a href="#">Click to Enlarge</a></div>
+	</div>
+	<div id="productDetailRight">
+	    <h1>{{ product.name }}</h1>
+	    <b>{{ product.product_group.store.name }}</b><br/>
+	    <p>{{ product.description }}</p>
 	    <form id="add_to_cart" action="javascript:addToCart();">
-		{{ form_set.shopping_cart_form.quantity.label }}
-		{{ form_set.shopping_cart_form.quantity }}
+		<ul>
+		    <li>
+			<label> QTY:</label>
+			{{ form_set.shopping_cart_form.quantity }}
+		    </li>
+		</ul>
 		<input id="product_id" type="hidden" value="{{ product.id }}"/>
-		<input type="submit" value="Add To Cart"/>
+		<input type="submit" style="background-image: url('{{ MEDIA_URL }}img/addToCart.png'); width: 155px; height: 35px;" value=""/>
 	    </form>
-	    {% if not user.id %}
-		<div id="auth_checker">
-		    <form action="javascript:redirectToLogin();">
-			<h5>Existing customer</h5>
-			<input type="submit" value="Sign In"/>
-		    </form>
-		    <form action="javascript:redirectToRegister();">
-			<h5>New customer</h5>
-			<input type="submit" value="Register"/>
-		    </form>
-		    <div class="clear"></div>
-		</div>
-	    {% endif %}
 	</div>
 	<div class="clear"></div>
     </div>
