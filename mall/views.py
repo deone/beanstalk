@@ -4,6 +4,7 @@ from django.template import RequestContext
 from store.models import Product
 import helpers as h
 import all_forms as af
+from store.forms import ShoppingCartForm
 
 import random
 
@@ -19,23 +20,28 @@ def index(request, template="mall/index.html"):
     }, context_instance=RequestContext(request))
 
 @h.json_response
-def add_to_cart(request, product_id):
-    quantity = request.POST["quantity"]
-    price = get_object_or_404(Product, pk=product_id).price
+def add_to_cart(request, product_id, form_class=ShoppingCartForm):
+    form = form_class(request.POST)
 
-    cart_item = []
-    cart_item.append(int(quantity))
-    cart_item.append(float(price))
+    if form.is_valid():
+	quantity = request.POST["quantity"]
+	price = get_object_or_404(Product, pk=product_id).price
 
-    try:
-	product_detail = request.session[product_id]
-	new_quantity = product_detail[0] + int(quantity)
-	product_detail[0] = new_quantity
-	request.session[product_id] = product_detail
-    except KeyError:
-	request.session[product_id] = cart_item
+	cart_item = []
+	cart_item.append(int(quantity))
+	cart_item.append(float(price))
 
-    return ("boolean", True)
+	try:
+	    product_detail = request.session[product_id]
+	    new_quantity = product_detail[0] + int(quantity)
+	    product_detail[0] = new_quantity
+	    request.session[product_id] = product_detail
+	except KeyError:
+	    request.session[product_id] = cart_item
+
+	return ("boolean", True)
+    else:
+	print "no"
 
 @h.json_response
 def show_cart_details(request):

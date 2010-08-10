@@ -26,6 +26,8 @@ class RegisterForm(forms.Form):
     password2 = forms.CharField(label="Confirm password", widget=forms.PasswordInput())
 
     def clean(self):
+	if self._errors:
+	    return
 	if "password" in self.cleaned_data and "password2" in self.cleaned_data:
 	    if self.cleaned_data["password"] != self.cleaned_data["password2"]:
 		raise forms.ValidationError("Your password entries must be the same")
@@ -59,6 +61,8 @@ class LoginForm(forms.Form):
     user = None
 
     def clean(self):
+	if self._errors:
+	    return
 	email = self.cleaned_data["email"]
 	password = self.cleaned_data["password"]
 

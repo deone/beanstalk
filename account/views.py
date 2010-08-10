@@ -47,14 +47,7 @@ def login(request, template="account/login.html", form_class=LoginForm):
 
 	if form.is_valid():
 	    if form.login(request):
-		try:
-		    store = request.user.store
-		    return redirect("/merchantadmin/")
-		except:
-		    pass
-		    
 		return redirect(redirect_to)
-	return False
 
     else:
 	form = form_class()
