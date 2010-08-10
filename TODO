@@ -2,6 +2,7 @@
 * Decouple all components. For templates, use url names instead of actual urls.
 * We need to make related changes (csrf enable, EmailBackend disable) and upgrade Django to latest version on both pay4me mall development and production.
 * We might need to change payment app name.
+* Fix page controls and searches.
 
 BUGS
 * Do we need **kwargs in functions with h.json_response as helper?
