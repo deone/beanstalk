@@ -57,3 +57,10 @@ def index(request):
     request.session.flush()
 
     return ("string", url)
+
+def process_payment_response(request):
+    soup = BeautifulStoneSoup(request.raw_post_data)
+    f = open('/tmp/response.xml', 'w')
+    f.write(soup)
+
+    return

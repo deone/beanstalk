@@ -10,7 +10,6 @@ function redirectToLogin()  {
 }
 
 function checkOut() {
-
     $.post("/checkout/",
 	    function(response)	{
 		document.location = response.data.body;
