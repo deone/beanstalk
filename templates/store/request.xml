@@ -12,8 +12,7 @@
             <price>{{ order_total }}</price>
             <currency>naira</currency>
             <parameters>
-                <parameter name="app_id">4096</parameter>
-                <parameter name="ref_num">{{ txn_no }}</parameter>
+                <parameter name="appno">4096</parameter>
             </parameters>
         </item>
     </merchant-service>
