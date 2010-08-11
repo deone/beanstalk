@@ -16,6 +16,8 @@ class Transaction(models.Model):
     amount = models.DecimalField(max_digits=20, decimal_places=2)
     status = models.SmallIntegerField(choices=PAYMENT_STATUS_CHOICES, default=PENDING)
     created_at = models.DateTimeField(default=datetime.datetime.now)
+    date_paid = models.DateTimeField(null=True)
+    validation_number = models.CharField(max_length=20, null=True)
 
     def __unicode__(self):
 	return self.transaction_id

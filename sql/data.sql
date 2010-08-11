@@ -183,7 +183,7 @@ CREATE TABLE `auth_user` (
 
 LOCK TABLES `auth_user` WRITE;
 /*!40000 ALTER TABLE `auth_user` DISABLE KEYS */;
-INSERT INTO `auth_user` VALUES (1,'alwaysdeone@gmail.com','Oladayo','Osikoya','alwaysdeone@gmail.com','sha1$46282$94acc0d85cde3d2924651965dfc5e13847e44a87',1,1,1,'2010-08-10 14:32:42','2010-08-05 17:06:54'),(3,'olu@olu.com','Olusegun','Obasanjo','olu@olu.com','sha1$2aad6$8534ba88d6e21aaedc6632ca08cb01ded5033c00',1,1,0,'2010-08-09 08:49:47','2010-08-06 09:32:14'),(6,'deji@alade.com','Deji','Osikoya','deji@alade.com','sha1$823f1$3c98422d4fa573c3174164cc14a6c77485e96e35',0,1,0,'2010-08-10 12:14:50','2010-08-10 12:14:50'),(5,'seyi@seyi.com','Oluseyi','Adegoju','seyi@seyi.com','sha1$a2c5b$d48e941189e82eb111896cbf27725d19eab37cfc',1,1,0,'2010-08-06 12:59:15','2010-08-06 09:36:45');
+INSERT INTO `auth_user` VALUES (1,'alwaysdeone@gmail.com','Oladayo','Osikoya','alwaysdeone@gmail.com','sha1$46282$94acc0d85cde3d2924651965dfc5e13847e44a87',1,1,1,'2010-08-10 14:32:42','2010-08-05 17:06:54'),(3,'olu@olu.com','Olusegun','Obasanjo','olu@olu.com','sha1$2aad6$8534ba88d6e21aaedc6632ca08cb01ded5033c00',1,1,0,'2010-08-09 08:49:47','2010-08-06 09:32:14'),(6,'deji@alade.com','Deji','Osikoya','deji@alade.com','sha1$823f1$3c98422d4fa573c3174164cc14a6c77485e96e35',0,1,0,'2010-08-11 11:48:32','2010-08-10 12:14:50'),(5,'seyi@seyi.com','Oluseyi','Adegoju','seyi@seyi.com','sha1$a2c5b$d48e941189e82eb111896cbf27725d19eab37cfc',1,1,0,'2010-08-06 12:59:15','2010-08-06 09:36:45');
 /*!40000 ALTER TABLE `auth_user` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -322,7 +322,7 @@ CREATE TABLE `django_session` (
 
 LOCK TABLES `django_session` WRITE;
 /*!40000 ALTER TABLE `django_session` DISABLE KEYS */;
-INSERT INTO `django_session` VALUES ('79506ebdb14913a322eadae4ac568fd2','gAJ9cQEuZDQxNDg1ZDQyYTQwYjQxMTRmMjIxYzI2Y2M1N2M4MzM=\n','2010-08-23 09:40:56'),('e31d4367a56f280d8fbfc56df9a81e5f','gAJ9cQEuZDQxNDg1ZDQyYTQwYjQxMTRmMjIxYzI2Y2M1N2M4MzM=\n','2010-08-24 14:43:30');
+INSERT INTO `django_session` VALUES ('79506ebdb14913a322eadae4ac568fd2','gAJ9cQEuZDQxNDg1ZDQyYTQwYjQxMTRmMjIxYzI2Y2M1N2M4MzM=\n','2010-08-23 09:40:56'),('015531c77584e113df1e313cbe8086d0','gAJ9cQEuZDQxNDg1ZDQyYTQwYjQxMTRmMjIxYzI2Y2M1N2M4MzM=\n','2010-08-25 11:53:41');
 /*!40000 ALTER TABLE `django_session` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -396,7 +396,7 @@ CREATE TABLE `payment_ordereditem` (
   KEY `payment_ordereditem_45d19ab3` (`transaction_id`),
   KEY `payment_ordereditem_403f60f` (`user_id`),
   KEY `payment_ordereditem_44bdf3ee` (`product_id`)
-) ENGINE=MyISAM AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
+) ENGINE=MyISAM AUTO_INCREMENT=5 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -405,7 +405,7 @@ CREATE TABLE `payment_ordereditem` (
 
 LOCK TABLES `payment_ordereditem` WRITE;
 /*!40000 ALTER TABLE `payment_ordereditem` DISABLE KEYS */;
-INSERT INTO `payment_ordereditem` VALUES (1,2,6,16,5,'1000.00');
+INSERT INTO `payment_ordereditem` VALUES (1,2,6,26,9,'724500.00'),(2,3,6,26,9,'724500.00'),(3,4,6,26,9,'724500.00'),(4,5,6,26,9,'724500.00');
 /*!40000 ALTER TABLE `payment_ordereditem` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -422,8 +422,10 @@ CREATE TABLE `payment_transaction` (
   `amount` decimal(20,2) NOT NULL,
   `status` smallint(6) NOT NULL,
   `created_at` datetime NOT NULL,
+  `date_paid` datetime default NULL,
+  `validation_number` varchar(20) default NULL,
   PRIMARY KEY  (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=3 DEFAULT CHARSET=latin1;
+) ENGINE=MyISAM DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -432,7 +434,6 @@ CREATE TABLE `payment_transaction` (
 
 LOCK TABLES `payment_transaction` WRITE;
 /*!40000 ALTER TABLE `payment_transaction` DISABLE KEYS */;
-INSERT INTO `payment_transaction` VALUES (1,'2010810115343657','1000.00',1,'2010-08-10 11:53:43'),(2,'2010810121536285','1000.00',1,'2010-08-10 12:15:36');
 /*!40000 ALTER TABLE `payment_transaction` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -570,4 +571,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2010-08-10 14:58:52
+-- Dump completed on 2010-08-11 16:29:04

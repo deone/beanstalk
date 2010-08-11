@@ -40,8 +40,6 @@ def add_to_cart(request, product_id, form_class=ShoppingCartForm):
 	    request.session[product_id] = cart_item
 
 	return ("boolean", True)
-    else:
-	print "no"
 
 @h.json_response
 def show_cart_details(request):
