@@ -10,6 +10,7 @@ function redirectToLogin()  {
 }
 
 function checkOut() {
+    $("#checkout_btn").attr({disabled: "disabled", value: "Please Wait..."});
 
     $.post("/checkout/",
 	    function(response)	{

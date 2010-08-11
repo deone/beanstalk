@@ -9,6 +9,7 @@ import os
 # These views are too coupled to the project, decouple!
 import store.views
 import mall.views
+import payment.views
 
 urlpatterns = patterns('',
     # Mall
@@ -19,7 +20,8 @@ urlpatterns = patterns('',
     # Account
     (r'^account/', include('account.urls')),
     # Payment
-    (r'^checkout/$', include('payment.urls')),
+    (r'^checkout/$', payment.views.index),
+    (r'^response/$', payment.views.process_payment_response),
     # Store
     (r'^store/(?P<store_name>\w+)/$', store.views.index),
     (r'^store/(?P<store_name>\w+)/browse/(?P<product_group_id>\d+)/$', store.views.display_product_group),

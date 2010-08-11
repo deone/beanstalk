@@ -19,6 +19,7 @@ Before We Launch - Beta
 * Foreign key relationship between mall Category and store Product.
 * Hosting with mod_wsgi on slicehost.
 * Domain name registration plus DNS configuration.
+* Production payment response url should be /payment/response/.
 
 * Unit Testing (models/views)**.
 * Image resizing algorithm**.
