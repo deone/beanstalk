@@ -45,6 +45,8 @@ def index(request):
 	'order_total': total
     }))
 
+    print data
+
     req = urllib2.Request(settings.PAYMENT_URL, data)
     req.add_header("Authorization", "Basic %s" % auth_token)
     req.add_header("Content-type", "application/xml; charset=utf-8")
@@ -52,6 +54,9 @@ def index(request):
 
     response = urllib2.urlopen(req)
     soup = BeautifulStoneSoup(response.read())
+
+    print soup
+
     url = soup.find("redirect-url").string
 
     request.session.flush()

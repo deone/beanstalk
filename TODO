@@ -11,6 +11,7 @@ Before We Launch - Beta
 =======================
 * Fine-tune checkout process to include user's shipping address, e.t.c.
 * Payment response.
+* Create breadcrumbs on each page, don't centralize!
 * Full admin customization.
 * User Interface design.
 - Login.
