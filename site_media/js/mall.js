@@ -10,13 +10,13 @@ function addToCart()	{
 
     $.post(url, { quantity: qty }, 
 	function(response)  {
-	    $("#add_to_cart #id_quantity").attr("disabled", "");
-	    $("#add_to_cart_btn").attr({disabled: "", value: "Add To Cart"});
 	    if (response.data.type != "boolean")    {
 		alert("Failed data type check");
 	    } else	{
 		displayShoppingCart();
 	    }
+	    $("#add_to_cart #id_quantity").attr("disabled", "");
+	    $("#add_to_cart_btn").attr({disabled: "", value: "Add To Cart"});	
 	}
     );
 }
