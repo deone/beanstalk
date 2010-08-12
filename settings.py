@@ -82,7 +82,7 @@ INSTALLED_APPS = (
     'account',
     'store',
     'mall',
-    'payment'
+    'order'
 )
 
 RESULTS_PER_PAGE = 5

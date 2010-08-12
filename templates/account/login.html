@@ -4,6 +4,7 @@
     <div class="auth">
 	<h1>Log In To Pay4Me Mall</h1>
 	<div class="blk">
+	    <p>New customer? <a href="/account/register/?redirect_to={{ redirect_to }}">Register</a></p>
 	    <form action="/account/login/?redirect_to={{ redirect_to }}" method="post">
 		<ul>
 		    {{ login_form.as_ul }}

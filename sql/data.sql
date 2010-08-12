@@ -29,6 +29,7 @@ CREATE TABLE `account_profile` (
   `title` varchar(4) NOT NULL,
   `mobile` varchar(15) NOT NULL,
   `address` varchar(200) NOT NULL,
+  `delivery_address` varchar(200) default NULL,
   `city` varchar(20) NOT NULL,
   `state` varchar(20) NOT NULL,
   `country` varchar(50) NOT NULL,
@@ -43,7 +44,7 @@ CREATE TABLE `account_profile` (
 
 LOCK TABLES `account_profile` WRITE;
 /*!40000 ALTER TABLE `account_profile` DISABLE KEYS */;
-INSERT INTO `account_profile` VALUES (1,6,'Mr.','08029299274','9, Admiralty Way','Lekki','Lagos','Nigeria');
+INSERT INTO `account_profile` VALUES (1,6,'Mr.','08029299274','9, Admiralty Way',NULL,'Lekki','Lagos','Nigeria');
 /*!40000 ALTER TABLE `account_profile` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -140,7 +141,7 @@ CREATE TABLE `auth_permission` (
   PRIMARY KEY  (`id`),
   UNIQUE KEY `content_type_id` (`content_type_id`,`codename`),
   KEY `auth_permission_1bb8f392` (`content_type_id`)
-) ENGINE=MyISAM AUTO_INCREMENT=52 DEFAULT CHARSET=latin1;
+) ENGINE=MyISAM AUTO_INCREMENT=58 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -149,7 +150,7 @@ CREATE TABLE `auth_permission` (
 
 LOCK TABLES `auth_permission` WRITE;
 /*!40000 ALTER TABLE `auth_permission` DISABLE KEYS */;
-INSERT INTO `auth_permission` VALUES (1,'Can add permission',1,'add_permission'),(2,'Can change permission',1,'change_permission'),(3,'Can delete permission',1,'delete_permission'),(4,'Can add group',2,'add_group'),(5,'Can change group',2,'change_group'),(6,'Can delete group',2,'delete_group'),(7,'Can add user',3,'add_user'),(8,'Can change user',3,'change_user'),(9,'Can delete user',3,'delete_user'),(10,'Can add message',4,'add_message'),(11,'Can change message',4,'change_message'),(12,'Can delete message',4,'delete_message'),(13,'Can add content type',5,'add_contenttype'),(14,'Can change content type',5,'change_contenttype'),(15,'Can delete content type',5,'delete_contenttype'),(16,'Can add session',6,'add_session'),(17,'Can change session',6,'change_session'),(18,'Can delete session',6,'delete_session'),(19,'Can add log entry',7,'add_logentry'),(20,'Can change log entry',7,'change_logentry'),(21,'Can delete log entry',7,'delete_logentry'),(22,'Can add profile',8,'add_profile'),(23,'Can change profile',8,'change_profile'),(24,'Can delete profile',8,'delete_profile'),(25,'Can add store',9,'add_store'),(26,'Can change store',9,'change_store'),(27,'Can delete store',9,'delete_store'),(31,'Can add product group',11,'add_productgroup'),(32,'Can change product group',11,'change_productgroup'),(33,'Can delete product group',11,'delete_productgroup'),(34,'Can add product',12,'add_product'),(35,'Can change product',12,'change_product'),(36,'Can delete product',12,'delete_product'),(37,'Can add product detail',13,'add_productdetail'),(38,'Can change product detail',13,'change_productdetail'),(39,'Can delete product detail',13,'delete_productdetail'),(40,'Can add department',14,'add_department'),(41,'Can change department',14,'change_department'),(42,'Can delete department',14,'delete_department'),(43,'Can add category',15,'add_category'),(44,'Can change category',15,'change_category'),(45,'Can delete category',15,'delete_category'),(46,'Can add transaction',16,'add_transaction'),(47,'Can change transaction',16,'change_transaction'),(48,'Can delete transaction',16,'delete_transaction'),(49,'Can add ordered item',17,'add_ordereditem'),(50,'Can change ordered item',17,'change_ordereditem'),(51,'Can delete ordered item',17,'delete_ordereditem');
+INSERT INTO `auth_permission` VALUES (1,'Can add permission',1,'add_permission'),(2,'Can change permission',1,'change_permission'),(3,'Can delete permission',1,'delete_permission'),(4,'Can add group',2,'add_group'),(5,'Can change group',2,'change_group'),(6,'Can delete group',2,'delete_group'),(7,'Can add user',3,'add_user'),(8,'Can change user',3,'change_user'),(9,'Can delete user',3,'delete_user'),(10,'Can add message',4,'add_message'),(11,'Can change message',4,'change_message'),(12,'Can delete message',4,'delete_message'),(13,'Can add content type',5,'add_contenttype'),(14,'Can change content type',5,'change_contenttype'),(15,'Can delete content type',5,'delete_contenttype'),(16,'Can add session',6,'add_session'),(17,'Can change session',6,'change_session'),(18,'Can delete session',6,'delete_session'),(19,'Can add log entry',7,'add_logentry'),(20,'Can change log entry',7,'change_logentry'),(21,'Can delete log entry',7,'delete_logentry'),(22,'Can add profile',8,'add_profile'),(23,'Can change profile',8,'change_profile'),(24,'Can delete profile',8,'delete_profile'),(25,'Can add store',9,'add_store'),(26,'Can change store',9,'change_store'),(27,'Can delete store',9,'delete_store'),(54,'Can delete transaction',18,'delete_transaction'),(53,'Can change transaction',18,'change_transaction'),(52,'Can add transaction',18,'add_transaction'),(31,'Can add product group',11,'add_productgroup'),(32,'Can change product group',11,'change_productgroup'),(33,'Can delete product group',11,'delete_productgroup'),(34,'Can add product',12,'add_product'),(35,'Can change product',12,'change_product'),(36,'Can delete product',12,'delete_product'),(37,'Can add product detail',13,'add_productdetail'),(38,'Can change product detail',13,'change_productdetail'),(39,'Can delete product detail',13,'delete_productdetail'),(40,'Can add department',14,'add_department'),(41,'Can change department',14,'change_department'),(42,'Can delete department',14,'delete_department'),(43,'Can add category',15,'add_category'),(44,'Can change category',15,'change_category'),(45,'Can delete category',15,'delete_category'),(46,'Can add transaction',16,'add_transaction'),(47,'Can change transaction',16,'change_transaction'),(48,'Can delete transaction',16,'delete_transaction'),(49,'Can add ordered item',17,'add_ordereditem'),(50,'Can change ordered item',17,'change_ordereditem'),(51,'Can delete ordered item',17,'delete_ordereditem'),(55,'Can add ordered item',19,'add_ordereditem'),(56,'Can change ordered item',19,'change_ordereditem'),(57,'Can delete ordered item',19,'delete_ordereditem');
 /*!40000 ALTER TABLE `auth_permission` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -183,7 +184,7 @@ CREATE TABLE `auth_user` (
 
 LOCK TABLES `auth_user` WRITE;
 /*!40000 ALTER TABLE `auth_user` DISABLE KEYS */;
-INSERT INTO `auth_user` VALUES (1,'alwaysdeone@gmail.com','Oladayo','Osikoya','alwaysdeone@gmail.com','sha1$46282$94acc0d85cde3d2924651965dfc5e13847e44a87',1,1,1,'2010-08-10 14:32:42','2010-08-05 17:06:54'),(3,'olu@olu.com','Olusegun','Obasanjo','olu@olu.com','sha1$2aad6$8534ba88d6e21aaedc6632ca08cb01ded5033c00',1,1,0,'2010-08-09 08:49:47','2010-08-06 09:32:14'),(6,'deji@alade.com','Deji','Osikoya','deji@alade.com','sha1$823f1$3c98422d4fa573c3174164cc14a6c77485e96e35',0,1,0,'2010-08-11 11:48:32','2010-08-10 12:14:50'),(5,'seyi@seyi.com','Oluseyi','Adegoju','seyi@seyi.com','sha1$a2c5b$d48e941189e82eb111896cbf27725d19eab37cfc',1,1,0,'2010-08-06 12:59:15','2010-08-06 09:36:45');
+INSERT INTO `auth_user` VALUES (1,'alwaysdeone@gmail.com','Oladayo','Osikoya','alwaysdeone@gmail.com','sha1$46282$94acc0d85cde3d2924651965dfc5e13847e44a87',1,1,1,'2010-08-10 14:32:42','2010-08-05 17:06:54'),(3,'olu@olu.com','Olusegun','Obasanjo','olu@olu.com','sha1$2aad6$8534ba88d6e21aaedc6632ca08cb01ded5033c00',1,1,0,'2010-08-12 07:37:07','2010-08-06 09:32:14'),(6,'deji@alade.com','Deji','Osikoya','deji@alade.com','sha1$823f1$3c98422d4fa573c3174164cc14a6c77485e96e35',0,1,0,'2010-08-12 10:12:04','2010-08-10 12:14:50'),(5,'seyi@seyi.com','Oluseyi','Adegoju','seyi@seyi.com','sha1$a2c5b$d48e941189e82eb111896cbf27725d19eab37cfc',1,1,0,'2010-08-06 12:59:15','2010-08-06 09:36:45');
 /*!40000 ALTER TABLE `auth_user` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -288,7 +289,7 @@ CREATE TABLE `django_content_type` (
   `model` varchar(100) NOT NULL,
   PRIMARY KEY  (`id`),
   UNIQUE KEY `app_label` (`app_label`,`model`)
-) ENGINE=MyISAM AUTO_INCREMENT=18 DEFAULT CHARSET=latin1;
+) ENGINE=MyISAM AUTO_INCREMENT=20 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -297,7 +298,7 @@ CREATE TABLE `django_content_type` (
 
 LOCK TABLES `django_content_type` WRITE;
 /*!40000 ALTER TABLE `django_content_type` DISABLE KEYS */;
-INSERT INTO `django_content_type` VALUES (1,'permission','auth','permission'),(2,'group','auth','group'),(3,'user','auth','user'),(4,'message','auth','message'),(5,'content type','contenttypes','contenttype'),(6,'session','sessions','session'),(7,'log entry','admin','logentry'),(8,'profile','account','profile'),(9,'store','store','store'),(11,'product group','store','productgroup'),(12,'product','store','product'),(13,'product detail','store','productdetail'),(14,'department','mall','department'),(15,'category','mall','category'),(16,'transaction','payment','transaction'),(17,'ordered item','payment','ordereditem');
+INSERT INTO `django_content_type` VALUES (1,'permission','auth','permission'),(2,'group','auth','group'),(3,'user','auth','user'),(4,'message','auth','message'),(5,'content type','contenttypes','contenttype'),(6,'session','sessions','session'),(7,'log entry','admin','logentry'),(8,'profile','account','profile'),(9,'store','store','store'),(18,'transaction','order','transaction'),(11,'product group','store','productgroup'),(12,'product','store','product'),(13,'product detail','store','productdetail'),(14,'department','mall','department'),(15,'category','mall','category'),(16,'transaction','payment','transaction'),(17,'ordered item','payment','ordereditem'),(19,'ordered item','order','ordereditem');
 /*!40000 ALTER TABLE `django_content_type` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -322,7 +323,7 @@ CREATE TABLE `django_session` (
 
 LOCK TABLES `django_session` WRITE;
 /*!40000 ALTER TABLE `django_session` DISABLE KEYS */;
-INSERT INTO `django_session` VALUES ('79506ebdb14913a322eadae4ac568fd2','gAJ9cQEuZDQxNDg1ZDQyYTQwYjQxMTRmMjIxYzI2Y2M1N2M4MzM=\n','2010-08-23 09:40:56'),('015531c77584e113df1e313cbe8086d0','gAJ9cQEuZDQxNDg1ZDQyYTQwYjQxMTRmMjIxYzI2Y2M1N2M4MzM=\n','2010-08-25 11:53:41');
+INSERT INTO `django_session` VALUES ('79506ebdb14913a322eadae4ac568fd2','gAJ9cQEuZDQxNDg1ZDQyYTQwYjQxMTRmMjIxYzI2Y2M1N2M4MzM=\n','2010-08-23 09:40:56'),('34bedd34864c1f80944a4cc0079ce861','gAJ9cQFYAgAAADIxcQJdcQMoSwVHQH/gAAAAAABlcy4yODA2NmJmN2M1MTE2MTA5MDNhOTAzNjJl\nNWU4MTFkOQ==\n','2010-08-26 10:21:45');
 /*!40000 ALTER TABLE `django_session` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -379,13 +380,13 @@ LOCK TABLES `mall_department` WRITE;
 UNLOCK TABLES;
 
 --
--- Table structure for table `payment_ordereditem`
+-- Table structure for table `order_ordereditem`
 --
 
-DROP TABLE IF EXISTS `payment_ordereditem`;
+DROP TABLE IF EXISTS `order_ordereditem`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `payment_ordereditem` (
+CREATE TABLE `order_ordereditem` (
   `id` int(11) NOT NULL auto_increment,
   `transaction_id` int(11) NOT NULL,
   `user_id` int(11) NOT NULL,
@@ -393,30 +394,29 @@ CREATE TABLE `payment_ordereditem` (
   `quantity` int(11) NOT NULL,
   `cost` decimal(20,2) NOT NULL,
   PRIMARY KEY  (`id`),
-  KEY `payment_ordereditem_45d19ab3` (`transaction_id`),
-  KEY `payment_ordereditem_403f60f` (`user_id`),
-  KEY `payment_ordereditem_44bdf3ee` (`product_id`)
-) ENGINE=MyISAM AUTO_INCREMENT=5 DEFAULT CHARSET=latin1;
+  KEY `order_ordereditem_45d19ab3` (`transaction_id`),
+  KEY `order_ordereditem_403f60f` (`user_id`),
+  KEY `order_ordereditem_44bdf3ee` (`product_id`)
+) ENGINE=MyISAM DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `payment_ordereditem`
+-- Dumping data for table `order_ordereditem`
 --
 
-LOCK TABLES `payment_ordereditem` WRITE;
-/*!40000 ALTER TABLE `payment_ordereditem` DISABLE KEYS */;
-INSERT INTO `payment_ordereditem` VALUES (1,2,6,26,9,'724500.00'),(2,3,6,26,9,'724500.00'),(3,4,6,26,9,'724500.00'),(4,5,6,26,9,'724500.00');
-/*!40000 ALTER TABLE `payment_ordereditem` ENABLE KEYS */;
+LOCK TABLES `order_ordereditem` WRITE;
+/*!40000 ALTER TABLE `order_ordereditem` DISABLE KEYS */;
+/*!40000 ALTER TABLE `order_ordereditem` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
--- Table structure for table `payment_transaction`
+-- Table structure for table `order_transaction`
 --
 
-DROP TABLE IF EXISTS `payment_transaction`;
+DROP TABLE IF EXISTS `order_transaction`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `payment_transaction` (
+CREATE TABLE `order_transaction` (
   `id` int(11) NOT NULL auto_increment,
   `transaction_id` varchar(20) NOT NULL,
   `amount` decimal(20,2) NOT NULL,
@@ -429,12 +429,12 @@ CREATE TABLE `payment_transaction` (
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `payment_transaction`
+-- Dumping data for table `order_transaction`
 --
 
-LOCK TABLES `payment_transaction` WRITE;
-/*!40000 ALTER TABLE `payment_transaction` DISABLE KEYS */;
-/*!40000 ALTER TABLE `payment_transaction` ENABLE KEYS */;
+LOCK TABLES `order_transaction` WRITE;
+/*!40000 ALTER TABLE `order_transaction` DISABLE KEYS */;
+/*!40000 ALTER TABLE `order_transaction` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
@@ -571,4 +571,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2010-08-11 16:29:04
+-- Dump completed on 2010-08-12 10:45:39

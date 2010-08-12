@@ -14,7 +14,14 @@ function checkOut() {
 
     $.post("/checkout/",
 	    function(response)	{
-		document.location = response.data.body;
+		// If request is made to login from shopping cart preview,
+		// redirect_to should be "/delivery/"
+		if (document.location.pathname == "/cart/preview/") {
+		    document.location = response.data.body + "?redirect_to=/delivery/";
+		} else	{
+		    // This happens if the user is signed in before attempting a checkout.
+		    document.location = response.data.body;
+		}
 	    }
     );
 }
