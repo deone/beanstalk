@@ -25,8 +25,7 @@ class ProductAdmin(admin.ModelAdmin):
 	if request.user.is_superuser:
 	    return qs
 	
-	# We need to display only product groups that belong to this store.
-	return qs.filter(product_group__store__owner=request.user)
+	return qs.filter(product_group=request.user.store.productgroup_set.all())
 	
 class ProductGroupAdmin(admin.ModelAdmin):
     def queryset(self, request):

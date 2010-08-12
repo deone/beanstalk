@@ -1,7 +1,7 @@
 from django import forms
-from pay4memall.store.models import *
+from store.models import *
 
-import pay4memall.helpers as h
+import helpers as h
 
 SORT_CHOICES = (
 	("best_selling", "Best Selling"),

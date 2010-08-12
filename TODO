@@ -3,6 +3,7 @@
 * We need to make related changes (csrf enable, EmailBackend disable) and upgrade Django to latest version on both pay4me mall development and production.
 * We might need to change payment app name.
 * Fix page controls and searches.
+* Learn how to use post_save(), it's useful when a user is created at the admin.
 
 BUGS
 * Do we need **kwargs in functions with h.json_response as helper?
@@ -14,8 +15,6 @@ Before We Launch - Beta
 * Create breadcrumbs on each page, don't centralize!
 * Full admin customization.
 * User Interface design.
-- Login.
-- Register.
 - Cart Preview.
 * Foreign key relationship between mall Category and store Product.
 * Hosting with mod_wsgi on slicehost.
