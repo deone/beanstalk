@@ -1,17 +1,16 @@
 {% extends "base.html" %}
 
 {% block content %}
-    <div class="grid_2">&nbsp;</div>
-    <div class="grid_12 viewport">
-	<form action="/account/login/?redirect_to={{ redirect_to }}" method="post">
-	    <fieldset>
-		<legend>Log In</legend>
-		{{ login_form.as_p }}
-	    </fieldset>
-	    <fieldset>
-		<input type="submit" value="Sign In"/>
-	    </fieldset>
-	</form>
+    <div class="auth">
+	<h1>Log In To Pay4Me Mall</h1>
+	<div class="blk">
+	    <form action="/account/login/?redirect_to={{ redirect_to }}" method="post">
+		<ul>
+		    {{ login_form.as_ul }}
+		    <li><label><br/></label><input type="submit" value="Sign In"/></li>
+		</ul>
+	    </form>
+	</div>
     </div>
 {% endblock %}
 

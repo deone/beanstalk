@@ -11,3 +11,42 @@
 #add_to_cart input[type=submit]	{
     text-transform: uppercase;
 }
+.auth	{
+    padding: 5px;
+    width: 700px;
+    margin-right: auto;
+    margin-left: auto;
+}
+.auth .blk  {
+    padding: 15px;
+    background: #e4e4e4;
+    margin-bottom: 10px;
+}
+.auth form ul	{
+    margin: 0px;
+    padding: 0px;
+    list-style: none;
+}
+.auth form li	{
+    margin-bottom: 10px;
+}
+.auth form li label {
+    float: left;
+    margin-right: 10px;
+    font-weight: bold;
+    line-height: 22px;
+    width: 200px;
+    text-align: right;
+}
+.auth input[type=text], .auth input[type=password]  {
+    border: 1px solid #999;
+    width: 300px;
+    height: 25px;
+}
+.auth form input[type=submit]	{
+    background: #2c6ca5;
+    padding: 5px;
+    border: none;
+    color: #fff;
+    font-weight: bold;
+}
