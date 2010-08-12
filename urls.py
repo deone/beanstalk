@@ -23,6 +23,7 @@ urlpatterns = patterns('',
     (r'^delivery/$', order.views.delivery),
     (r'^checkout/$', order.views.index),
     (r'^response$', order.views.process_payment_response),
+    (r'^transact/$', order.views.transact),
     # Store
     (r'^store/(?P<store_name>\w+)/$', store.views.index),
     (r'^store/(?P<store_name>\w+)/browse/(?P<product_group_id>\d+)/$', store.views.display_product_group),

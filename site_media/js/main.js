@@ -1,23 +1,36 @@
 // Remove these mad hacks. Django should have a better way to do redirects.
 function redirectToRegister()	{
     redirectTo = document.location.pathname;
+    if (redirectTo == "/account/register/") {
+	redirectTo = "/";
+    }
     document.location = "/account/register/?redirect_to=" + redirectTo;
 }
 
 function redirectToLogin()  {
     redirectTo = document.location.pathname;
+    if (redirectTo == "/account/login/") {
+	redirectTo = "/";
+    }
     document.location = "/account/login/?redirect_to=" + redirectTo;
 }
 
-function checkOut() {
-    $("#checkout_btn").attr({disabled: "disabled", value: "Please Wait..."});
+function pay()	{
+    $.post("/transact/",
+	    function(response)	{
+		document.location = response.data.body;
+	    });
+}
 
+function checkOut() {
     $.post("/checkout/",
 	    function(response)	{
 		// If request is made to login from shopping cart preview,
 		// redirect_to should be "/delivery/"
 		if (document.location.pathname == "/cart/preview/") {
-		    document.location = response.data.body + "?redirect_to=/delivery/";
+		    if (response.data.body != "/delivery/") {
+			document.location = response.data.body + "?redirect_to=/delivery/";
+		    }
 		} else	{
 		    // This happens if the user is signed in before attempting a checkout.
 		    document.location = response.data.body;

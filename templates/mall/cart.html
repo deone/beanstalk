@@ -10,9 +10,15 @@
 
 {% block content_body %}
     <div class="viewport">
-	<form id="checkout" action="javascript:checkOut();">
-	    <input id="checkout_btn" type="submit" value="Checkout Now"/>
-	</form>
+	{% if not user.get_profile.delivery_address %}
+	    <form id="checkout" action="javascript:checkOut();">
+		<input id="checkout_btn" type="submit" value="Checkout Now"/>
+	    </form>
+	{% else %}
+	    <form id="checkout" action="javascript:pay();">
+		<input type="submit" value="Pay"/>
+	    </form>
+	{% endif %}
 	<table id="shopping_cart">
 	    <tr>
 		<th>Item</th>
@@ -49,5 +55,14 @@
 		<td><b>{{ shopping_cart.order_total }}</b></td>
 	    </tr>
 	</table>
+	<h2>Delivery Address</h2>
+	<p>
+	    {% if user.get_profile.delivery_address %}
+		{{ user.get_profile.delivery_address }}
+	    {% else %}
+		{{ user.get_profile.address }}, {{ user.get_profile.city }},<br/>
+		{{ user.get_profile.state }}, {{ user.get_profile.country }}. 
+	    {% endif %}
+	</p>
     </div>
 {% endblock %}
