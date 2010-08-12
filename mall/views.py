@@ -84,6 +84,7 @@ def preview_cart(request, template="mall/cart.html"):
 	product.quantity = item[1][0]
 	product.total_cost = item[1][0] * item[1][1]
 	shopping_cart["order_total"] += product.total_cost
+	product.total_cost = str(product.total_cost) + "0"
 	shopping_cart["items"].append(product)
 
     shopping_cart["order_total"] = "N" + str(shopping_cart["order_total"]) + "0"

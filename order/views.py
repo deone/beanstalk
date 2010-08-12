@@ -1,5 +1,5 @@
 from django.conf import settings
-from django.shortcuts import render_to_response
+from django.shortcuts import render_to_response, redirect
 from django.template import Context, RequestContext
 from django.template.loader import get_template
 from django.contrib.auth.models import User
@@ -18,15 +18,19 @@ import helpers as h
 def index(request):
     if not request.user.id:
 	return ("string", "/account/login/")
+    else:
+	return ("string", "/delivery/")
+
+@h.json_response
+def transact(request):
     """
 	* Generate transaction_id.
 	* Insert transaction_id and total_amount into transaction table.
 	* Insert each item into ordered_item table.
 	* Make payment through pay4me API.
-	* Receive and process response.
     """
     # Grab cart items from session
-    """session_object = request.session._session
+    session_object = request.session._session
     cart = h.get_cart_from_session(session_object)
 
     # Create entry in transaction table
@@ -39,7 +43,7 @@ def index(request):
 		product=product, quantity=item[1][0], cost=str(item[1][0] * item[1][1]))
 
     auth_token = base64.b64encode(settings.MERCHANT_CODE + ':' + settings.MERCHANT_KEY)
-    t = get_template("store/request.xml")
+    t = get_template("order/request.xml")
 
     data = t.render(Context({
 	'cart_id': h.generate_id(),
@@ -60,9 +64,10 @@ def index(request):
 
     request.session.flush()
 
-    return ("string", url)"""
+    return ("string", url)
 
 def process_payment_response(request):
+    # Process response from pay4me.
     soup = BeautifulStoneSoup(request.raw_post_data)
     f = open('/tmp/response.xml', 'w')
     f.write(soup)
@@ -70,7 +75,14 @@ def process_payment_response(request):
     return
 
 def delivery(request, template="order/delivery.html", form_class=DeliveryForm):
-    form = form_class()
+    if request.method == "POST":
+	form = form_class(request.POST)
+	if form.is_valid():
+	    form.save(request.user)
+	    return redirect("/cart/preview/")
+
+    else:
+	form = form_class()
 
     return render_to_response(template, {
 		"delivery_form": form,
