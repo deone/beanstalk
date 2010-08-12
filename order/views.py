@@ -3,6 +3,7 @@ from django.shortcuts import render_to_response, redirect
 from django.template import Context, RequestContext
 from django.template.loader import get_template
 from django.contrib.auth.models import User
+from django.http import Http404, HttpResponse
 
 from order.models import *
 from order.forms import *
@@ -10,6 +11,7 @@ from store.models import Product
 
 import base64
 import urllib2
+from decimal import Decimal
 from BeautifulSoup import BeautifulStoneSoup
 
 import helpers as h
@@ -69,10 +71,24 @@ def transact(request):
 def process_payment_response(request):
     # Process response from pay4me.
     soup = BeautifulStoneSoup(request.raw_post_data)
-    f = open('/tmp/response.xml', 'w')
-    f.write(soup)
+    item = soup.find('item')
+    transaction_id = item.find('transaction-number').string
+    amount = Decimal(item.amount.string)
+    status = int(item.status.code.string)
+    validation_no = item.find('validation-number').string
+    date_paid = item.find('payment-date').string
 
-    return
+    try:
+	transaction = Transaction.objects.get(transaction_id=str(transaction_id), amount=amount)
+    except Transaction.DoesNotExist:
+	raise Http404
+    else:
+	transaction.status = Transaction.DONE
+	transaction.validation_number = validation_no
+	transaction.date_paid = date_paid.replace('T', ' ')
+	transaction.save()
+
+    return HttpResponse(mimetype="text/plain", content="OK")
 
 def delivery(request, template="order/delivery.html", form_class=DeliveryForm):
     if request.method == "POST":
