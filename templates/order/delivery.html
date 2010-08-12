@@ -3,19 +3,22 @@
 {% block content %}
     <h2>Thank you for your order. We would be delivering your order to the address below.</h2>
     <p>
-	{{ user.get_profile.address }}
-	{{ user.get_profile.city }}
-	{{ user.get_profile.state }}
-	{{ user.get_profile.country }}.
+	{% if not user.get_profile.delivery_address %}
+	    {{ user.get_profile.address }},
+	    {{ user.get_profile.city }},<br/>
+	    {{ user.get_profile.state }},
+	    {{ user.get_profile.country }}.
+	{% else %}
+	    {{ user.get_profile.delivery_address }}
+	{% endif %}
     </p>
     <h2>Alternatively, you can specify a delivery address.</h2>
-    <form>
+    <form action="/delivery/" method="post">
 	<fieldset>
 	    {{ delivery_form.as_p }}
 	</fieldset>
 	<fieldset>
 	    <input type="submit" value="Save & Continue"/>
-	    <input type="submit" value="Proceed to Checkout"/>
 	</fieldset>
     </form>
 {% endblock %}

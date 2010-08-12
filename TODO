@@ -24,3 +24,6 @@ Before We Launch - Beta
 * Unit Testing (models/views)**.
 * Image resizing algorithm**.
 * Search - Mall and Store**.
+
+If delivery address isn't specified, update Profile.delivery_address with user.address, user.city, user.state and user.country.
+Else, update Profile.delivery_address with given address.
