@@ -35,7 +35,7 @@ CREATE TABLE `account_profile` (
   `country` varchar(50) NOT NULL,
   PRIMARY KEY  (`id`),
   UNIQUE KEY `user_id` (`user_id`)
-) ENGINE=MyISAM AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
+) ENGINE=MyISAM DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -44,7 +44,6 @@ CREATE TABLE `account_profile` (
 
 LOCK TABLES `account_profile` WRITE;
 /*!40000 ALTER TABLE `account_profile` DISABLE KEYS */;
-INSERT INTO `account_profile` VALUES (1,6,'Mr.','08029299274','9, Admiralty Way',NULL,'Lekki','Lagos','Nigeria');
 /*!40000 ALTER TABLE `account_profile` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -175,7 +174,7 @@ CREATE TABLE `auth_user` (
   `date_joined` datetime NOT NULL,
   PRIMARY KEY  (`id`),
   UNIQUE KEY `username` (`username`)
-) ENGINE=MyISAM AUTO_INCREMENT=7 DEFAULT CHARSET=latin1;
+) ENGINE=MyISAM AUTO_INCREMENT=8 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -184,7 +183,7 @@ CREATE TABLE `auth_user` (
 
 LOCK TABLES `auth_user` WRITE;
 /*!40000 ALTER TABLE `auth_user` DISABLE KEYS */;
-INSERT INTO `auth_user` VALUES (1,'alwaysdeone@gmail.com','Oladayo','Osikoya','alwaysdeone@gmail.com','sha1$46282$94acc0d85cde3d2924651965dfc5e13847e44a87',1,1,1,'2010-08-10 14:32:42','2010-08-05 17:06:54'),(3,'olu@olu.com','Olusegun','Obasanjo','olu@olu.com','sha1$2aad6$8534ba88d6e21aaedc6632ca08cb01ded5033c00',1,1,0,'2010-08-12 07:37:07','2010-08-06 09:32:14'),(6,'deji@alade.com','Deji','Osikoya','deji@alade.com','sha1$823f1$3c98422d4fa573c3174164cc14a6c77485e96e35',0,1,0,'2010-08-12 10:12:04','2010-08-10 12:14:50'),(5,'seyi@seyi.com','Oluseyi','Adegoju','seyi@seyi.com','sha1$a2c5b$d48e941189e82eb111896cbf27725d19eab37cfc',1,1,0,'2010-08-06 12:59:15','2010-08-06 09:36:45');
+INSERT INTO `auth_user` VALUES (1,'alwaysdeone@gmail.com','Oladayo','Osikoya','alwaysdeone@gmail.com','sha1$46282$94acc0d85cde3d2924651965dfc5e13847e44a87',1,1,1,'2010-08-10 14:32:42','2010-08-05 17:06:54'),(3,'olu@olu.com','Olusegun','Obasanjo','olu@olu.com','sha1$2aad6$8534ba88d6e21aaedc6632ca08cb01ded5033c00',1,1,0,'2010-08-12 07:37:07','2010-08-06 09:32:14'),(5,'seyi@seyi.com','Oluseyi','Adegoju','seyi@seyi.com','sha1$a2c5b$d48e941189e82eb111896cbf27725d19eab37cfc',1,1,0,'2010-08-06 12:59:15','2010-08-06 09:36:45');
 /*!40000 ALTER TABLE `auth_user` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -323,7 +322,6 @@ CREATE TABLE `django_session` (
 
 LOCK TABLES `django_session` WRITE;
 /*!40000 ALTER TABLE `django_session` DISABLE KEYS */;
-INSERT INTO `django_session` VALUES ('79506ebdb14913a322eadae4ac568fd2','gAJ9cQEuZDQxNDg1ZDQyYTQwYjQxMTRmMjIxYzI2Y2M1N2M4MzM=\n','2010-08-23 09:40:56'),('34bedd34864c1f80944a4cc0079ce861','gAJ9cQFYAgAAADIxcQJdcQMoSwVHQH/gAAAAAABlcy4yODA2NmJmN2M1MTE2MTA5MDNhOTAzNjJl\nNWU4MTFkOQ==\n','2010-08-26 10:21:45');
 /*!40000 ALTER TABLE `django_session` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -571,4 +569,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2010-08-12 10:45:39
+-- Dump completed on 2010-08-12 17:39:56
