@@ -4,6 +4,7 @@ from django.template import Context, RequestContext
 from django.template.loader import get_template
 from django.contrib.auth.models import User
 from django.http import Http404, HttpResponse
+from django.core.mail import send_mail
 
 from order.models import *
 from order.forms import *
@@ -37,7 +38,8 @@ def transact(request):
 
     # Create entry in transaction table
     total = reduce(h.add, [item[1][0] * item[1][1] for item in cart])
-    transaction = Transaction.objects.create(transaction_id=h.generate_id(), amount=str(total))
+    transaction_id = h.generate_id()
+    transaction = Transaction.objects.create(transaction_id=transaction_id, amount=str(total))
 
     for item in cart:
 	product = Product.objects.get(pk=item[0])
@@ -50,7 +52,7 @@ def transact(request):
     data = t.render(Context({
 	'cart_id': h.generate_id(),
 	'merchant_service_id': settings.MERCHANT_SERVICE_ID,
-	'txn_no': h.generate_id(),
+	'txn_no': transaction_id,
 	'order_total': total
     }))
 
@@ -76,11 +78,28 @@ def process_payment_response(request):
     amount = Decimal(item.amount.string)
     status = int(item.status.code.string)
     validation_no = item.find('validation-number').string
-    date_paid = item.find('payment-date').string
+    date_paid = item.find('payment-date').string 
+
+    #message = """
+    #transaction_id: %s type: %s \n
+    #amount: %s type: %s \n
+    #status: %s type: %s \n
+    #validation_no: %s type: %s
+    #date_paid: %s type: %s
+    #""" % (
+    """
+	    transaction_id, type(transaction_id), 
+	    amount, str(type(amount)),
+	    str(status), str(type(status)),
+	    validation_no, str(type(validation_no)),
+	    date_paid, str(type(date_paid))
+    )
+
+    send_mail("Pay4Me Mall response debug", message, "dayo@aerixnigeria.com", ["oosikoya@pay4me.com"])"""
 
     try:
-	transaction = Transaction.objects.get(transaction_id=str(transaction_id), amount=amount)
-    except Transaction.DoesNotExist:
+	transaction = Transaction.objects.get(transaction_id=transaction_id)
+    except Transaction.DoesNotExist, e:
 	raise Http404
     else:
 	transaction.status = Transaction.DONE
