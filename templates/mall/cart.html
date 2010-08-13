@@ -1,68 +1,79 @@
 {% extends "store/index.html" %}
 
-{% block cart_indicator %}{% endblock %}
-
 {% block sidebar %}
-    <div class="viewport"></div>
+<ul>
+    <li><a href="#">HOME</a></li>
+    <li><a href="#">ELECTRONICS</a></li>
+    <li>
+	<ul>
+	    <li><a href="#">TV</a></li>
+	    <li>DVD</li> 
+	    <li><a href="#">HOME THEATHERS</a></li>
+	    <li><a href="#">TV</a></li>
+	    <li>DVD</li> 
+	    <li><a href="#">HOME THEATHERS</a></li>
+	    <li>asdfasdfs</li> 
+	</ul>
+    </li>
+    <li>PHONE</li>
+    <li>COMPUTER</li>
+    <li>GROCERIES</li>
+</ul>
 {% endblock %}
 
 {% block breadcrumbs %}{% endblock %}
 
 {% block content_body %}
-    <div class="viewport">
-	{% if not user.get_profile.delivery_address %}
-	    <form id="checkout" action="javascript:checkOut();">
-		<input id="checkout_btn" type="submit" value="Checkout Now"/>
-	    </form>
-	{% else %}
-	    <form id="checkout" action="javascript:pay();">
-		<input type="submit" value="Pay"/>
-	    </form>
-	{% endif %}
-	<table id="shopping_cart">
-	    <tr>
-		<th>Item</th>
-		<th>Store</th>
-		<th>Quantity</th>
-		<th>Item Price</th>
-		<th>Total Cost</th>
-	    </tr>
-	    {% for item in shopping_cart.items %}
-	    <tr>
-		<td>
-		    <img src="{{ MEDIA_URL }}{{ item.thumbnail }}"/>
-		    <p>{{ item.name }}</p>
-		</td>
-		<td>
-		    {{ item.product_group.store.name }}
-		</td>
-		<td>
-		    {{ item.quantity }}
-		</td>
-		<td>
-		    {{ item.price }}
-		</td>
-		<td>
-		    {{ item.total_cost }}
-		</td>
-	    </tr>
-	    {% endfor %}
-	    <tr>
-		<td>&nbsp;</td>
-		<td>&nbsp;</td>
-		<td>&nbsp;</td>
-		<td><b>Order Total</b></td>
-		<td><b>{{ shopping_cart.order_total }}</b></td>
-	    </tr>
-	</table>
-	<h2>Delivery Address</h2>
-	<p>
-	    {% if user.get_profile.delivery_address %}
-		{{ user.get_profile.delivery_address }}
+    <div id="cartPreview">
+	<h1>Your ShOPPING CART </h1>
+	<div class="heading">
+	    <div class="item">
+		<div class="title">Item</div>
+		<div class="store">Store</div>
+		<div class="quantity">Quantity</div>
+		<div class=" itemCost">Item Cost</div>
+		<div class="totalCost">Total</div>
+		<div class="clear"></div>
+	    </div>
+	</div>
+	{% for item in shopping_cart.items %}
+	<div class="item">
+	    <div class="del"><img src="{{ MEDIA_URL }}img/cartPreviewDelete.jpg"/></div>
+	    <div class="thumbnail"><img src="{{ MEDIA_URL }}{{ item.thumbnail }}" style="width:62px; height: 62px;"/></div><br />
+	    <div class="title"><a href="#">{{ item.name }}</a></div>
+	    <div class="store">{{ item.product_group.store.name }}</div>
+	    <div class="quantity">{{ item.quantity }}</div>
+	    <div class="itemCost">N{{ item.price }}</div>
+	    <div class="totalCost">N{{ item.total_cost }}</div>
+	    <div class="clear"></div>
+	</div>
+	{% endfor %}
+	<div class="bagTotal">Order Total<span class="totalAmount">{{ shopping_cart.order_total }}</span></div>
+	<div class="shippingAdd">
+	    <h2>Shipping Address</h2>
+	    <p>
+		{% if user.get_profile.delivery_address %}
+		    {{ user.get_profile.delivery_address }}
+		{% else %}
+		    {{ user.get_profile.address }}, {{ user.get_profile.city }},<br/>
+		    {{ user.get_profile.state }}, {{ user.get_profile.country }}. 
+		{% endif %}
+	    </p>
+	    <span><a href="#">Edit Address</a></span>
+	</div>
+	<div class="check">
+	    {% if not user.get_profile.delivery_address %}
+		<form id="checkout" action="javascript:checkOut();">
+		    <button onclick="javascript:document.location='/'" style="width: 166px; height: 36px; margin: 0px; border: none; background: url('{{ MEDIA_URL }}img/contShop.jpg')"/></button>
+		    <input id="checkout_btn" type="submit" style="width: 166px; height: 36px; margin: 0px; border: none; background: url('{{ MEDIA_URL }}img/chkout2.jpg')" value=""/>
+		</form>
 	    {% else %}
-		{{ user.get_profile.address }}, {{ user.get_profile.city }},<br/>
-		{{ user.get_profile.state }}, {{ user.get_profile.country }}. 
+		<form id="checkout" action="javascript:pay();">
+		    <button onclick="javascript:document.location='/'" style="width: 166px; height: 36px; margin: 0px; border: none; background: url('{{ MEDIA_URL }}img/contShop.jpg')"/></button>
+		    <input id="checkout_btn" type="submit" style="width: 190px; height: 43px; margin: 0px; border: none; background: url('{{ MEDIA_URL }}img/pay.jpg')" value=""/>
+		</form>
 	    {% endif %}
-	</p>
+	</div>
+	<div class="clear"></div>
     </div>
 {% endblock %}

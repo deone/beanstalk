@@ -50,3 +50,23 @@
     color: #fff;
     font-weight: bold;
 }
+#cartPreview .heading{ font-weight:bold; border-top:1px solid #666; padding-top:10px; padding-bottom:10px; text-align:left; font-size:14px; text-transform:capitalize;}
+#cartPreview .bagTotal{ text-align:right; font-weight:bold; font-size:18px; padding:10px; border-top:1px solid #666;  border-bottom:1px solid #666;}
+#cartPreview .totalAmount{ margin-left:30px; }
+
+
+#cartPreview .heading .item{ padding:0px; margin:0px; border:0px;}
+#cartPreview .heading .item  .title{ width:338px;}
+#cartPreview .del{ width:20px; float:left; margin-top:20px;}
+#cartPreview .item{ padding:5px; border-top:1px solid #CCC; margin-top:10px; vertical-align:top;}
+#cartPreview .title{float:left; width:240px; margin-left:5px;}
+#cartPreview .thumbnail{ width:62px; float:left;margin-left:10px;}
+#cartPreview .quantity{ width:80px; float:left; margin-left:10px; text-align:center;}
+#cartPreview .quantity .txt{ border:1px solid #666; width:40px;}
+#cartPreview .store{ width:100px; margin-left:10px; float:left;}
+#cartPreview .itemCost{ width:80px; margin-left:10px; float:left; text-align:right;}
+#cartPreview .totalCost{ width:100px; margin-left:10px; float:left; text-align:right;}
+
+#cartPreview .shippingAdd{ padding:0px; width:300px; float:left; margin-bottom:10px;}
+#cartPreview .shippingAdd  span a{ color:#2768a3; font-style:italic;}
+#cartPreview .check{ float:right; margin-top:10px;}

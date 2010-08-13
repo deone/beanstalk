@@ -1,7 +1,7 @@
 {% extends "base.html" %}
 
 {% block content %}
-    <h2>Thank you for your order. We would be delivering your order to the address below.</h2>
+    <h2>Thank you. We would be delivering your order to the address below.</h2>
     <p>
 	{% if not user.get_profile.delivery_address %}
 	    {{ user.get_profile.address }},
@@ -14,11 +14,7 @@
     </p>
     <h2>Alternatively, you can specify a delivery address.</h2>
     <form action="/delivery/" method="post">
-	<fieldset>
-	    {{ delivery_form.as_p }}
-	</fieldset>
-	<fieldset>
-	    <input type="submit" value="Save & Continue"/>
-	</fieldset>
+	{{ delivery_form.delivery_address }}
+	<input type="submit" value="Continue"/>
     </form>
 {% endblock %}
