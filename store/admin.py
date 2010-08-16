@@ -1,13 +1,6 @@
 from django.contrib import admin
 from pay4memall.store.models import *
 
-class StoreAdmin(admin.ModelAdmin):
-    def queryset(self, request):
-	qs = super(StoreAdmin, self).queryset(request)
-	if request.user.is_superuser:
-	    return qs
-	return qs.filter(owner=request.user)
-
 class ProductDetailInline(admin.StackedInline):
     model = ProductDetail
 
@@ -41,7 +34,7 @@ class ProductDetailAdmin(admin.ModelAdmin):
 	    return qs
 	return qs.filter(product__product_group__store=request.user.store)
 
-admin.site.register(Store, StoreAdmin)
+admin.site.register(Store)
 admin.site.register(ProductGroup, ProductGroupAdmin)
 admin.site.register(Product, ProductAdmin)
 admin.site.register(ProductDetail, ProductDetailAdmin)

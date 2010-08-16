@@ -6,6 +6,7 @@
 * Learn how to use post_save(), it's useful when a user is created at the admin.
 * Host on rackspace server with mod_wsgi.
 * Use django redirects app.
+* Use session_expiry.
 
 BUGS
 * Do we need **kwargs in functions with h.json_response as helper?
@@ -13,13 +14,18 @@ BUGS
 Before We Launch - Beta
 =======================
 * Create breadcrumbs on each page, don't centralize!
-* Full admin customization.
 * Foreign key relationship between mall Category and store Product.
 * Urls cleanup, Production payment response url should be /payment/response/.
-* Change add to cart field to PositiveIntegerField.
-* Do comprehensive validation on all forms.
+* Do comprehensive validation on all form fields.
 
 * Unit Testing (models/views)**.
 * Image resizing algorithm**.
 * Search - Mall and Store**.
 * Delivery settings.
+
+
+* Full admin customization.
+- Store owner shouldn't:
+  * Specify store when adding or changing a product group.
+  * See other stores' product groups when adding or changing a product.
+  * See other stores' products when adding or changing a product detail.
