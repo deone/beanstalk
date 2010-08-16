@@ -4,26 +4,22 @@
 * We might need to change payment app name.
 * Fix page controls and searches.
 * Learn how to use post_save(), it's useful when a user is created at the admin.
+* Host on rackspace server with mod_wsgi.
+* Use django redirects app.
 
 BUGS
 * Do we need **kwargs in functions with h.json_response as helper?
 
 Before We Launch - Beta
 =======================
-* Fine-tune checkout process to include user's shipping address, e.t.c.
-* Payment response.
 * Create breadcrumbs on each page, don't centralize!
 * Full admin customization.
-* User Interface design.
-- Cart Preview.
 * Foreign key relationship between mall Category and store Product.
-* Hosting with mod_wsgi on slicehost.
-* Domain name registration plus DNS configuration.
 * Urls cleanup, Production payment response url should be /payment/response/.
+* Change add to cart field to PositiveIntegerField.
+* Do comprehensive validation on all forms.
 
 * Unit Testing (models/views)**.
 * Image resizing algorithm**.
 * Search - Mall and Store**.
-
-If delivery address isn't specified, update Profile.delivery_address with user.address, user.city, user.state and user.country.
-Else, update Profile.delivery_address with given address.
+* Delivery settings.
