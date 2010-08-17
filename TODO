@@ -7,24 +7,25 @@
 * Host on rackspace server with mod_wsgi.
 * Use django redirects app.
 * Use session_expiry.
-* Use user.has_perms() to set backend staff permissions in ModelAdmin queryset().
+* Use user.has_perms() or user.groups() to set backend staff permissions in ModelAdmin queryset().
 * Do we need **kwargs in functions with h.json_response as helper?
 * Calling a javascript function in form action. Is it not bad practice?
-
-BUGS
-* Use backend validation (strictly) for all forms.
 
 
 Before We Launch - Beta
 =======================
-18/08/10
-* Foreign key relationship between mall Category and store Product.
+BUGS
 * Urls cleanup, Production payment response url should be /payment/response/.
-* Do comprehensive validation on all form fields.
+* Use backend validation (strictly) for all form fields.
+* Disable checkout link if there're no items in shopping cart.
+
+* Write out setup instructions in README.
+* Foreign key relationship between mall Category and store Product.
 
 * Unit Testing (models/views)**.
 * Image resizing algorithm**.
 * Search - Mall and Store**.
+* Bulk products upload.
 * Delivery settings.
 
 
