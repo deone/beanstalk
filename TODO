@@ -7,6 +7,7 @@
 * Host on rackspace server with mod_wsgi.
 * Use django redirects app.
 * Use session_expiry.
+* Use user.has_perms() to set backend staff permissions in ModelAdmin queryset().
 
 BUGS
 * Do we need **kwargs in functions with h.json_response as helper?

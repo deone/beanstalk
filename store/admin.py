@@ -17,7 +17,6 @@ class ProductAdmin(admin.ModelAdmin):
 	qs = super(ProductAdmin, self).queryset(request)
 	if request.user.is_superuser:
 	    return qs
-	
 	return qs.filter(product_group=request.user.store.productgroup_set.all())
 	
 class ProductGroupAdmin(admin.ModelAdmin):
@@ -25,14 +24,14 @@ class ProductGroupAdmin(admin.ModelAdmin):
 	qs = super(ProductGroupAdmin, self).queryset(request)
 	if request.user.is_superuser:
 	    return qs
-	return qs.filter(store=request.user.store)
+	return qs.filter(store__owner=request.user)
 
 class ProductDetailAdmin(admin.ModelAdmin):
     def queryset(self, request):
 	qs = super(ProductDetailAdmin, self).queryset(request)
 	if request.user.is_superuser:
 	    return qs
-	return qs.filter(product__product_group__store=request.user.store)
+	return qs.filter(product__product_group__store__owner=request.user)
 
 admin.site.register(Store)
 admin.site.register(ProductGroup, ProductGroupAdmin)

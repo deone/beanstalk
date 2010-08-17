@@ -32,3 +32,6 @@ class OrderedItem(models.Model):
 
     def __unicode__(self):
 	return self.product.name
+
+    class Meta:
+	verbose_name_plural = "Ordered Items"
