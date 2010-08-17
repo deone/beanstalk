@@ -1,5 +1,5 @@
 from django.conf import settings
-from django.shortcuts import render_to_response, redirect
+from django.shortcuts import render_to_response, redirect, get_list_or_404
 from django.template import Context, RequestContext
 from django.template.loader import get_template
 from django.contrib.auth.models import User
@@ -24,14 +24,7 @@ def index(request):
     else:
 	return ("string", "/delivery/")
 
-@h.json_response
-def transact(request):
-    """
-	* Generate order_id.
-	* Insert order_id and total_amount into order table.
-	* Insert each item into ordered_item table.
-	* Make payment through pay4me API.
-    """
+def compute_cart(request):
     # Grab cart items from session
     session_object = request.session._session
     cart = h.get_cart_from_session(session_object)
@@ -54,16 +47,21 @@ def transact(request):
 
 	OrderedItem.objects.create(order=order, buyer=request.user, \
 	    product=product, quantity=item[1][0], cost=str(item[1][0] * item[1][1]))
-	    
 
-    """auth_token = base64.b64encode(settings.MERCHANT_CODE + ':' + settings.MERCHANT_KEY)
+    return order_id, total
+
+@h.json_response
+def transact(request):
+    order_details = compute_cart(request)
+
+    auth_token = base64.b64encode(settings.MERCHANT_CODE + ':' + settings.MERCHANT_KEY)
     t = get_template("order/request.xml")
 
     data = t.render(Context({
 	'cart_id': h.generate_id(),
 	'merchant_service_id': settings.MERCHANT_SERVICE_ID,
-	'txn_no': order_id,
-	'order_total': total
+	'txn_no': order_details[0],
+	'order_total': order_details[1]
     }))
 
     req = urllib2.Request(settings.PAYMENT_URL, data)
@@ -78,7 +76,7 @@ def transact(request):
 
     request.session.flush()
 
-    return ("string", url)"""
+    return ("string", url)
 
 def process_payment_response(request):
     # Process response from pay4me.
@@ -87,8 +85,8 @@ def process_payment_response(request):
     order_id = item.find('transaction-number').string
     amount = Decimal(item.amount.string)
     status = int(item.status.code.string)
-    validation_no = item.find('validation-number').string
     date_paid = item.find('payment-date').string 
+    validation_no = item.find('validation-number').string
 
     #message = """
     #order_id: %s type: %s \n
@@ -107,15 +105,13 @@ def process_payment_response(request):
 
     send_mail("Pay4Me Mall response debug", message, "dayo@aerixnigeria.com", ["oosikoya@pay4me.com"])"""
 
-    try:
-	order = Order.objects.get(order_id=order_id)
-    except Order.DoesNotExist, e:
-	raise Http404
-    else:
-	order.status = Order.DONE
-	order.validation_number = validation_no
-	order.date_paid = date_paid.replace('T', ' ')
-	order.save()
+    store_orders = get_list_or_404(Order, order_id=order_id)
+
+    for so in store_orders:
+	so.status = Order.DONE
+	so.date_paid = date_paid.replace('T', ' ')
+	so.validation_number = validation_no
+	so.save()
 
     return HttpResponse(mimetype="text/plain", content="OK")
 
