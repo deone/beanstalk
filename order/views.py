@@ -27,8 +27,8 @@ def index(request):
 @h.json_response
 def transact(request):
     """
-	* Generate transaction_id.
-	* Insert transaction_id and total_amount into transaction table.
+	* Generate order_id.
+	* Insert order_id and total_amount into order table.
 	* Insert each item into ordered_item table.
 	* Make payment through pay4me API.
     """
@@ -36,23 +36,33 @@ def transact(request):
     session_object = request.session._session
     cart = h.get_cart_from_session(session_object)
 
-    # Create entry in transaction table
+    # Create entry in order table
     total = reduce(h.add, [item[1][0] * item[1][1] for item in cart])
-    transaction_id = h.generate_id()
-    transaction = Transaction.objects.create(transaction_id=transaction_id, amount=str(total))
+    order_id = h.generate_id()
 
     for item in cart:
 	product = Product.objects.get(pk=item[0])
-	OrderedItem.objects.create(transaction=transaction, user=request.user, \
-		product=product, quantity=item[1][0], cost=str(item[1][0] * item[1][1]))
+	product_cost = product.price * item[1][0]
+	
+	try:
+	    order = Order.objects.get(order_id=order_id, store=product.product_group.store)
+	except Order.DoesNotExist:
+	    order = Order.objects.create(order_id=order_id, store=product.product_group.store, amount=product_cost)
+	else:
+	    order.amount += product_cost
+	    order.save()
 
-    auth_token = base64.b64encode(settings.MERCHANT_CODE + ':' + settings.MERCHANT_KEY)
+	OrderedItem.objects.create(order=order, buyer=request.user, \
+	    product=product, quantity=item[1][0], cost=str(item[1][0] * item[1][1]))
+	    
+
+    """auth_token = base64.b64encode(settings.MERCHANT_CODE + ':' + settings.MERCHANT_KEY)
     t = get_template("order/request.xml")
 
     data = t.render(Context({
 	'cart_id': h.generate_id(),
 	'merchant_service_id': settings.MERCHANT_SERVICE_ID,
-	'txn_no': transaction_id,
+	'txn_no': order_id,
 	'order_total': total
     }))
 
@@ -68,27 +78,27 @@ def transact(request):
 
     request.session.flush()
 
-    return ("string", url)
+    return ("string", url)"""
 
 def process_payment_response(request):
     # Process response from pay4me.
     soup = BeautifulStoneSoup(request.raw_post_data)
     item = soup.find('item')
-    transaction_id = item.find('transaction-number').string
+    order_id = item.find('transaction-number').string
     amount = Decimal(item.amount.string)
     status = int(item.status.code.string)
     validation_no = item.find('validation-number').string
     date_paid = item.find('payment-date').string 
 
     #message = """
-    #transaction_id: %s type: %s \n
+    #order_id: %s type: %s \n
     #amount: %s type: %s \n
     #status: %s type: %s \n
     #validation_no: %s type: %s
     #date_paid: %s type: %s
     #""" % (
     """
-	    transaction_id, type(transaction_id), 
+	    order_id, type(order_id), 
 	    amount, str(type(amount)),
 	    str(status), str(type(status)),
 	    validation_no, str(type(validation_no)),
@@ -98,14 +108,14 @@ def process_payment_response(request):
     send_mail("Pay4Me Mall response debug", message, "dayo@aerixnigeria.com", ["oosikoya@pay4me.com"])"""
 
     try:
-	transaction = Transaction.objects.get(transaction_id=transaction_id)
-    except Transaction.DoesNotExist, e:
+	order = Order.objects.get(order_id=order_id)
+    except Order.DoesNotExist, e:
 	raise Http404
     else:
-	transaction.status = Transaction.DONE
-	transaction.validation_number = validation_no
-	transaction.date_paid = date_paid.replace('T', ' ')
-	transaction.save()
+	order.status = Order.DONE
+	order.validation_number = validation_no
+	order.date_paid = date_paid.replace('T', ' ')
+	order.save()
 
     return HttpResponse(mimetype="text/plain", content="OK")
 

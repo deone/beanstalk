@@ -1,18 +1,19 @@
 from django.db import models
 
-from store.models import Product
+from store.models import Store, Product
 from django.contrib.auth.models import User
 
 import datetime
 
-class Transaction(models.Model):
+class Order(models.Model):
     PENDING, DONE = 1, 0
     PAYMENT_STATUS_CHOICES = (
 	    (PENDING, "Pending"),
 	    (DONE, "Payment Done"),
     )
 
-    transaction_id = models.CharField(max_length=20)
+    store = models.ForeignKey(Store)
+    order_id = models.CharField(max_length=20)
     amount = models.DecimalField(max_digits=20, decimal_places=2)
     status = models.SmallIntegerField(choices=PAYMENT_STATUS_CHOICES, default=PENDING)
     created_at = models.DateTimeField(default=datetime.datetime.now)
@@ -20,11 +21,11 @@ class Transaction(models.Model):
     validation_number = models.CharField(max_length=20, null=True)
 
     def __unicode__(self):
-	return self.transaction_id
+	return self.order_id
 
 class OrderedItem(models.Model):
-    transaction = models.ForeignKey(Transaction)
-    user = models.ForeignKey(User)
+    order = models.ForeignKey(Order)
+    buyer = models.ForeignKey(User)
     product = models.ForeignKey(Product)
     quantity = models.IntegerField()
     cost = models.DecimalField(max_digits=20, decimal_places=2)
