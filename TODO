@@ -8,9 +8,11 @@
 * Use django redirects app.
 * Use session_expiry.
 * Use user.has_perms() to set backend staff permissions in ModelAdmin queryset().
+* Do we need **kwargs in functions with h.json_response as helper?
 
 BUGS
-* Do we need **kwargs in functions with h.json_response as helper?
+* Use backend validation (strictly) for all forms.
+
 
 Before We Launch - Beta
 =======================
@@ -30,3 +32,6 @@ Admin customization.
   * Specify store when adding or changing a product group.
   * See other stores' product groups when adding or changing a product.
   * See other stores' products when adding or changing a product detail.
+
+- Store owner should:
+  * Be able to view his ordered items below order.

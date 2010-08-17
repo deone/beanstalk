@@ -9,7 +9,7 @@ class Order(models.Model):
     PENDING, DONE = 1, 0
     PAYMENT_STATUS_CHOICES = (
 	    (PENDING, "Pending"),
-	    (DONE, "Payment Done"),
+	    (DONE, "Payment Successful"),
     )
 
     store = models.ForeignKey(Store)
