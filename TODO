@@ -17,7 +17,7 @@ BUGS
 
 Before We Launch - Beta
 =======================
-* Create breadcrumbs on each page, don't centralize!
+18/08/10
 * Foreign key relationship between mall Category and store Product.
 * Urls cleanup, Production payment response url should be /payment/response/.
 * Do comprehensive validation on all form fields.
