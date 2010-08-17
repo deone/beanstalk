@@ -54,7 +54,6 @@ def display_product_group(request, store_name, product_group_id, template="store
     return render_to_response(template, {
 	    "store": store,
 	    "product_group": product_group,
-	    "product_groups": store.productgroup_set.all(),
 	    "products": products,
 	    "product_list_length": product_list_length,
 	    "form_set": af.store_forms,

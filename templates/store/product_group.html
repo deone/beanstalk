@@ -1,5 +1,9 @@
 {% extends "store/index.html" %}
 
+{% block crumbs %}
+    <a href="/">Home</a> &rsaquo; <a href="/store/{{ product_group.store.account_name }}/">{{ product_group.store.name }}</a> &rsaquo; {{ product_group.name }}
+{% endblock %}
+
 {% block pagination %}
     <div id="pager">
 	<span>Found {{ product_list_length }} items.</span>

@@ -9,6 +9,7 @@
 * Use session_expiry.
 * Use user.has_perms() to set backend staff permissions in ModelAdmin queryset().
 * Do we need **kwargs in functions with h.json_response as helper?
+* Calling a javascript function in form action. Is it not bad practice?
 
 BUGS
 * Use backend validation (strictly) for all forms.

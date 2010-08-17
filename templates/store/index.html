@@ -6,7 +6,7 @@
 	{{ form_set.store_search_form.query }}
     </form>
     <ul>
-	{% for pg in product_groups %}
+	{% for pg in store.productgroup_set.all %}
 	    <li><a class="cat" href="/store/{{ pg.store.account_name }}/browse/{{ pg.id }}/">{{ pg.name }}</a></li>
 	{% endfor %}
     </ul>
@@ -14,17 +14,11 @@
 
 {% block breadcrumbs %}
     <div id="breadCrum">
-	<div id="url">
-	    {% if store %}
+	{% block crumbs %}
+	    <div id="url">
 		<a href="/">Home</a> &rsaquo; {{ store.name }}
-	    {% endif %}
-	    {% if product_group %}
-		<a href="/">Home</a> &rsaquo; <a href="/store/{{ product_group.store.account_name}}/">{{ product_group.store.name }}</a> &rsaquo; {{ product_group.name }}
-	    {% endif %}
-	    {% if product %}
-		<a href="/">Home</a> &rsaquo; <a href="/store/{{ product.product_group.store.account_name}}/">{{ product.product_group.store.name }}</a> &rsaquo; <a href="/store/{{ product.product_group.store.account_name }}/browse/{{ product.product_group.id }}/">{{ product.product_group.name }}</a> &rsaquo; {{ product.name }}
-	    {% endif %}
-	</div>
+	    </div>
+	{% endblock %}
 	{% block pagination %}{% endblock %}
 	<div class="clear"></div>
     </div>

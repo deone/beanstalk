@@ -1,5 +1,11 @@
 {% extends "store/index.html" %}
 
+{% block crumbs %}
+    <div id="url">
+	<a href="/">Home</a> &rsaquo; <a href="/store/{{ product.product_group.store.account_name}}/">{{ product.product_group.store.name }}</a> &rsaquo; <a href="/store/{{ product.product_group.store.account_name }}/browse/{{ product.product_group.id }}/">{{ product.product_group.name }}</a> &rsaquo; {{ product.name }}
+    </div>
+{% endblock %}
+
 {% block content_body %}
     <div id="productDetail">
 	<div id="productDetailLeft">

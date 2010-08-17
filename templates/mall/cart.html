@@ -62,17 +62,14 @@
 	    <span><a href="#">Edit Address</a></span>
 	</div>
 	<div class="check">
-	    {% if not user.get_profile.delivery_address %}
-		<form id="checkout" action="javascript:checkOut();">
-		    <button onclick="javascript:document.location='/'" style="width: 166px; height: 36px; margin: 0px; border: none; background: url('{{ MEDIA_URL }}img/contShop.jpg')"/></button>
+	    <form id="checkout" action="javascript:checkOut();">
+		<a href="/"><img src="{{ MEDIA_URL }}img/contShop.jpg"/></a>
+		{% if not user.get_profile.delivery_address %}
 		    <input id="checkout_btn" type="submit" style="width: 166px; height: 36px; margin: 0px; border: none; background: url('{{ MEDIA_URL }}img/chkout2.jpg')" value=""/>
-		</form>
-	    {% else %}
-		<form id="checkout" action="javascript:pay();">
-		    <button onclick="javascript:document.location='/'" style="width: 166px; height: 36px; margin: 0px; border: none; background: url('{{ MEDIA_URL }}img/contShop.jpg')"/></button>
+		{% else %}
 		    <input id="checkout_btn" type="submit" style="width: 190px; height: 43px; margin: 0px; border: none; background: url('{{ MEDIA_URL }}img/pay.jpg')" value=""/>
-		</form>
-	    {% endif %}
+		{% endif %}
+	    </form>
 	</div>
 	<div class="clear"></div>
     </div>
