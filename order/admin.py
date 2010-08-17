@@ -4,6 +4,7 @@ from order.models import *
 class OrderAdmin(admin.ModelAdmin):
     readonly_fields = ("store", "order_id", "amount", "status", "created_at", "date_paid", "validation_number")
     list_display = ("order_id", "amount", "status", "date_paid")
+    date_hierarchy = "created_at"
     
     def queryset(self, request):
 	qs = super(OrderAdmin, self).queryset(request)
