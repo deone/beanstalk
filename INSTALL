@@ -5,4 +5,23 @@ Server Requirements
 * Python version 2.5.2 or greater
 * Apache httpd 2.0 or greater
 * mod_wsgi
+* rpmbuild
+
+Application dependencies
+========================
 * Django 1.2.1
+    Download from http://www.djangoproject.com/
+
+* BeautifulSoup Python XML parser.
+    Download and install python setuptools.
+    Run `easy_install BeautifulSoup`.
+
+Installation from Source
+========================
+Run the following commands on the linux command prompt and follow instructions.
+1. `make rpm HOST=${HOST}`
+    where ${HOST} is the hostname of the machine.
+2. `rpm -ivh pay4memall-0.1-*.rpm`
+3. `pay4memall-setup`
+4. Open /etc/httpd/conf.d/pay4memallmod_wsgi.conf in a text editor of your choice and replace the ServerName and ServerAdmin parameters with your server-specific parameters.
+5. Restart httpd.
