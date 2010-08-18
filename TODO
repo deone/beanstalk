@@ -18,9 +18,9 @@ BUGS
 * Urls cleanup, Production payment response url should be /payment/response/.
 * Use backend validation (strictly) for all form fields.
 * Disable checkout link if there're no items in shopping cart.
-
-* Write out setup instructions in README.
 * Foreign key relationship between mall Category and store Product.
+* Implement edit and delete in shopping cart.
+
 
 * Unit Testing (models/views)**.
 * Image resizing algorithm**.
