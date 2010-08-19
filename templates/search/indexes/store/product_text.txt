@@ -1,0 +1,4 @@
+{{ object.name }}
+{{ object.product_group }}
+{{ object.product_group.store }}
+{{ object.price }}
