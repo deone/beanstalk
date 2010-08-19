@@ -1,3 +1,5 @@
+Refactorings and Optimizations
+==============================
 * We should be able to import abstract_model and helpers the same way.
 * Decouple all components. For templates, use url names instead of actual urls.
 * We need to make related changes (csrf enable, EmailBackend disable) and upgrade Django to latest version on both pay4me mall development and production.
@@ -10,6 +12,7 @@
 * Use user.has_perms() or user.groups() to set backend staff permissions in ModelAdmin queryset().
 * Do we need **kwargs in functions with h.json_response as helper?
 * Calling a javascript function in form action. Is it not bad practice?
+* Use model get_absolute_url() instead of explicitly-defined links in templates.
 
 
 Before We Launch - Beta

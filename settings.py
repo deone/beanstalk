@@ -82,8 +82,13 @@ INSTALLED_APPS = (
     'account',
     'store',
     'mall',
-    'order'
+    'order',
+    'haystack',
 )
+
+HAYSTACK_SEARCH_ENGINE = "whoosh"
+HAYSTACK_SITECONF = "pay4memall.search_sites"
+HAYSTACK_WHOOSH_PATH = "/home/hercules/pay4memall_index"
 
 RESULTS_PER_PAGE = 5
 

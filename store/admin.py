@@ -1,5 +1,5 @@
 from django.contrib import admin
-from pay4memall.store.models import *
+from store.models import *
 
 class ProductDetailInline(admin.StackedInline):
     model = ProductDetail

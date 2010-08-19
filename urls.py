@@ -30,6 +30,8 @@ urlpatterns = patterns('',
     (r'^store/(?P<store_name>\w+)/product/(?P<product_id>\d+)/$', store.views.display_product),
     # Admin
     (r'^admin/', include(admin.site.urls)),
+    # Search
+    (r'^search/', include('haystack.urls')),
 )
 
 if settings.DEBUG:
