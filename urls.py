@@ -1,5 +1,6 @@
 from django.conf.urls.defaults import *
 from django.conf import settings
+from haystack.views import SearchView
 
 from django.contrib import admin
 admin.autodiscover()
@@ -31,7 +32,7 @@ urlpatterns = patterns('',
     # Admin
     (r'^admin/', include(admin.site.urls)),
     # Search
-    (r'^search/', include('haystack.urls')),
+    url(r'^search/', include('haystack.urls'), name='haystack_search'),
 )
 
 if settings.DEBUG:
