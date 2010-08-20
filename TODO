@@ -1,5 +1,4 @@
-Refactorings and Optimizations
-==============================
+OPTIMIZATION
 * We should be able to import abstract_model and helpers the same way.
 * Decouple all components. For templates, use url names instead of actual urls.
 * We need to make related changes (csrf enable, EmailBackend disable) and upgrade Django to latest version on both pay4me mall development and production.
@@ -13,6 +12,12 @@ Refactorings and Optimizations
 * Do we need **kwargs in functions with h.json_response as helper?
 * Calling a javascript function in form action. Is it not bad practice?
 * Use model get_absolute_url() instead of explicitly-defined links in templates.
+* As a temporary alternative to bulk products upload, we might use formsets to enable merchants upload more than one product at a time.
+
+FEATURES
+* Unit Testing (models/views)**.
+* Image resizing algorithm**.
+* Bulk products upload.
 
 
 Before We Launch - Beta
@@ -23,15 +28,7 @@ BUGS
 * Disable checkout link if there're no items in shopping cart.
 * Foreign key relationship between mall Category and store Product.
 * Implement edit and delete in shopping cart.
-
-
-* Unit Testing (models/views)**.
-* Image resizing algorithm**.
-* Search - Mall and Store**.
-* Bulk products upload.
-* Delivery settings.
-
-
+* Plugin email and sms functionality.
 Admin customization.
 - Store owner shouldn't:
   * Specify store when adding or changing a product group.
@@ -40,3 +37,7 @@ Admin customization.
 
 - Store owner should:
   * Be able to view his ordered items below order.
+
+FEATURES
+* Search - Mall and Store**. Don't forget to include a cron job file that runs './manage.py update_index' periodically.
+* Delivery to be handled by NIPOST, let's have email functionality for that, per transaction.
