@@ -24,7 +24,7 @@
     {% if query %}
 	{% for result in page.object_list %}
 	    <div id="productItem">
-		<a href="/store/{{ result.object.product_group.store.account_name }}/product/{{ product.id }}/">
+		<a href="/store/{{ result.object.product_group.store.account_name }}/product/{{ result.object.id }}/">
 		    <img src="{{ MEDIA_URL }}{{ result.object.thumbnail }}"/>
 		    <div class="clear"></div>
 		    <span>{{ result.object.name }}<br/><b>{{ result.object.product_group.store.name }}</b></a></span>
