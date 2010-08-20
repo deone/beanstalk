@@ -28,8 +28,8 @@
 			    <a href="/cart/preview/"><img src="{{ MEDIA_URL }}img/checkout.gif" alt="CHECKOUT"/></a>
 			</div>
 			<div class="clear"></div>
-			<form id="mall_search">
-			    {{ form_set.mall_search_form.query }}
+			<form id="mall_search" method="get" action="{% url haystack_search %}">
+			    {{ form_set.mall_search_form.q }}
 			</form>
 		    {% endblock %}
 		</div>
