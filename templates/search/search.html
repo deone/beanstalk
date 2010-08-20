@@ -1,20 +1,35 @@
-{% extends 'base.html' %}
+{% extends "store/index.html" %}
 
-{% block content %}
-    <h2>Search</h2>
+{% block sidebar %}{% endblock %}
+
+{% block breadcrumbs %}
+    <div id="breadCrum">
+	{% block crumbs %}
+	    <div id="url">
+		<a href="/">Home</a> &rsaquo; Search
+	    </div>
+	{% endblock %}
+	{% block pagination %}{% endblock %}
+	<div class="clear"></div>
+    </div>
+{% endblock %}
+
+{% block content_body %}
+    <div id="pageCtrl">
+	<div id="pageTitle">Search Results</div>
+	<div class="clear"></div>
+    </div>
+    <div class="clear"></div>
 
     {% if query %}
-	<h3>Results</h3>
 	{% for result in page.object_list %}
-	    {% if result.object.title %}
-		<p>
-		    <a href="{{ result.object.get_absolute_url }}">{{ result.object.title }}</a>
-		</p>
-	    {% else %}
-		<p>
-		    <a href="{{ result.object.get_absolute_url }}"><img src="{{ MEDIA_URL }}{{ result.object.thumbnail }}"/></a>
-		</p>
-	    {% endif %}
+	    <div id="productItem">
+		<a href="/store/{{ result.object.product_group.store.account_name }}/product/{{ product.id }}/">
+		    <img src="{{ MEDIA_URL }}{{ result.object.thumbnail }}"/>
+		    <div class="clear"></div>
+		    <span>{{ result.object.name }}<br/><b>{{ result.object.product_group.store.name }}</b></a></span>
+		<h2>{{ result.object.price }}</h2>
+	    </div>
 	{% empty %}
 	    <p>No results found.</p>
 	{% endfor %}

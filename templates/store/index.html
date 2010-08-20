@@ -38,7 +38,8 @@
 	    <a href="/store/{{ store.account_name }}/product/{{ product.id }}/">
 		<img src="{{ MEDIA_URL }}{{ product.thumbnail }}"/>
 		<div class="clear"></div>
-		<span>{{ product.name }}<br/><b>{{ product.product_group.store.name }}</b></a></span>
+		<span>{{ product.name }}<br/></span>
+	    </a>
 	    <h2>{{ product.price }}</h2>
 	</div>
     {% endfor %}
