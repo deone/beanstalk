@@ -7,6 +7,6 @@ sys.stdout = sys.stderr
 sys.path.append("/usr/local/www")
 sys.path.append("/usr/local/www/pay4memall")
 
-os.environ["DJANGO_SETTINGS_MODULE"] = "pay4memall.settings"
+os.environ["DJANGO_SETTINGS_MODULE"] = "pay4memall.settings_live"
 
 application = django.core.handlers.wsgi.WSGIHandler()

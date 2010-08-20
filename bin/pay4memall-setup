@@ -13,6 +13,9 @@ python /usr/local/www/pay4memall/manage.py syncdb || exit
 echo -n "Inserting test data..."
 mysql -u root -p < /var/lib/pay4memall/sql/data.sql || exit
 
+echo -n "Creating search index containers..."
+mkdir /home/deone/pay4memall_index /home/deone/whoosh_search_indexes || exit
+
 echo -n "Restarting Web Server..."
 apachectl restart
 
