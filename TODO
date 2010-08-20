@@ -13,6 +13,7 @@ OPTIMIZATION
 * Calling a javascript function in form action. Is it not bad practice?
 * Use model get_absolute_url() instead of explicitly-defined links in templates.
 * As a temporary alternative to bulk products upload, we might use formsets to enable merchants upload more than one product at a time.
+* Store Search.
 
 FEATURES
 * Unit Testing (models/views)**.
@@ -29,15 +30,16 @@ BUGS
 * Foreign key relationship between mall Category and store Product.
 * Implement edit and delete in shopping cart.
 * Plugin email and sms functionality.
+* Let's not use ajax for now.
+
 Admin customization.
 - Store owner shouldn't:
   * Specify store when adding or changing a product group.
   * See other stores' product groups when adding or changing a product.
   * See other stores' products when adding or changing a product detail.
 
-- Store owner should:
-  * Be able to view his ordered items below order.
+- Remove "Save" bar and change "Change Order" to "View Order" on order change form.
 
 FEATURES
-* Search - Mall and Store**. Don't forget to include a cron job file that runs './manage.py update_index' periodically.
+* Include a cron job file that runs './manage.py update_index' periodically.
 * Delivery to be handled by NIPOST, let's have email functionality for that, per transaction.
