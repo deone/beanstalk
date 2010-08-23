@@ -14,6 +14,7 @@ OPTIMIZATION
 * Use model get_absolute_url() instead of explicitly-defined links in templates.
 * As a temporary alternative to bulk products upload, we might use formsets to enable merchants upload more than one product at a time.
 * Store Search.
+* ShoppingCartForm isn't supposed to be in store/forms.py.
 
 FEATURES
 * Unit Testing (models/views)**.
