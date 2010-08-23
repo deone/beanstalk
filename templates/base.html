@@ -40,11 +40,12 @@
 	<div id="nav">
 	    <ul>
 		<li><a id="home_link" href="/"><img src="{{ MEDIA_URL }}img/home.gif"  alt="HOME" /></a></li>
-		<li><a href="#">GROCERIES</a></li>
-		<li><a href="#">ELECTRONICS</a></li>
-		<li><a href="#">MOBILE PHONES</a></li>
+		{% for department in departments %}
+		    <li><a href="#">{{ department }}</a></li>
+		{% endfor %}
 		<div class="clear"></div>
 	    </ul>
+	    
 	    <div id="selectMenu">
 		{{ form_set.store_select_form }}
 		{{ form_set.dept_select_form }}

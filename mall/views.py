@@ -1,6 +1,7 @@
-from django.shortcuts import render_to_response, get_object_or_404, redirect
+from django.shortcuts import render_to_response, get_object_or_404, get_list_or_404, redirect
 from django.template import RequestContext
 
+from mall.models import Department
 from store.models import Product
 import helpers as h
 import all_forms as af
@@ -11,12 +12,15 @@ import random
 def index(request, template="mall/index.html"):
     try:
 	products = random.sample([product for product in Product.objects.all()], 8)
+	departments = Department.objects.all()
     except ValueError:
 	products = None
+	departments = None
 
     return render_to_response(template, {
 	    "form_set": af.mall_forms,
 	    "products": products,
+	    "departments": departments
     }, context_instance=RequestContext(request))
 
 @h.json_response
