@@ -20,4 +20,8 @@ class StoreSorterForm(forms.Form):
     sort_items = forms.ChoiceField(label="", choices=SORT_CHOICES)
 
 class ShoppingCartForm(forms.Form):
-    quantity = forms.IntegerField()
+    quantity = forms.IntegerField(label="QTY")
+
+    def clean(self):
+	if self.cleaned_data["quantity"] < 1:
+	    raise forms.ValidationError("Quantity cannot be zero or less")
