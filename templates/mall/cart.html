@@ -61,18 +61,18 @@
 	    </p>
 	    <span><a href="#">Edit Address</a></span>
 	</div>
-	<div class="check">
-	    {% if not user.get_profile.delivery_address %}
-		<form id="checkout" action="javascript:checkOut();">
-		    <a href="/"><img src="{{ MEDIA_URL }}img/contShop.jpg"/></a>
-			<input id="checkout_btn" type="submit" style="width: 166px; height: 36px; margin: 0px; border: none; background: url('{{ MEDIA_URL }}img/chkout2.jpg')" value=""/>
-		</form>
-	    {% else %}
-		<form id="pay" action="javascript:pay();">
-		    <a href="/"><img src="{{ MEDIA_URL }}img/contShop.jpg"/></a>
-			<input id="checkout_btn" type="submit" style="width: 190px; height: 43px; margin: 0px; border: none; background: url('{{ MEDIA_URL }}img/pay.jpg')" value=""/>
-		</form>
-	    {% endif %}
+	<br/>
+	{% if not user.get_profile.delivery_address %}
+	    <form action="javascript:checkOut();">
+		<input type="submit" value="" class="chkoutBtn"/>
+	    </form>
+	{% else %}
+	    <form action="javascript:pay();">
+		<input type="submit" value="" class="payBtn"/>
+	    </form>
+	{% endif %}
+	<div class="continue">
+	    <a href="/"><img src="{{ MEDIA_URL }}img/contShop.jpg" alt="Continue Shopping"/></a>
 	</div>
 	<div class="clear"></div>
     </div>

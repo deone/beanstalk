@@ -74,5 +74,36 @@
 #cartPreview .totalCost{ width:100px; margin-left:10px; float:left; text-align:right;}
 
 #cartPreview .shippingAdd{ padding:0px; width:300px; float:left; margin-bottom:10px;}
-#cartPreview .shippingAdd  span a{ color:#2768a3; font-style:italic;}
-#cartPreview .check{ float:right; margin-top:10px;}
+#cartPreview .shippingAdd  span	a   {
+    color:#2768a3;
+    font-style:italic;
+}
+#cartPreview .check {
+    float:right;
+    margin-top:10px;
+}
+#cartPreview form   {
+    float: right;
+    margin-left: 0px;
+}
+#cartPreview .continue	{
+    float: right;
+    width: 200px;
+}
+.chkoutBtn, .conShopp, .payBtn, .saveBtn    {
+    width: 192px;
+    height: 40px;
+    border: none;
+}
+.chkoutBtn  {
+    background: url("/site_media/img/chkout2.jpg") no-repeat left top;
+}
+.conShopp   {
+    background: url("/site_media/img/contShop.jpg") no-repeat left top;
+}
+.payBtn	{
+    background: url("/site_media/img/pay.jpg") no-repeat left top;
+}
+.saveBtn    {
+    background: url("/site_media/img/save.jpg") no-repeat left top;
+}
