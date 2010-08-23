@@ -38,7 +38,7 @@
 	</div>
 	{% for item in shopping_cart.items %}
 	<div class="item">
-	    <div class="del"><img src="{{ MEDIA_URL }}img/cartPreviewDelete.jpg"/></div>
+	    <div class="del"><a href="/cart/delete/{{ item.id }}/"><img src="{{ MEDIA_URL }}img/cartPreviewDelete.jpg"/></a></div>
 	    <div class="thumbnail"><img src="{{ MEDIA_URL }}{{ item.thumbnail }}" style="width:62px; height: 62px;"/></div><br />
 	    <div class="title"><a href="#">{{ item.name }}</a></div>
 	    <div class="store">{{ item.product_group.store.name }}</div>

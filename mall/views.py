@@ -1,4 +1,4 @@
-from django.shortcuts import render_to_response, get_object_or_404
+from django.shortcuts import render_to_response, get_object_or_404, redirect
 from django.template import RequestContext
 
 from store.models import Product
@@ -71,3 +71,7 @@ def preview_cart(request, template="mall/cart.html"):
 	    "form_set": af.mall_forms,
 	    "shopping_cart": shopping_cart,
     }, context_instance=RequestContext(request))
+
+def delete_from_cart(request, product_id):
+    del request.session[product_id]
+    return redirect("/cart/preview/")

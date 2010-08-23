@@ -17,6 +17,7 @@ urlpatterns = patterns('',
     (r'^$', mall.views.index),
     (r'^cart/details/$', mall.views.show_cart_details),
     (r'^cart/preview/$', mall.views.preview_cart),
+    (r'^cart/delete/(?P<product_id>\d+)/$', mall.views.delete_from_cart),
     # Account
     (r'^account/', include('account.urls')),
     # Order
