@@ -5,6 +5,7 @@ from django.core.paginator import Paginator, InvalidPage, EmptyPage
 from django.conf import settings
 
 from store.models import *
+from store.forms import ShoppingCartForm
 
 import helpers as h
 import all_forms as af
@@ -59,9 +60,30 @@ def display_product_group(request, store_name, product_group_id, template="store
 	    "form_set": af.store_forms,
     }, context_instance=RequestContext(request))
 
-def display_product(request, store_name, product_id, template="store/product.html"):
+def display_product(request, store_name, product_id, template="store/product.html", form_class=ShoppingCartForm):
+    if request.method == "POST":
+	form = ShoppingCartForm(request.POST)
+	if form.is_valid():
+	    quantity = request.POST["quantity"]
+	    price = get_object_or_404(Product, pk=product_id).price
+
+	    cart_item = []
+	    cart_item.append(int(quantity))
+	    cart_item.append(float(price))
+
+	    try:
+		product_detail = request.session[product_id]
+		new_quantity = product_detail[0] + int(quantity)
+		product_detail[0] = new_quantity
+		request.session[product_id] = product_detail
+	    except KeyError:
+		request.session[product_id] = cart_item
+    else:
+	form = ShoppingCartForm()
+
     product = get_object_or_404(Product, pk=product_id)
     store = get_object_or_404(Store, pk=product.product_group.store_id)
+    af.store_forms["shopping_cart_form"] = form
 
     return render_to_response(template, {
 	    "store": store,

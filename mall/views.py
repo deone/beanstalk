@@ -20,28 +20,6 @@ def index(request, template="mall/index.html"):
     }, context_instance=RequestContext(request))
 
 @h.json_response
-def add_to_cart(request, product_id, form_class=ShoppingCartForm):
-    form = form_class(request.POST)
-
-    if form.is_valid():
-	quantity = request.POST["quantity"]
-	price = get_object_or_404(Product, pk=product_id).price
-
-	cart_item = []
-	cart_item.append(int(quantity))
-	cart_item.append(float(price))
-
-	try:
-	    product_detail = request.session[product_id]
-	    new_quantity = product_detail[0] + int(quantity)
-	    product_detail[0] = new_quantity
-	    request.session[product_id] = product_detail
-	except KeyError:
-	    request.session[product_id] = cart_item
-
-	return ("boolean", True)
-
-@h.json_response
 def show_cart_details(request):
     if request.session._session.has_key("testcookie"):
 	request.session.delete_test_cookie()

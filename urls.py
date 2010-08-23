@@ -15,7 +15,6 @@ import order.views
 urlpatterns = patterns('',
     # Mall
     (r'^$', mall.views.index),
-    (r'^product/(?P<product_id>\d+)/add_to_cart/$', mall.views.add_to_cart),
     (r'^cart/details/$', mall.views.show_cart_details),
     (r'^cart/preview/$', mall.views.preview_cart),
     # Account
