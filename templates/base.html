@@ -41,7 +41,7 @@
 	    <ul>
 		<li><a id="home_link" href="/"><img src="{{ MEDIA_URL }}img/home.gif"  alt="HOME" /></a></li>
 		{% for department in departments %}
-		    <li><a href="#">{{ department }}</a></li>
+		    <li><a href="/department/{{ department.id }}">{{ department }}</a></li>
 		{% endfor %}
 		<div class="clear"></div>
 	    </ul>

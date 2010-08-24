@@ -2,9 +2,9 @@
 
 {% block sidebar %}
     <div id="storeLogo"><a href="#"><img src="{{ MEDIA_URL }}{{ store.logo }}" alt="{{ store.name }}"></a></div>
-    <form id="store_search">
+    <!--<form id="store_search">
 	{{ form_set.store_search_form.query }}
-    </form>
+    </form>-->
     <ul>
 	{% for pg in store.productgroup_set.all %}
 	    <li><a class="cat" href="/store/{{ pg.store.account_name }}/browse/{{ pg.id }}/">{{ pg.name }}</a></li>

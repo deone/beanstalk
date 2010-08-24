@@ -1,5 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import User
+from mall.models import Category
 
 from pay4memall.abstract_model import CommonInfo
 
@@ -34,6 +35,7 @@ class ProductGroup(CommonInfo):
 
 class Product(CommonInfo):
     product_group = models.ForeignKey(ProductGroup)
+    category = models.ForeignKey(Category)
     thumbnail = models.ImageField(upload_to="products/thumbs")
     large_image = models.ImageField(upload_to="products/large")
     price = models.DecimalField(max_digits=20, decimal_places=2)

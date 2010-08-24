@@ -114,7 +114,7 @@ CREATE TABLE `auth_message` (
   `message` longtext NOT NULL,
   PRIMARY KEY  (`id`),
   KEY `auth_message_403f60f` (`user_id`)
-) ENGINE=MyISAM AUTO_INCREMENT=43 DEFAULT CHARSET=latin1;
+) ENGINE=MyISAM AUTO_INCREMENT=47 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -184,7 +184,7 @@ CREATE TABLE `auth_user` (
 
 LOCK TABLES `auth_user` WRITE;
 /*!40000 ALTER TABLE `auth_user` DISABLE KEYS */;
-INSERT INTO `auth_user` VALUES (1,'alwaysdeone@gmail.com','Oladayo','Osikoya','alwaysdeone@gmail.com','sha1$46282$94acc0d85cde3d2924651965dfc5e13847e44a87',1,1,1,'2010-08-20 11:51:25','2010-08-05 17:06:54'),(9,'segun@ade.co.uk','Segun','Ade','segun@ade.co.uk','sha1$8af64$ce332546917d7900b79ac54dfbbea68ccba50911',0,1,0,'2010-08-13 17:12:47','2010-08-13 17:12:47'),(3,'olu@olu.com','Olusegun','Obasanjo','olu@olu.com','sha1$2aad6$8534ba88d6e21aaedc6632ca08cb01ded5033c00',1,1,0,'2010-08-20 11:53:16','2010-08-06 09:32:14'),(10,'ade@olu.com','Ade','Olu','ade@olu.com','sha1$d9770$3f9dae1fe56c0794358dfe907bde04d6991e7d2e',0,1,0,'2010-08-13 17:30:40','2010-08-13 17:30:40'),(5,'seyi@seyi.com','Oluseyi','Adegoju','seyi@seyi.com','sha1$a2c5b$d48e941189e82eb111896cbf27725d19eab37cfc',1,1,0,'2010-08-16 16:07:11','2010-08-06 09:36:45'),(8,'deji@alade.com','Dayo','Ade','deji@alade.com','sha1$b5ed4$a8cdb3b47672ebf35299e0a4246295c8d953cf9c',0,1,0,'2010-08-18 08:18:50','2010-08-12 18:13:50');
+INSERT INTO `auth_user` VALUES (1,'alwaysdeone@gmail.com','Oladayo','Osikoya','alwaysdeone@gmail.com','sha1$46282$94acc0d85cde3d2924651965dfc5e13847e44a87',1,1,1,'2010-08-24 09:28:40','2010-08-05 17:06:54'),(9,'segun@ade.co.uk','Segun','Ade','segun@ade.co.uk','sha1$8af64$ce332546917d7900b79ac54dfbbea68ccba50911',0,1,0,'2010-08-13 17:12:47','2010-08-13 17:12:47'),(3,'olu@olu.com','Olusegun','Obasanjo','olu@olu.com','sha1$2aad6$8534ba88d6e21aaedc6632ca08cb01ded5033c00',1,1,0,'2010-08-23 18:33:53','2010-08-06 09:32:14'),(10,'ade@olu.com','Ade','Olu','ade@olu.com','sha1$d9770$3f9dae1fe56c0794358dfe907bde04d6991e7d2e',0,1,0,'2010-08-13 17:30:40','2010-08-13 17:30:40'),(5,'seyi@seyi.com','Oluseyi','Adegoju','seyi@seyi.com','sha1$a2c5b$d48e941189e82eb111896cbf27725d19eab37cfc',1,1,0,'2010-08-16 16:07:11','2010-08-06 09:36:45'),(8,'deji@alade.com','Dayo','Ade','deji@alade.com','sha1$b5ed4$a8cdb3b47672ebf35299e0a4246295c8d953cf9c',0,1,0,'2010-08-23 15:52:28','2010-08-12 18:13:50');
 /*!40000 ALTER TABLE `auth_user` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -262,7 +262,7 @@ CREATE TABLE `django_admin_log` (
   PRIMARY KEY  (`id`),
   KEY `django_admin_log_403f60f` (`user_id`),
   KEY `django_admin_log_1bb8f392` (`content_type_id`)
-) ENGINE=MyISAM AUTO_INCREMENT=44 DEFAULT CHARSET=latin1;
+) ENGINE=MyISAM AUTO_INCREMENT=48 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -271,7 +271,7 @@ CREATE TABLE `django_admin_log` (
 
 LOCK TABLES `django_admin_log` WRITE;
 /*!40000 ALTER TABLE `django_admin_log` DISABLE KEYS */;
-INSERT INTO `django_admin_log` VALUES (1,'2010-08-05 17:19:32',1,3,'1','alwaysdeone@gmail.com',2,'Changed username, first_name and last_name.'),(2,'2010-08-06 09:26:37',1,2,'1','Merchant',1,''),(3,'2010-08-06 09:32:14',1,3,'3','olu@olu.com',1,''),(4,'2010-08-06 09:33:03',1,3,'3','olu@olu.com',2,'Changed first_name, last_name, email, is_staff and groups.'),(5,'2010-08-06 09:35:34',1,3,'4','ade@ade.com',1,''),(6,'2010-08-06 09:35:58',1,3,'4','ade@ade.com',2,'Changed first_name, last_name, email, is_staff and groups.'),(7,'2010-08-06 09:36:45',1,3,'5','seyi@seyi.com',1,''),(8,'2010-08-06 09:37:11',1,3,'5','seyi@seyi.com',2,'Changed first_name, last_name, email, is_staff and groups.'),(9,'2010-08-06 09:48:38',1,9,'2','Fashion Dealer',1,''),(10,'2010-08-06 09:50:40',1,11,'1','Men\'s',1,''),(11,'2010-08-06 09:50:47',1,11,'2','Women\'s',1,''),(12,'2010-08-06 10:19:48',1,11,'2','Women\'s',3,''),(13,'2010-08-06 10:19:48',1,11,'1','Men\'s',3,''),(14,'2010-08-06 10:22:06',1,11,'1','Men\'s',1,''),(15,'2010-08-06 10:22:52',1,11,'2','Women\'s',1,''),(16,'2010-08-06 10:23:28',1,11,'3','Boy Toys',1,''),(17,'2010-08-06 10:23:46',1,11,'4','Coffee',1,''),(18,'2010-08-06 10:23:55',1,11,'5','Tea',1,''),(19,'2010-08-06 10:24:09',1,11,'6','Nokia',1,''),(20,'2010-08-06 10:33:09',1,11,'3','Boy Toys',3,''),(21,'2010-08-06 10:40:52',1,3,'2','alade@yahoo.com',2,'Changed is_staff.'),(22,'2010-08-06 10:41:22',1,9,'1','Fashion Dealer',3,''),(23,'2010-08-06 11:55:16',1,3,'2','alade@yahoo.com',3,''),(24,'2010-08-06 12:44:47',1,9,'3','Chigo Electronics',3,''),(25,'2010-08-06 12:45:24',1,3,'4','ade@ade.com',3,''),(26,'2010-08-06 12:50:27',1,2,'1','Merchant',3,''),(27,'2010-08-06 12:56:08',1,2,'2','Merchant',1,''),(28,'2010-08-06 12:56:22',1,3,'3','olu@olu.com',2,'Changed groups.'),(29,'2010-08-06 12:56:31',1,3,'5','seyi@seyi.com',2,'Changed groups.'),(30,'2010-08-09 08:49:38',1,2,'2','Merchant',2,'Changed permissions.'),(31,'2010-08-10 14:42:02',1,9,'1','Amaze Mobiles',1,''),(32,'2010-08-10 14:42:56',1,9,'2','The Grocery Shop',1,''),(33,'2010-08-10 14:43:14',1,11,'6','Nokia',2,'Changed store.'),(34,'2010-08-10 14:43:20',1,11,'5','Tea',2,'No fields changed.'),(35,'2010-08-10 14:43:24',1,11,'4','Coffee',2,'No fields changed.'),(36,'2010-08-13 16:23:22',1,2,'2','Merchant',2,'Changed permissions.'),(37,'2010-08-13 16:30:09',1,2,'2','Merchant',2,'Changed permissions.'),(38,'2010-08-13 16:31:25',1,2,'2','Merchant',2,'Changed permissions.'),(39,'2010-08-13 16:33:05',1,2,'2','Merchant',2,'Changed permissions.'),(40,'2010-08-13 16:39:03',1,2,'2','Merchant',2,'Changed permissions.'),(41,'2010-08-16 16:06:53',1,2,'2','Merchant',2,'Changed permissions.'),(42,'2010-08-18 12:14:43',1,21,'1','The Lame Man\'s story',1,''),(43,'2010-08-20 09:45:18',1,2,'2','Merchant',2,'Changed permissions.');
+INSERT INTO `django_admin_log` VALUES (1,'2010-08-05 17:19:32',1,3,'1','alwaysdeone@gmail.com',2,'Changed username, first_name and last_name.'),(2,'2010-08-06 09:26:37',1,2,'1','Merchant',1,''),(3,'2010-08-06 09:32:14',1,3,'3','olu@olu.com',1,''),(4,'2010-08-06 09:33:03',1,3,'3','olu@olu.com',2,'Changed first_name, last_name, email, is_staff and groups.'),(5,'2010-08-06 09:35:34',1,3,'4','ade@ade.com',1,''),(6,'2010-08-06 09:35:58',1,3,'4','ade@ade.com',2,'Changed first_name, last_name, email, is_staff and groups.'),(7,'2010-08-06 09:36:45',1,3,'5','seyi@seyi.com',1,''),(8,'2010-08-06 09:37:11',1,3,'5','seyi@seyi.com',2,'Changed first_name, last_name, email, is_staff and groups.'),(9,'2010-08-06 09:48:38',1,9,'2','Fashion Dealer',1,''),(10,'2010-08-06 09:50:40',1,11,'1','Men\'s',1,''),(11,'2010-08-06 09:50:47',1,11,'2','Women\'s',1,''),(12,'2010-08-06 10:19:48',1,11,'2','Women\'s',3,''),(13,'2010-08-06 10:19:48',1,11,'1','Men\'s',3,''),(14,'2010-08-06 10:22:06',1,11,'1','Men\'s',1,''),(15,'2010-08-06 10:22:52',1,11,'2','Women\'s',1,''),(16,'2010-08-06 10:23:28',1,11,'3','Boy Toys',1,''),(17,'2010-08-06 10:23:46',1,11,'4','Coffee',1,''),(18,'2010-08-06 10:23:55',1,11,'5','Tea',1,''),(19,'2010-08-06 10:24:09',1,11,'6','Nokia',1,''),(20,'2010-08-06 10:33:09',1,11,'3','Boy Toys',3,''),(21,'2010-08-06 10:40:52',1,3,'2','alade@yahoo.com',2,'Changed is_staff.'),(22,'2010-08-06 10:41:22',1,9,'1','Fashion Dealer',3,''),(23,'2010-08-06 11:55:16',1,3,'2','alade@yahoo.com',3,''),(24,'2010-08-06 12:44:47',1,9,'3','Chigo Electronics',3,''),(25,'2010-08-06 12:45:24',1,3,'4','ade@ade.com',3,''),(26,'2010-08-06 12:50:27',1,2,'1','Merchant',3,''),(27,'2010-08-06 12:56:08',1,2,'2','Merchant',1,''),(28,'2010-08-06 12:56:22',1,3,'3','olu@olu.com',2,'Changed groups.'),(29,'2010-08-06 12:56:31',1,3,'5','seyi@seyi.com',2,'Changed groups.'),(30,'2010-08-09 08:49:38',1,2,'2','Merchant',2,'Changed permissions.'),(31,'2010-08-10 14:42:02',1,9,'1','Amaze Mobiles',1,''),(32,'2010-08-10 14:42:56',1,9,'2','The Grocery Shop',1,''),(33,'2010-08-10 14:43:14',1,11,'6','Nokia',2,'Changed store.'),(34,'2010-08-10 14:43:20',1,11,'5','Tea',2,'No fields changed.'),(35,'2010-08-10 14:43:24',1,11,'4','Coffee',2,'No fields changed.'),(36,'2010-08-13 16:23:22',1,2,'2','Merchant',2,'Changed permissions.'),(37,'2010-08-13 16:30:09',1,2,'2','Merchant',2,'Changed permissions.'),(38,'2010-08-13 16:31:25',1,2,'2','Merchant',2,'Changed permissions.'),(39,'2010-08-13 16:33:05',1,2,'2','Merchant',2,'Changed permissions.'),(40,'2010-08-13 16:39:03',1,2,'2','Merchant',2,'Changed permissions.'),(41,'2010-08-16 16:06:53',1,2,'2','Merchant',2,'Changed permissions.'),(42,'2010-08-18 12:14:43',1,21,'1','The Lame Man\'s story',1,''),(43,'2010-08-20 09:45:18',1,2,'2','Merchant',2,'Changed permissions.'),(44,'2010-08-23 11:53:49',1,14,'1','Household Goods',1,''),(45,'2010-08-23 11:54:10',1,14,'2','Gadgets',1,''),(46,'2010-08-24 09:29:20',1,15,'1','Mobile Phones',1,''),(47,'2010-08-24 09:30:04',1,15,'2','Groceries',1,'');
 /*!40000 ALTER TABLE `django_admin_log` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -323,7 +323,7 @@ CREATE TABLE `django_session` (
 
 LOCK TABLES `django_session` WRITE;
 /*!40000 ALTER TABLE `django_session` DISABLE KEYS */;
-INSERT INTO `django_session` VALUES ('8deff680023854e0e2d3c211259a8765','gAJ9cQEoVRJfYXV0aF91c2VyX2JhY2tlbmRxAlUpZGphbmdvLmNvbnRyaWIuYXV0aC5iYWNrZW5k\ncy5Nb2RlbEJhY2tlbmRxA1UNX2F1dGhfdXNlcl9pZHEEigEDdS5iYzk4YTI3ODBhN2Y1YmQ3NjI5\nMWU3OGVmZjU5ZjMxNg==\n','2010-08-27 17:33:41'),('ba98f56ce1a725f1838e86b73ae0ebfc','gAJ9cQEoVRJfYXV0aF91c2VyX2JhY2tlbmRxAlUpZGphbmdvLmNvbnRyaWIuYXV0aC5iYWNrZW5k\ncy5Nb2RlbEJhY2tlbmRxA1UNX2F1dGhfdXNlcl9pZHEEigEDdS5iYzk4YTI3ODBhN2Y1YmQ3NjI5\nMWU3OGVmZjU5ZjMxNg==\n','2010-09-03 11:53:16');
+INSERT INTO `django_session` VALUES ('8deff680023854e0e2d3c211259a8765','gAJ9cQEoVRJfYXV0aF91c2VyX2JhY2tlbmRxAlUpZGphbmdvLmNvbnRyaWIuYXV0aC5iYWNrZW5k\ncy5Nb2RlbEJhY2tlbmRxA1UNX2F1dGhfdXNlcl9pZHEEigEDdS5iYzk4YTI3ODBhN2Y1YmQ3NjI5\nMWU3OGVmZjU5ZjMxNg==\n','2010-08-27 17:33:41'),('d4828fc242fbb1d489b21b3bb8aa19f0','gAJ9cQEoVRJfYXV0aF91c2VyX2JhY2tlbmRxAlUpZGphbmdvLmNvbnRyaWIuYXV0aC5iYWNrZW5k\ncy5Nb2RlbEJhY2tlbmRxA1UNX2F1dGhfdXNlcl9pZHEEigEBdS5iNTZkMWU5ZmE0MmI5ZmVkMGUz\nNjgxNTM3YTZjZjU1OQ==\n','2010-09-07 09:28:40');
 /*!40000 ALTER TABLE `django_session` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -342,7 +342,7 @@ CREATE TABLE `mall_category` (
   PRIMARY KEY  (`id`),
   UNIQUE KEY `name` (`name`),
   KEY `mall_category_2ae7390` (`department_id`)
-) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+) ENGINE=MyISAM AUTO_INCREMENT=3 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -351,6 +351,7 @@ CREATE TABLE `mall_category` (
 
 LOCK TABLES `mall_category` WRITE;
 /*!40000 ALTER TABLE `mall_category` DISABLE KEYS */;
+INSERT INTO `mall_category` VALUES (1,'Mobile Phones','',2),(2,'Groceries','',1);
 /*!40000 ALTER TABLE `mall_category` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -367,7 +368,7 @@ CREATE TABLE `mall_department` (
   `description` longtext NOT NULL,
   PRIMARY KEY  (`id`),
   UNIQUE KEY `name` (`name`)
-) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+) ENGINE=MyISAM AUTO_INCREMENT=3 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -376,6 +377,7 @@ CREATE TABLE `mall_department` (
 
 LOCK TABLES `mall_department` WRITE;
 /*!40000 ALTER TABLE `mall_department` DISABLE KEYS */;
+INSERT INTO `mall_department` VALUES (1,'Household Goods',''),(2,'Gadgets','');
 /*!40000 ALTER TABLE `mall_department` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -425,7 +427,7 @@ CREATE TABLE `order_order` (
   `validation_number` varchar(20) default NULL,
   PRIMARY KEY  (`id`),
   KEY `order_order_47799232` (`store_id`)
-) ENGINE=MyISAM AUTO_INCREMENT=5 DEFAULT CHARSET=latin1;
+) ENGINE=MyISAM AUTO_INCREMENT=6 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -434,7 +436,7 @@ CREATE TABLE `order_order` (
 
 LOCK TABLES `order_order` WRITE;
 /*!40000 ALTER TABLE `order_order` DISABLE KEYS */;
-INSERT INTO `order_order` VALUES (1,1,'201081115321227','260500.00',0,'2010-08-17 12:36:38','2010-08-11 15:32:39','7366679184'),(2,2,'201081115321227','2530.00',0,'2010-08-17 12:36:38','2010-08-11 15:32:39','7366679184'),(3,2,'20108188175927','1080.00',1,'2010-08-18 08:17:59',NULL,NULL),(4,2,'201081881854571','600.00',1,'2010-08-18 08:18:54',NULL,NULL);
+INSERT INTO `order_order` VALUES (1,1,'201081115321227','260500.00',0,'2010-08-17 12:36:38','2010-08-11 15:32:39','7366679184'),(2,2,'201081115321227','2530.00',0,'2010-08-17 12:36:38','2010-08-11 15:32:39','7366679184'),(3,2,'20108188175927','1080.00',1,'2010-08-18 08:17:59',NULL,NULL),(4,2,'201081881854571','600.00',1,'2010-08-18 08:18:54',NULL,NULL),(5,2,'2010823183320553','1020.00',1,'2010-08-23 18:33:21',NULL,NULL);
 /*!40000 ALTER TABLE `order_order` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -456,7 +458,7 @@ CREATE TABLE `order_ordereditem` (
   KEY `order_ordereditem_7cc8fcf5` (`order_id`),
   KEY `order_ordereditem_e99ab0` (`buyer_id`),
   KEY `order_ordereditem_44bdf3ee` (`product_id`)
-) ENGINE=MyISAM AUTO_INCREMENT=11 DEFAULT CHARSET=latin1;
+) ENGINE=MyISAM AUTO_INCREMENT=12 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -465,7 +467,7 @@ CREATE TABLE `order_ordereditem` (
 
 LOCK TABLES `order_ordereditem` WRITE;
 /*!40000 ALTER TABLE `order_ordereditem` DISABLE KEYS */;
-INSERT INTO `order_ordereditem` VALUES (1,1,8,26,1,'80500.00'),(2,1,8,27,2,'180000.00'),(3,2,8,17,4,'1000.00'),(4,2,8,21,3,'1530.00'),(10,4,8,16,3,'600.00'),(9,3,8,22,2,'1080.00');
+INSERT INTO `order_ordereditem` VALUES (1,1,8,26,1,'80500.00'),(2,1,8,27,2,'180000.00'),(3,2,8,17,4,'1000.00'),(4,2,8,21,3,'1530.00'),(11,5,8,21,2,'1020.00'),(10,4,8,16,3,'600.00'),(9,3,8,22,2,'1080.00');
 /*!40000 ALTER TABLE `order_ordereditem` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -473,33 +475,13 @@ UNLOCK TABLES;
 -- Table structure for table `store_product`
 --
 
-DROP TABLE IF EXISTS `store_product`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `store_product` (
-  `id` int(11) NOT NULL auto_increment,
-  `name` varchar(100) NOT NULL,
-  `description` longtext NOT NULL,
-  `product_group_id` int(11) NOT NULL,
-  `thumbnail` varchar(100) NOT NULL,
-  `large_image` varchar(100) NOT NULL,
-  `price` decimal(20,2) NOT NULL,
-  `quantity` int(11) NOT NULL,
-  `date_added` datetime NOT NULL,
-  `last_modified` datetime NOT NULL,
-  PRIMARY KEY  (`id`),
-  UNIQUE KEY `name` (`name`),
-  KEY `store_product_67dad9bc` (`product_group_id`)
-) ENGINE=MyISAM AUTO_INCREMENT=28 DEFAULT CHARSET=latin1;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
 --
 -- Dumping data for table `store_product`
 --
 
 LOCK TABLES `store_product` WRITE;
 /*!40000 ALTER TABLE `store_product` DISABLE KEYS */;
-INSERT INTO `store_product` VALUES (16,'Tassimo T-Disk: Starbucks Coffee (Case of 5 packages; 60 T-Discs Total)','The ingenious Tassimo Disc (T-DISC) is designed to work exclusively with the Tassimo Hot Beverage System. Sealed to protect the precious flavors inside. Blend produces a medium bodied, smooth and well-balanced coffee with that distinct nutty flavor',4,'products/thumbs/41LnP4kC5UL._SL160_AA160_.jpg','products/large/41LnP4kC5UL._SL500_AA300_.jpg','200.00',5,'2010-08-02 14:37:12','2010-08-02 14:37:14'),(17,'Tassimo T-Disk: Gevalia Coffee (Case of 5 packages; 80 T-Discs Total)','The ingenious Tassimo Disc (T-DISC) is designed to work exclusively with the Tassimo Hot Beverage System. Sealed to protect the precious flavors inside. Blend produces a medium bodied, smooth and well-balanced coffee with that distinct nutty flavor.',4,'products/thumbs/41rpj8UX1ZL._SL160_AA160_.jpg','products/large/41rpj8UX1ZL._SL500_AA300_.jpg','250.00',5,'2010-08-02 14:37:29','2010-08-02 14:37:31'),(18,'Tassimo T-Disk: Verona Coffee (Case of 5 packages; 60 T-Discs Total)','',4,'products/thumbs/41Xm0Z6gOHL._SL160_AA160_.jpg','products/large/41Xm0Z6gOHL._SL500_AA300_.jpg','245.00',5,'2010-08-02 14:37:46','2010-08-02 14:37:48'),(19,'Tassimo T-Disk: House Blend Coffee (Case of 5 packages; 60 T-Discs Total)','',4,'products/thumbs/413ezeSOr8L._SL160_AA160_.jpg','products/large/413ezeSOr8L._SL500_AA300_.jpg','280.00',5,'2010-08-02 14:38:00','2010-08-02 14:38:02'),(20,'Twinings English Breakfast Tea, K-Cups for Keurig Brewers, 25-Count Boxes (Pack of 2)','Case of two boxes, each containing 240 bags of black tea (total of 480 tea bags). Made from a blend of Assam, Ceylon, and Kenyan black teas. Pyramid-shaped tea bags allow more room for tea leaves to soak into water. Brews a refreshing, robust cup with little caffeine and plenty of antioxidants. Contains about half the caffeine of a similar amount of coffee.',5,'products/thumbs/51VuLAPfcL._SL160_AA160_.jpg','products/large/51VuLAPfcL._SL500_AA300_PIbundle-2TopRight00_AA300_SH20_.jpg','300.00',5,'2010-08-02 14:38:17','2010-08-02 14:38:18'),(21,'PG Tips Black Tea, Pyramid Tea Bags, 240-Count Boxes (Pack of 2)','Case of two boxes, each containing 240 bags of black tea (total of 480 tea bags). Made from a blend of Assam, Ceylon, and Kenyan black teas. Pyramid-shaped tea bags allow more room for tea leaves to soak into water. Brews a refreshing, robust cup with little caffeine and plenty of antioxidants. Contains about half the caffeine of a similar amount of coffee.',5,'products/thumbs/51HZ9Y68N7L._SL160_AA160_.jpg','products/large/51HZ9Y68N7L._SL500_AA300_PIbundle-2TopRight00_AA300_SH20_.jpg','510.00',5,'2010-08-02 14:38:34','2010-08-02 14:38:36'),(22,'Organic Mother\'s Milk Herbal Tea, 16-Count Wrapped Tea Bags (Pack of 6)','Case of two boxes, each containing 240 bags of black tea (total of 480 tea bags). Made from a blend of Assam, Ceylon, and Kenyan black teas. Pyramid-shaped tea bags allow more room for tea leaves to soak into water. Brews a refreshing, robust cup with little caffeine and plenty of antioxidants. Contains about half the caffeine of a similar amount of coffee',5,'products/thumbs/51N7tMjcX3L._SL160_AA160_.jpg','products/large/51N7tMjcX3L._SL500_AA300_PIbundle-6TopRight00_AA300_SH20_.jpg','540.00',5,'2010-08-02 14:38:50','2010-08-02 14:38:52'),(23,'Twinings Earl Grey Tea K-Cups for Keurig Brewers, 25-Count Box (Pack of 2)','Case of two boxes, each containing 240 bags of black tea (total of 480 tea bags). Made from a blend of Assam, Ceylon, and Kenyan black teas. Pyramid-shaped tea bags allow more room for tea leaves to soak into water. Brews a refreshing, robust cup with little caffeine and plenty of antioxidants. Contains about half the caffeine of a similar amount of coffee',5,'products/thumbs/51-eWIYiZXL._SL160_AA160_.jpg','products/large/51-eWIYiZXL._SL500_AA300_PIbundle-2TopRight00_AA300_SH20_.jpg','600.00',5,'2010-08-02 14:39:05','2010-08-02 14:39:06'),(24,'Nokia 5530 XpressMusic','The Nokia 5530 XpressMusic is a thin music phone with an easy-to-use touch interface.',6,'products/thumbs/phone5.jpg','products/large/img2.jpg','55000.00',5,'2010-08-02 14:39:17','2010-08-02 14:39:19'),(25,'Nokia E5','Connect seamlessly to the people in your professional and personal lives through IM, email and social networks.',6,'products/thumbs/phone1.jpg','products/large/img1.jpg','64650.00',5,'2010-08-02 14:39:33','2010-08-02 14:39:43'),(26,'Nokia N85','Connect seamlessly to the people in your professional and personal lives through IM, email and social networks. ',6,'products/thumbs/phone3.jpg','products/large/img4.jpg','80500.00',5,'2010-08-02 14:39:59','2010-08-02 14:40:01'),(27,'Nokia N900','Experience the speed and raw power of the high-performance N900 mobile computer.',6,'products/thumbs/phone2.jpg','products/large/img3.jpg','90000.00',5,'2010-08-02 14:40:12','2010-08-02 14:40:14');
+INSERT INTO `store_product` VALUES (16,'Tassimo T-Disk: Starbucks Coffee (Case of 5 packages; 60 T-Discs Total)','The ingenious Tassimo Disc (T-DISC) is designed to work exclusively with the Tassimo Hot Beverage System. Sealed to protect the precious flavors inside. Blend produces a medium bodied, smooth and well-balanced coffee with that distinct nutty flavor',4,2,'products/thumbs/41LnP4kC5UL._SL160_AA160_.jpg','products/large/41LnP4kC5UL._SL500_AA300_.jpg','200.00',5,'2010-08-02 14:37:12','2010-08-02 14:37:14'),(17,'Tassimo T-Disk: Gevalia Coffee (Case of 5 packages; 80 T-Discs Total)','The ingenious Tassimo Disc (T-DISC) is designed to work exclusively with the Tassimo Hot Beverage System. Sealed to protect the precious flavors inside. Blend produces a medium bodied, smooth and well-balanced coffee with that distinct nutty flavor.',4,2,'products/thumbs/41rpj8UX1ZL._SL160_AA160_.jpg','products/large/41rpj8UX1ZL._SL500_AA300_.jpg','250.00',5,'2010-08-02 14:37:29','2010-08-02 14:37:31'),(18,'Tassimo T-Disk: Verona Coffee (Case of 5 packages; 60 T-Discs Total)','',4,2,'products/thumbs/41Xm0Z6gOHL._SL160_AA160_.jpg','products/large/41Xm0Z6gOHL._SL500_AA300_.jpg','245.00',5,'2010-08-02 14:37:46','2010-08-02 14:37:48'),(19,'Tassimo T-Disk: House Blend Coffee (Case of 5 packages; 60 T-Discs Total)','',4,2,'products/thumbs/413ezeSOr8L._SL160_AA160_.jpg','products/large/413ezeSOr8L._SL500_AA300_.jpg','280.00',5,'2010-08-02 14:38:00','2010-08-02 14:38:02'),(20,'Twinings English Breakfast Tea, K-Cups for Keurig Brewers, 25-Count Boxes (Pack of 2)','Case of two boxes, each containing 240 bags of black tea (total of 480 tea bags). Made from a blend of Assam, Ceylon, and Kenyan black teas. Pyramid-shaped tea bags allow more room for tea leaves to soak into water. Brews a refreshing, robust cup with little caffeine and plenty of antioxidants. Contains about half the caffeine of a similar amount of coffee.',5,2,'products/thumbs/51VuLAPfcL._SL160_AA160_.jpg','products/large/51VuLAPfcL._SL500_AA300_PIbundle-2TopRight00_AA300_SH20_.jpg','300.00',5,'2010-08-02 14:38:17','2010-08-02 14:38:18'),(21,'PG Tips Black Tea, Pyramid Tea Bags, 240-Count Boxes (Pack of 2)','Case of two boxes, each containing 240 bags of black tea (total of 480 tea bags). Made from a blend of Assam, Ceylon, and Kenyan black teas. Pyramid-shaped tea bags allow more room for tea leaves to soak into water. Brews a refreshing, robust cup with little caffeine and plenty of antioxidants. Contains about half the caffeine of a similar amount of coffee.',5,2,'products/thumbs/51HZ9Y68N7L._SL160_AA160_.jpg','products/large/51HZ9Y68N7L._SL500_AA300_PIbundle-2TopRight00_AA300_SH20_.jpg','510.00',5,'2010-08-02 14:38:34','2010-08-02 14:38:36'),(22,'Organic Mother\'s Milk Herbal Tea, 16-Count Wrapped Tea Bags (Pack of 6)','Case of two boxes, each containing 240 bags of black tea (total of 480 tea bags). Made from a blend of Assam, Ceylon, and Kenyan black teas. Pyramid-shaped tea bags allow more room for tea leaves to soak into water. Brews a refreshing, robust cup with little caffeine and plenty of antioxidants. Contains about half the caffeine of a similar amount of coffee',5,2,'products/thumbs/51N7tMjcX3L._SL160_AA160_.jpg','products/large/51N7tMjcX3L._SL500_AA300_PIbundle-6TopRight00_AA300_SH20_.jpg','540.00',5,'2010-08-02 14:38:50','2010-08-02 14:38:52'),(23,'Twinings Earl Grey Tea K-Cups for Keurig Brewers, 25-Count Box (Pack of 2)','Case of two boxes, each containing 240 bags of black tea (total of 480 tea bags). Made from a blend of Assam, Ceylon, and Kenyan black teas. Pyramid-shaped tea bags allow more room for tea leaves to soak into water. Brews a refreshing, robust cup with little caffeine and plenty of antioxidants. Contains about half the caffeine of a similar amount of coffee',5,2,'products/thumbs/51-eWIYiZXL._SL160_AA160_.jpg','products/large/51-eWIYiZXL._SL500_AA300_PIbundle-2TopRight00_AA300_SH20_.jpg','600.00',5,'2010-08-02 14:39:05','2010-08-02 14:39:06'),(24,'Nokia 5530 XpressMusic','The Nokia 5530 XpressMusic is a thin music phone with an easy-to-use touch interface.',6,1,'products/thumbs/phone5.jpg','products/large/img2.jpg','55000.00',5,'2010-08-02 14:39:17','2010-08-02 14:39:19'),(25,'Nokia E5','Connect seamlessly to the people in your professional and personal lives through IM, email and social networks.',6,1,'products/thumbs/phone1.jpg','products/large/img1.jpg','64650.00',5,'2010-08-02 14:39:33','2010-08-02 14:39:43'),(26,'Nokia N85','Connect seamlessly to the people in your professional and personal lives through IM, email and social networks. ',6,1,'products/thumbs/phone3.jpg','products/large/img4.jpg','80500.00',5,'2010-08-02 14:39:59','2010-08-02 14:40:01'),(27,'Nokia N900','Experience the speed and raw power of the high-performance N900 mobile computer.',6,1,'products/thumbs/phone2.jpg','products/large/img3.jpg','90000.00',5,'2010-08-02 14:40:12','2010-08-02 14:40:14');
 /*!40000 ALTER TABLE `store_product` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -603,4 +585,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2010-08-20 15:15:13
+-- Dump completed on 2010-08-24  9:30:59

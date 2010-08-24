@@ -15,6 +15,9 @@ OPTIMIZATION
 * As a temporary alternative to bulk products upload, we might use formsets to enable merchants upload more than one product at a time.
 * Store Search.
 * ShoppingCartForm isn't supposed to be in store/forms.py.
+* Implement edit in shopping cart preview.
+* Disable checkout link if there're no items in shopping cart.
+* Use clearer urls. e.g. Instead of /department/1/view/, use /department/household-goods/view/
 
 FEATURES
 * Unit Testing (models/views)**.
@@ -27,11 +30,10 @@ Before We Launch - Beta
 BUGS
 * Urls cleanup, Production payment response url should be /payment/response/.
 * Use backend validation (strictly) for all form fields.
-* Disable checkout link if there're no items in shopping cart.
 * Foreign key relationship between mall Category and store Product.
-* Implement edit and delete in shopping cart.
 * Plugin email and sms functionality.
 * Let's not use ajax for now.
+* Notify user on successful addition to cart.
 
 Admin customization.
 - Store owner shouldn't:
