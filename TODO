@@ -18,6 +18,8 @@ OPTIMIZATION
 * Implement edit in shopping cart preview.
 * Disable checkout link if there're no items in shopping cart.
 * Use clearer urls. e.g. Instead of /department/1/view/, use /department/household-goods/view/
+* Split registration form into sub-units e.g. Personal Details, Login Details, e.t.c.
+* Set last_modified column when product changes.
 
 FEATURES
 * Unit Testing (models/views)**.
@@ -30,16 +32,9 @@ Before We Launch - Beta
 BUGS
 * Urls cleanup, Production payment response url should be /payment/response/.
 * Use backend validation (strictly) for all form fields.
-* Foreign key relationship between mall Category and store Product.
 * Plugin email and sms functionality.
 * Let's not use ajax for now.
 * Notify user on successful addition to cart.
-
-Admin customization.
-- Store owner shouldn't:
-  * Specify store when adding or changing a product group.
-  * See other stores' product groups when adding or changing a product.
-  * See other stores' products when adding or changing a product detail.
 
 - Remove "Save" bar and change "Change Order" to "View Order" on order change form.
 

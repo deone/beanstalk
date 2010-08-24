@@ -1,7 +1,8 @@
 from django.contrib import admin
 from store.models import *
+from store.forms import ProductGroupModelForm
 
-class ProductDetailInline(admin.StackedInline):
+class ProductDetailInline(admin.TabularInline):
     model = ProductDetail
 
 class ProductAdmin(admin.ModelAdmin):
@@ -13,13 +14,25 @@ class ProductAdmin(admin.ModelAdmin):
 	ProductDetailInline,
     ]
 
+    def formfield_for_foreignkey(self, db_field, request, **kwargs):
+	if db_field.name == "product_group":
+	    kwargs["queryset"] = ProductGroup.objects.filter(store=request.user.store)
+	    return db_field.formfield(**kwargs)
+	return super(ProductAdmin, self).formfield_for_foreignkey(db_field, request, **kwargs)
+
     def queryset(self, request):
 	qs = super(ProductAdmin, self).queryset(request)
 	if request.user.is_superuser:
 	    return qs
-	return qs.filter(product_group=request.user.store.productgroup_set.all())
-	
+	return qs.filter(product_group__store=request.user.store)
+
 class ProductGroupAdmin(admin.ModelAdmin):
+    form = ProductGroupModelForm
+
+    def save_model(self, request, obj, form, change):
+	obj.store = request.user.store
+	obj.save()
+	
     def queryset(self, request):
 	qs = super(ProductGroupAdmin, self).queryset(request)
 	if request.user.is_superuser:
@@ -27,6 +40,12 @@ class ProductGroupAdmin(admin.ModelAdmin):
 	return qs.filter(store__owner=request.user)
 
 class ProductDetailAdmin(admin.ModelAdmin):
+    def formfield_for_foreignkey(self, db_field, request, **kwargs):
+	if db_field.name == "product":
+	    kwargs["queryset"] = Product.objects.filter(product_group__store=request.user.store)
+	    return db_field.formfield(**kwargs)
+	return super(ProductDetailAdmin, self).formfield_for_foreignkey(db_field, request, **kwargs)
+
     def queryset(self, request):
 	qs = super(ProductDetailAdmin, self).queryset(request)
 	if request.user.is_superuser:

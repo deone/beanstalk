@@ -25,3 +25,8 @@ class ShoppingCartForm(forms.Form):
     def clean(self):
 	if self.cleaned_data["quantity"] < 1:
 	    raise forms.ValidationError("Quantity cannot be zero or less")
+
+class ProductGroupModelForm(forms.ModelForm):
+    class Meta:
+	model = ProductGroup
+	exclude = ("store",)
