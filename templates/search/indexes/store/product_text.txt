@@ -1,4 +1,6 @@
 {{ object.name }}
 {{ object.product_group }}
 {{ object.product_group.store }}
+{{ object.category }}
+{{ object.category.department }}
 {{ object.price }}
