@@ -6,30 +6,31 @@ from django.conf import settings
 from django.views.generic import list_detail
 
 from store.models import *
-from store.forms import ShoppingCartForm
+from store.forms import ShoppingCartForm, StoreSorterForm
 
 import helpers as h
-from all_forms import *
+from all_forms import base_forms
 
 def get_store(store_account_name):
     return get_object_or_404(Store, account_name__iexact=store_account_name)
 
+def get_common_context(store):
+    context = {"store": store}
+    context.update(base_forms)
+    return context
+
 def products_in_store(request, store_name):
     store = get_store(store_name)
-    extra_context = {"store": store}
-    extra_context.update(base_forms)
 
     return list_detail.object_list(
 	    request,
 	    queryset = Product.objects.filter(product_group__store=store).order_by("-date_added"),
 	    template_name = "store/index.html",
-	    extra_context = extra_context
+	    extra_context = get_common_context(store)
     )
 
 def product_detail(request, store_name, product_id):
     store = get_store(store_name)
-    extra_context = {"store": store}
-    extra_context.update(base_forms)
 
     if request.method == "POST":
 	form = ShoppingCartForm(request.POST)
@@ -51,7 +52,8 @@ def product_detail(request, store_name, product_id):
     else:
 	form = ShoppingCartForm()
 
-    extra_context.update({"shopping_cart_form": form})
+    context = get_common_context(store)
+    context.update({"shopping_cart_form": form})
 
     return list_detail.object_detail(
 	    request,
@@ -59,34 +61,25 @@ def product_detail(request, store_name, product_id):
 	    template_name = "store/product.html",
 	    template_object_name = "product",
 	    object_id = product_id,
-	    extra_context = extra_context
+	    extra_context = context,
     )
 
-def display_product_group(request, store_name, product_group_id, template="store/product_group.html"):
+def products_in_store_product_group(request, store_name, product_group_id):
+    store = get_store(store_name)
     product_group = get_object_or_404(ProductGroup, pk=product_group_id)
-    product_list = product_group.product_set.all()
-    product_list_length = product_list.count()
-    paginator = Paginator(product_list, settings.RESULTS_PER_PAGE)
+    context = get_common_context(store)
+    context.update(
+	    {
+		"product_list_length": product_group.product_set.count(),
+		"product_group": product_group,
+		"store_sorter_form": StoreSorterForm,
+	    }
+    )
 
-    try:
-	page = int(request.GET.get("page", "1"))
-    except ValueError:
-	page = 1
-
-    try:
-	products = paginator.page(page)
-    except (EmptyPage, InvalidPage):
-	products = paginator.page(paginator.num_pages)
-
-    if not products:
-	raise Http404
-
-    store = get_object_or_404(Store, pk=product_group.store_id)
-
-    return render_to_response(template, {
-	    "store": store,
-	    "product_group": product_group,
-	    "products": products,
-	    "product_list_length": product_list_length,
-	    "form_set": af.store_forms,
-    }, context_instance=RequestContext(request))
+    return list_detail.object_list(
+	    request,
+	    queryset = Product.objects.filter(product_group=product_group).order_by("-date_added"),
+	    template_name = "store/product_group.html",
+	    extra_context = context,
+	    paginate_by = 8,
+    )

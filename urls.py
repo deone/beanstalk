@@ -29,6 +29,7 @@ urlpatterns = patterns('',
     # This should read just products_in_store; using "from store.views import products_in_store"
     url(r'^store/(?P<store_name>\w+)/$', store.views.products_in_store, name="store_home"),
     url(r'^store/(?P<store_name>\w+)/product/(?P<product_id>\d+)/$', store.views.product_detail, name="product_detail"),
+    url(r'^store/(?P<store_name>\w+)/browse/(?P<product_group_id>\d+)/$', store.views.products_in_store_product_group, name="product_group_home"),
 
 
     (r'^departments/(?P<department_id>\d+)/$', mall.views.display_department),
@@ -36,7 +37,6 @@ urlpatterns = patterns('',
     (r'^cart/preview/$', mall.views.preview_cart),
     (r'^cart/delete/(?P<product_id>\d+)/$', mall.views.delete_from_cart),
     # Store
-    (r'^store/(?P<store_name>\w+)/browse/(?P<product_group_id>\d+)/$', store.views.display_product_group),
     # Account
     (r'^account/', include('account.urls')),
     # Order
