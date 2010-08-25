@@ -11,7 +11,7 @@
 	<h1>FEATURED PRODUCTS</h1>
 	{% for product in object_list %}
 	<div id="productItem">
-	    <a href="/store/{{ product.product_group.store.account_name }}/product/{{ product.id }}/">
+	    <a href="{{ product.get_absolute_url }}">
 		<img src="{{ MEDIA_URL }}{{ product.thumbnail }}"/>
 		<div class="clear"></div>
 		<span>{{ product.name }}<br/><b>{{ product.product_group.store.name }}</b></a></span>

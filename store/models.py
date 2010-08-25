@@ -43,6 +43,9 @@ class Product(CommonInfo):
     date_added = models.DateTimeField(default=datetime.datetime.now)
     last_modified = models.DateTimeField(default=datetime.datetime.now)
 
+    def get_absolute_url(self):
+	return "/store/%s/product/%s/" % (self.product_group.store.account_name, self.id)
+
     def __unicode__(self):
 	return self.name
 
