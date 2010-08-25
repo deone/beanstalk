@@ -1,7 +1,7 @@
 {% extends "store/index.html" %}
 
 {% block crumbs %}
-    <a href="/">Home</a> &rsaquo; <a href="/store/{{ product_group.store.account_name }}/">{{ product_group.store.name }}</a> &rsaquo; {{ product_group.name }}
+    <a href="{% url mall_home %}">Home</a> &rsaquo; <a href="{{ product_group.get_absolute_url }}">{{ product_group.store.name }}</a> &rsaquo; {{ product_group.name }}
 {% endblock %}
 
 {% block pagination %}

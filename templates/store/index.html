@@ -16,7 +16,7 @@
     <div id="breadCrum">
 	{% block crumbs %}
 	    <div id="url">
-		<a href="/">Home</a> &rsaquo; {{ store.name }}
+		<a href="{% url mall_home %}">Home</a> &rsaquo; {{ store.name }}
 	    </div>
 	{% endblock %}
 	{% block pagination %}{% endblock %}

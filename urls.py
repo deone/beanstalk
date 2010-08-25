@@ -28,8 +28,9 @@ urlpatterns = patterns('',
     url(r'^$', list_detail.object_list, product_info, name="mall_home"),
     # This should read just products_in_store; using "from store.views import products_in_store"
     url(r'^store/(?P<store_name>\w+)/$', store.views.products_in_store, name="store_home"),
-    url(r'^store/(?P<store_name>\w+)/product/(?P<product_id>\d+)/$', store.views.product_detail, name="product_detail"),
-    url(r'^store/(?P<store_name>\w+)/browse/(?P<product_group_id>\d+)/$', store.views.products_in_store_product_group, name="product_group_home"),
+    # I'm using get_absolute_url here instead of url names.
+    (r'^store/(?P<store_name>\w+)/product/(?P<product_id>\d+)/$', store.views.product_detail),
+    (r'^store/(?P<store_name>\w+)/browse/(?P<product_group_id>\d+)/$', store.views.products_in_store_product_group),
 
 
     (r'^departments/(?P<department_id>\d+)/$', mall.views.display_department),

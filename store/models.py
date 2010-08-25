@@ -26,6 +26,9 @@ class Store(CommonInfo):
 
 class ProductGroup(CommonInfo):
     store = models.ForeignKey(Store)
+
+    def get_absolute_url(self):
+	return "/store/%s/browse/%s/" % (self.store.account_name, self.id)
     
     def __unicode__(self):
 	return self.name
