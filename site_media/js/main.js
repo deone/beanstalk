@@ -1,7 +1,7 @@
 // Remove these mad hacks. Django should have a better way to do redirects.
 function redirectToRegister()	{
     redirectTo = document.location.pathname;
-    if (redirectTo == "/account/register/") {
+    if (redirectTo == "/account/register/" || redirectTo == "/account/login/") {
 	redirectTo = "/";
     }
     document.location = "/account/register/?redirect_to=" + redirectTo;
@@ -9,7 +9,7 @@ function redirectToRegister()	{
 
 function redirectToLogin()  {
     redirectTo = document.location.pathname;
-    if (redirectTo == "/account/login/") {
+    if (redirectTo == "/account/login/" || redirectTo == "/account/register/") {
 	redirectTo = "/";
     }
     document.location = "/account/login/?redirect_to=" + redirectTo;

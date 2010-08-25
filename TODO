@@ -26,7 +26,6 @@ OPTIMIZATION
 
 FEATURES
 * Unit Testing (models/views)**.
-* Image resizing algorithm**.
 * Bulk products upload.
 
 
@@ -37,10 +36,16 @@ BUGS
 * Use backend validation (strictly) for all form fields.
 * Plugin email and sms functionality.
 * Let's not use ajax for now.
-* Notify user on successful addition to cart.
-* Split registration form into sub-units e.g. Personal Details, Login Details, e.t.c.
 
 - Remove "Save" bar and change "Change Order" to "View Order" on order change form.
+
+URGENT
+======
+* User notification on add_to_cart().
+* Shopping cart quantity edit.
+* Image resizing.
+* Email store_owner on completion of transaction by buyer.
+* Split registration form into sub-units e.g. Personal Details, Login Details, e.t.c.
 
 FEATURES
 * Include a cron job file that runs './manage.py update_index' periodically.

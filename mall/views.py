@@ -3,11 +3,14 @@ from django.template import RequestContext
 
 from mall.models import Department
 from store.models import Product
+
 import helpers as h
-import all_forms as af
+from all_forms import base_forms
 from store.forms import ShoppingCartForm
 
 import random
+
+CONTEXT = base_forms
 
 DEPARTMENTS = Department.objects.all()
 HEADER_DEPARTMENTS = random.sample([department for department in Department.objects.all()], 2)
@@ -16,7 +19,6 @@ def display_department(request, department_id, template="mall/department.html"):
     department = get_object_or_404(Department, pk=department_id)
 
     return render_to_response(template, {
-	    "form_set": af.mall_forms,
 	    "department": department,
 	    "departments": DEPARTMENTS
     }, context_instance=RequestContext(request))
@@ -67,13 +69,12 @@ def preview_cart(request, template="mall/cart.html"):
 	product.total_cost = str(product.total_cost) + "0"
 	shopping_cart["items"].append(product)
 
-    shopping_cart["order_total"] = "N" + str(shopping_cart["order_total"]) + "0"
+    shopping_cart["order_total"] = str(shopping_cart["order_total"])
 
-    return render_to_response(template, {
-	    "form_set": af.mall_forms,
-	    "shopping_cart": shopping_cart,
-	    "departments": DEPARTMENTS
-    }, context_instance=RequestContext(request))
+    context = CONTEXT
+    context.update({"shopping_cart": shopping_cart, "departments": DEPARTMENTS})
+
+    return render_to_response(template, context, context_instance=RequestContext(request))
 
 def delete_from_cart(request, product_id):
     del request.session[product_id]
