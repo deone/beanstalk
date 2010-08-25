@@ -25,7 +25,7 @@ def fetch(model):
 	if "account_name" in dir(item):
 	    link = "/store/%s/" % item.account_name
 	else:
-	    link = "/department/%s/" % item.name
+	    link = "/department/%s/" % item.id
 
 	result_list.append((link, item.name))
 	

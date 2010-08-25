@@ -1,7 +1,7 @@
 Summary:	Web-based shopping mall using pay4me as payment platform.
 Name:		pay4memall
 Version:	0.1
-Release:	5
+Release:	6
 Group:		Business Solutions/Web-based
 License:	GPL
 Source0:	%{name}-%{version}.tar.gz
