@@ -1,7 +1,18 @@
 @charset "UTF-8";
-#leftCol { float:left; width:160px; padding:15px;
+#leftCol    {
+    float: left;
+    width: 160px;
+    padding: 15px;
 }
-#leftCol   ul{ font-size:12px; font-weight:bold; line-height:22px;  padding:0px; list-style:none; margin:0px; text-transform:uppercase; color:#2c6ca5}
+#leftCol ul {
+    font-size: 12px;
+    font-weight: bold;
+    line-height: 22px;
+    padding: 0px;
+    list-style: none;
+    margin: 0px;
+    color: #2c6ca5;
+}
 #leftCol   li ul { text-indent:20px;} 
 #leftCol  a{color:#2c6ca5;}
 #leftCol  a:hover{color:#d61e35; }

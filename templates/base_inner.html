@@ -5,7 +5,20 @@
 {% block content %}
 <div id="productPage">
     <div id="leftCol">
-	{% block sidebar %}{% endblock %}
+    {% block sidebar %}
+	<ul>
+	{% for department in departments %}
+	    <li id="dept"><a href="#">{{ department }}</a></li>
+	    <li>
+		<ul>
+		{% for category in department.category_set.all %}
+		    <li><a href="#">{{ category }}</a></li>
+		{% endfor %}
+		</ul>
+	    </li>
+	{% endfor %}
+	</ul>
+    {% endblock %}
     </div>
     <div id="rightCol">
 	{% block breadcrumbs %}

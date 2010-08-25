@@ -1,6 +1,9 @@
 #nav #selectMenu	{
     margin-top: 0px;
 }
+#nav #selectMenu select	{
+    text-transform: capitalize;
+}
 #productItem img    {
     width: 116px;
     height: 116px;
