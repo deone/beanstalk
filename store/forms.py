@@ -10,9 +10,6 @@ SORT_CHOICES = (
 	("recently_added", "Recently Added"),
 )
 
-class StoreSelectForm(forms.Form):
-    stores = forms.ChoiceField(label="", choices=h.fetch(Store))
-
 class StoreSearchForm(forms.Form):
     query = forms.CharField(label="")
 
