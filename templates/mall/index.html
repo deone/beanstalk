@@ -9,7 +9,7 @@
 	    <img src="{{ MEDIA_URL }}img/banner.jpg" alt=""/>
 	</div>
 	<h1>FEATURED PRODUCTS</h1>
-	{% for product in products %}
+	{% for product in object_list %}
 	<div id="productItem">
 	    <a href="/store/{{ product.product_group.store.account_name }}/product/{{ product.id }}/">
 		<img src="{{ MEDIA_URL }}{{ product.thumbnail }}"/>
