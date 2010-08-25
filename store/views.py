@@ -3,33 +3,25 @@ from django.http import Http404
 from django.template import RequestContext
 from django.core.paginator import Paginator, InvalidPage, EmptyPage
 from django.conf import settings
+from django.views.generic import list_detail
 
 from store.models import *
 from store.forms import ShoppingCartForm
 
 import helpers as h
-import all_forms as af
+from all_forms import *
 
-# We need to remove redundancies in these views.
+def products_in_store(request, store_name):
+    store = get_object_or_404(Store, account_name__iexact=store_name)
+    extra_context = {"store": store}
+    extra_context.update(base_forms)
 
-def index(request, store_name, template="store/index.html"):
-    store = get_object_or_404(Store, account_name=store_name)
-
-    products = [
-	product for product in Product.objects.all().order_by("-date_added") if product.product_group_id in 
-	[
-	    product_group.id for product_group in ProductGroup.objects.filter(store=store)
-	]
-    ]
-
-    product_groups = store.productgroup_set.all()
-
-    return render_to_response(template, {
-	    "store": store,
-	    "products": products[:8],
-	    "product_groups": store.productgroup_set.all(),
-	    "form_set": af.store_forms,
-    }, context_instance=RequestContext(request))
+    return list_detail.object_list(
+	    request,
+	    queryset = Product.objects.filter(product_group__store=store).order_by("-date_added"),
+	    template_name = "store/index.html",
+	    extra_context = extra_context
+    )
 
 def display_product_group(request, store_name, product_group_id, template="store/product_group.html"):
     product_group = get_object_or_404(ProductGroup, pk=product_group_id)

@@ -33,7 +33,7 @@
     <div><img src="{{ MEDIA_URL }}{{ store.banner }}"/></div>
     <h2>Recently Added</h2>
     <div class="clear"></div>
-    {% for product in products %}
+    {% for product in object_list %}
 	<div id="productItem">
 	    <a href="/store/{{ store.account_name }}/product/{{ product.id }}/">
 		<img src="{{ MEDIA_URL }}{{ product.thumbnail }}"/>
