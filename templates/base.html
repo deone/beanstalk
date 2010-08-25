@@ -29,7 +29,7 @@
 			</div>
 			<div class="clear"></div>
 			<form id="mall_search" method="get" action="{% url haystack_search %}">
-			    {{ form_set.mall_search_form.q }}
+			    {{ mall_search_form.q }}
 			</form>
 		    {% endblock %}
 		</div>
@@ -40,15 +40,15 @@
 	<div id="nav">
 	    <ul>
 		<li><a id="home_link" href="/"><img src="{{ MEDIA_URL }}img/home.gif"  alt="HOME" /></a></li>
-		{% for department in departments %}
-		    <li><a href="/department/{{ department.id }}">{{ department }}</a></li>
-		{% endfor %}
+		<!--{% for department in header_departments %}
+		    <li><a href="{{ department.get_absolute_url }}">{{ department }}</a></li>
+		{% endfor %}-->
 		<div class="clear"></div>
 	    </ul>
 	    
 	    <div id="selectMenu">
-		{{ form_set.store_select_form }}
-		{{ form_set.dept_select_form }}
+		{{ store_select_form }}
+		{{ department_select_form }}
 	    </div>
 	    <div class="clear"></div>
 	</div>

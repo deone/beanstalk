@@ -17,9 +17,10 @@ OPTIMIZATION
 * ShoppingCartForm isn't supposed to be in store/forms.py.
 * Implement edit in shopping cart preview.
 * Disable checkout link if there're no items in shopping cart.
-* Use clearer urls. e.g. Instead of /department/1/view/, use /department/household-goods/view/
-* Split registration form into sub-units e.g. Personal Details, Login Details, e.t.c.
+* Use clearer urls. e.g. Instead of /departments/1/, use /departments/household-goods/
 * Set last_modified column when product changes.
+* Implement shopping cart history feature.
+* I'm thinking Store model should be in mall/models.
 
 FEATURES
 * Unit Testing (models/views)**.
@@ -35,6 +36,7 @@ BUGS
 * Plugin email and sms functionality.
 * Let's not use ajax for now.
 * Notify user on successful addition to cart.
+* Split registration form into sub-units e.g. Personal Details, Login Details, e.t.c.
 
 - Remove "Save" bar and change "Change Order" to "View Order" on order change form.
 

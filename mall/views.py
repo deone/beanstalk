@@ -9,18 +9,16 @@ from store.forms import ShoppingCartForm
 
 import random
 
-def index(request, template="mall/index.html"):
-    try:
-	products = random.sample([product for product in Product.objects.all()], 8)
-	departments = Department.objects.all()
-    except ValueError:
-	products = None
-	departments = None
+DEPARTMENTS = Department.objects.all()
+HEADER_DEPARTMENTS = random.sample([department for department in Department.objects.all()], 2)
+
+def display_department(request, department_id, template="mall/department.html"):
+    department = get_object_or_404(Department, pk=department_id)
 
     return render_to_response(template, {
 	    "form_set": af.mall_forms,
-	    "products": products,
-	    "departments": departments
+	    "department": department,
+	    "departments": DEPARTMENTS
     }, context_instance=RequestContext(request))
 
 @h.json_response
@@ -74,6 +72,7 @@ def preview_cart(request, template="mall/cart.html"):
     return render_to_response(template, {
 	    "form_set": af.mall_forms,
 	    "shopping_cart": shopping_cart,
+	    "departments": DEPARTMENTS
     }, context_instance=RequestContext(request))
 
 def delete_from_cart(request, product_id):
