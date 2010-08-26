@@ -6,7 +6,7 @@ from store.models import Product
 
 import helpers as h
 from all_forms import base_forms
-from store.forms import ShoppingCartForm
+from mall.forms import ShoppingCartEditForm
 
 import random
 
@@ -63,7 +63,7 @@ def preview_cart(request, template="mall/cart.html"):
     # Can't we use recursion in cases like this?
     for item in cart:
 	product = get_object_or_404(Product, pk=item[0])
-	product.quantity = item[1][0]
+	product.qty_edit_form = ShoppingCartEditForm(initial={"quantity": item[1][0]})
 	product.total_cost = item[1][0] * item[1][1]
 	shopping_cart["order_total"] += product.total_cost
 	product.total_cost = str(product.total_cost) + "0"

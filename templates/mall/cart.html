@@ -1,25 +1,4 @@
-{% extends "store/index.html" %}
-
-{% block sidebar %}
-<ul>
-    <li><a href="#">HOME</a></li>
-    <li><a href="#">ELECTRONICS</a></li>
-    <li>
-	<ul>
-	    <li><a href="#">TV</a></li>
-	    <li>DVD</li> 
-	    <li><a href="#">HOME THEATHERS</a></li>
-	    <li><a href="#">TV</a></li>
-	    <li>DVD</li> 
-	    <li><a href="#">HOME THEATHERS</a></li>
-	    <li>asdfasdfs</li> 
-	</ul>
-    </li>
-    <li>PHONE</li>
-    <li>COMPUTER</li>
-    <li>GROCERIES</li>
-</ul>
-{% endblock %}
+{% extends "base_inner.html" %}
 
 {% block breadcrumbs %}{% endblock %}
 
@@ -39,16 +18,21 @@
 	{% for item in shopping_cart.items %}
 	<div class="item">
 	    <div class="del"><a href="/cart/delete/{{ item.id }}/"><img src="{{ MEDIA_URL }}img/cartPreviewDelete.jpg"/></a></div>
-	    <div class="thumbnail"><img src="{{ MEDIA_URL }}{{ item.thumbnail }}" style="width:62px; height: 62px;"/></div><br />
-	    <div class="title"><a href="#">{{ item.name }}</a></div>
+	    <div class="thumbnail"><img src="{{ MEDIA_URL }}{{ item.thumbnail }}"/></div><br />
+	    <div class="title"><a href="{{ item.get_absolute_url }}">{{ item.name }}</a></div>
 	    <div class="store">{{ item.product_group.store.name }}</div>
-	    <div class="quantity">{{ item.quantity }}</div>
+	    <div class="quantity">
+		<form action="/cart/update/" method="post">
+		    {{ item.qty_edit_form }}
+		    <input type="submit" value="Update"/>
+		</form>
+	    </div>
 	    <div class="itemCost">N{{ item.price }}</div>
 	    <div class="totalCost">N{{ item.total_cost }}</div>
 	    <div class="clear"></div>
 	</div>
 	{% endfor %}
-	<div class="bagTotal">Order Total<span class="totalAmount">{{ shopping_cart.order_total }}</span></div>
+	<div class="bagTotal">Order Total<span class="totalAmount">N{{ shopping_cart.order_total }}0</span></div>
 	<div class="shippingAdd">
 	    <h2>Shipping Address</h2>
 	    <p>
@@ -72,7 +56,7 @@
 	    </form>
 	{% endif %}
 	<div class="continue">
-	    <a href="/"><img src="{{ MEDIA_URL }}img/contShop.jpg" alt="Continue Shopping"/></a>
+	    <a href="{% url mall_home %}"><img src="{{ MEDIA_URL }}img/contShop.jpg" alt="Continue Shopping"/></a>
 	</div>
 	<div class="clear"></div>
     </div>

@@ -73,8 +73,15 @@
 #cartPreview .item{ padding:5px; border-top:1px solid #CCC; margin-top:10px; vertical-align:top;}
 #cartPreview .title{float:left; width:240px; margin-left:5px;}
 #cartPreview .thumbnail{ width:62px; float:left;margin-left:10px;}
+#cartPreview .thumbnail img {
+    width: 62px;
+    height: 62px;
+}
 #cartPreview .quantity{ width:80px; float:left; margin-left:10px; text-align:center;}
-#cartPreview .quantity .txt{ border:1px solid #666; width:40px;}
+#cartPreview #id_quantity   {
+    border: 1px solid #666;
+    width:40px;
+}
 #cartPreview .store{ width:100px; margin-left:10px; float:left;}
 #cartPreview .itemCost{ width:80px; margin-left:10px; float:left; text-align:right;}
 #cartPreview .totalCost{ width:100px; margin-left:10px; float:left; text-align:right;}
