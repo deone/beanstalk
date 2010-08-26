@@ -22,7 +22,7 @@
 	    <div class="title"><a href="{{ item.get_absolute_url }}">{{ item.name }}</a></div>
 	    <div class="store">{{ item.product_group.store.name }}</div>
 	    <div class="quantity">
-		<form action="/cart/update/" method="post">
+		<form action="/cart/update/{{ item.id }}/" method="post">
 		    {{ item.qty_edit_form }}
 		    <input type="submit" value="Update"/>
 		</form>
