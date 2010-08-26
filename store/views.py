@@ -6,7 +6,8 @@ from django.conf import settings
 from django.views.generic import list_detail
 
 from store.models import *
-from store.forms import ShoppingCartForm, StoreSorterForm
+from mall.forms import ShoppingCartForm
+from store.forms import StoreSorterForm
 
 import helpers as h
 from all_forms import base_forms
@@ -35,20 +36,7 @@ def product_detail(request, store_name, product_id):
     if request.method == "POST":
 	form = ShoppingCartForm(request.POST)
 	if form.is_valid():
-	    quantity = request.POST["quantity"]
-	    price = get_object_or_404(Product, pk=product_id).price
-
-	    cart_item = []
-	    cart_item.append(int(quantity))
-	    cart_item.append(float(price))
-
-	    try:
-		product_detail = request.session[product_id]
-		new_quantity = product_detail[0] + int(quantity)
-		product_detail[0] = new_quantity
-		request.session[product_id] = product_detail
-	    except KeyError:
-		request.session[product_id] = cart_item
+	    form.save(request, product_id)
     else:
 	form = ShoppingCartForm()
 
