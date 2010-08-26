@@ -35,6 +35,7 @@ urlpatterns = patterns('',
 
     (r'^departments/(?P<department_id>\d+)/$', mall.views.display_department),
     (r'^cart/details/$', mall.views.show_cart_details),
+    (r'^cart/update/(?P<product_id>\d+)/$', mall.views.update_cart),
     (r'^cart/preview/$', mall.views.preview_cart),
     (r'^cart/delete/(?P<product_id>\d+)/$', mall.views.delete_from_cart),
     # Store

@@ -32,11 +32,23 @@ class ShoppingCartForm(forms.Form):
 	cart_item.append(price)
 
 	item = request.session.get(product_id)
+	print item
 
+	# Save object
 	if item is not None:
 	    item[0] += quantity
 	    request.session[product_id] = item
 	else:
 	    request.session[product_id] = cart_item
+
+	return request.session[product_id]
+
+    def update_cart(self, request, product_id):
+	quantity = int(self.cleaned_data["quantity"])
+	item = request.session.get(product_id)
+
+	if item is not None:
+	    item[0] = quantity
+	    request.session[product_id] = item
 
 	return request.session[product_id]
