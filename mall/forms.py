@@ -12,3 +12,6 @@ class DepartmentSelectForm(forms.Form):
 
 class MallSearchForm(forms.Form):
     query = forms.CharField(label="")
+
+class ShoppingCartEditForm(forms.Form):
+    quantity = forms.IntegerField(label="")
