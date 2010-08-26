@@ -21,6 +21,9 @@ class Store(CommonInfo):
     city = models.CharField(max_length=20)
     state = models.CharField(max_length=20)
 
+    def get_absolute_url(self):
+	return "/%s/" % self.account_name
+
     def __unicode__(self):
 	return self.name
 

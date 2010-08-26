@@ -15,19 +15,13 @@ def add(x, y):
 def fetch(model):
     result_list = []
 
-    # There should be a better way to do this.
     if model == Store:
 	result_list.append(("", u"Stores"))
     elif model == Department:
 	result_list.append(("", u"Departments"))
     
     for item in model.objects.all():
-	if "account_name" in dir(item):
-	    link = "/store/%s/" % item.account_name
-	else:
-	    link = "/department/%s/" % item.id
-
-	result_list.append((link, item.name))
+	result_list.append((item.get_absolute_url(), item.name))
 	
     return result_list
 

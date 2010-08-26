@@ -27,13 +27,11 @@ urlpatterns = patterns('',
     # Mall
     url(r'^$', list_detail.object_list, product_info, name="mall_home"),
     # This should read just products_in_store; using "from store.views import products_in_store"
-    url(r'^store/(?P<store_name>\w+)/$', store.views.products_in_store, name="store_home"),
     # I'm using get_absolute_url here instead of url names.
     (r'^store/(?P<store_name>\w+)/product/(?P<product_id>\d+)/$', store.views.product_detail),
     (r'^store/(?P<store_name>\w+)/browse/(?P<product_group_id>\d+)/$', store.views.products_in_store_product_group),
 
 
-    (r'^departments/(?P<department_id>\d+)/$', mall.views.display_department),
     (r'^cart/details/$', mall.views.show_cart_details),
     (r'^cart/update/(?P<product_id>\d+)/$', mall.views.update_cart),
     (r'^cart/preview/$', mall.views.preview_cart),
@@ -50,6 +48,8 @@ urlpatterns = patterns('',
     (r'^admin/', include(admin.site.urls)),
     # Search
     url(r'^search/', include('haystack.urls'), name='haystack_search'),
+
+    url(r'^(?P<store_name>\w+)/$', store.views.products_in_store, name="store_home"),
 )
 
 if settings.DEBUG:

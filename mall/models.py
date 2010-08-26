@@ -11,7 +11,7 @@ class Department(CommonInfo):
 	super(Department, self).save()
 
     def get_absolute_url(self):
-	return "/departments/%s/" % self.id
+	return "/departments/%s/%s/" % (self.id, self.slug)
 
     def __unicode__(self):
 	return self.name
