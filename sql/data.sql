@@ -1,4 +1,3 @@
-use pay4memall;
 -- MySQL dump 10.11
 --
 -- Host: localhost    Database: pay4memall
@@ -88,7 +87,7 @@ CREATE TABLE `auth_group_permissions` (
   UNIQUE KEY `group_id` (`group_id`,`permission_id`),
   KEY `auth_group_permissions_425ae3c4` (`group_id`),
   KEY `auth_group_permissions_1e014c8f` (`permission_id`)
-) ENGINE=MyISAM AUTO_INCREMENT=103 DEFAULT CHARSET=latin1;
+) ENGINE=MyISAM AUTO_INCREMENT=134 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -97,7 +96,7 @@ CREATE TABLE `auth_group_permissions` (
 
 LOCK TABLES `auth_group_permissions` WRITE;
 /*!40000 ALTER TABLE `auth_group_permissions` DISABLE KEYS */;
-INSERT INTO `auth_group_permissions` VALUES (102,2,31),(101,2,59),(100,2,39),(99,2,38),(98,2,37),(97,2,36),(96,2,35),(95,2,34),(94,2,33),(93,2,32);
+INSERT INTO `auth_group_permissions` VALUES (133,2,31),(132,2,59),(131,2,39),(130,2,38),(129,2,37),(128,2,36),(127,2,35),(126,2,34),(125,2,33),(124,2,32);
 /*!40000 ALTER TABLE `auth_group_permissions` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -114,7 +113,7 @@ CREATE TABLE `auth_message` (
   `message` longtext NOT NULL,
   PRIMARY KEY  (`id`),
   KEY `auth_message_403f60f` (`user_id`)
-) ENGINE=MyISAM AUTO_INCREMENT=47 DEFAULT CHARSET=latin1;
+) ENGINE=MyISAM AUTO_INCREMENT=100 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -184,7 +183,7 @@ CREATE TABLE `auth_user` (
 
 LOCK TABLES `auth_user` WRITE;
 /*!40000 ALTER TABLE `auth_user` DISABLE KEYS */;
-INSERT INTO `auth_user` VALUES (1,'alwaysdeone@gmail.com','Oladayo','Osikoya','alwaysdeone@gmail.com','sha1$46282$94acc0d85cde3d2924651965dfc5e13847e44a87',1,1,1,'2010-08-24 09:28:40','2010-08-05 17:06:54'),(9,'segun@ade.co.uk','Segun','Ade','segun@ade.co.uk','sha1$8af64$ce332546917d7900b79ac54dfbbea68ccba50911',0,1,0,'2010-08-13 17:12:47','2010-08-13 17:12:47'),(3,'olu@olu.com','Olusegun','Obasanjo','olu@olu.com','sha1$2aad6$8534ba88d6e21aaedc6632ca08cb01ded5033c00',1,1,0,'2010-08-23 18:33:53','2010-08-06 09:32:14'),(10,'ade@olu.com','Ade','Olu','ade@olu.com','sha1$d9770$3f9dae1fe56c0794358dfe907bde04d6991e7d2e',0,1,0,'2010-08-13 17:30:40','2010-08-13 17:30:40'),(5,'seyi@seyi.com','Oluseyi','Adegoju','seyi@seyi.com','sha1$a2c5b$d48e941189e82eb111896cbf27725d19eab37cfc',1,1,0,'2010-08-16 16:07:11','2010-08-06 09:36:45'),(8,'deji@alade.com','Dayo','Ade','deji@alade.com','sha1$b5ed4$a8cdb3b47672ebf35299e0a4246295c8d953cf9c',0,1,0,'2010-08-23 15:52:28','2010-08-12 18:13:50');
+INSERT INTO `auth_user` VALUES (1,'alwaysdeone@gmail.com','Oladayo','Osikoya','alwaysdeone@gmail.com','sha1$46282$94acc0d85cde3d2924651965dfc5e13847e44a87',1,1,1,'2010-08-26 16:23:24','2010-08-05 17:06:54'),(9,'segun@ade.co.uk','Segun','Ade','segun@ade.co.uk','sha1$8af64$ce332546917d7900b79ac54dfbbea68ccba50911',0,1,0,'2010-08-13 17:12:47','2010-08-13 17:12:47'),(3,'olu@olu.com','Olusegun','Obasanjo','olu@olu.com','sha1$2aad6$8534ba88d6e21aaedc6632ca08cb01ded5033c00',1,1,0,'2010-08-24 16:40:05','2010-08-06 09:32:14'),(10,'ade@olu.com','Ade','Olu','ade@olu.com','sha1$d9770$3f9dae1fe56c0794358dfe907bde04d6991e7d2e',0,1,0,'2010-08-13 17:30:40','2010-08-13 17:30:40'),(5,'seyi@seyi.com','Oluseyi','Adegoju','seyi@seyi.com','sha1$a2c5b$d48e941189e82eb111896cbf27725d19eab37cfc',1,1,0,'2010-08-24 14:07:05','2010-08-06 09:36:45'),(8,'deji@alade.com','Dayo','Ade','deji@alade.com','sha1$b5ed4$a8cdb3b47672ebf35299e0a4246295c8d953cf9c',0,1,0,'2010-08-26 13:11:59','2010-08-12 18:13:50');
 /*!40000 ALTER TABLE `auth_user` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -262,7 +261,7 @@ CREATE TABLE `django_admin_log` (
   PRIMARY KEY  (`id`),
   KEY `django_admin_log_403f60f` (`user_id`),
   KEY `django_admin_log_1bb8f392` (`content_type_id`)
-) ENGINE=MyISAM AUTO_INCREMENT=48 DEFAULT CHARSET=latin1;
+) ENGINE=MyISAM AUTO_INCREMENT=102 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -271,7 +270,7 @@ CREATE TABLE `django_admin_log` (
 
 LOCK TABLES `django_admin_log` WRITE;
 /*!40000 ALTER TABLE `django_admin_log` DISABLE KEYS */;
-INSERT INTO `django_admin_log` VALUES (1,'2010-08-05 17:19:32',1,3,'1','alwaysdeone@gmail.com',2,'Changed username, first_name and last_name.'),(2,'2010-08-06 09:26:37',1,2,'1','Merchant',1,''),(3,'2010-08-06 09:32:14',1,3,'3','olu@olu.com',1,''),(4,'2010-08-06 09:33:03',1,3,'3','olu@olu.com',2,'Changed first_name, last_name, email, is_staff and groups.'),(5,'2010-08-06 09:35:34',1,3,'4','ade@ade.com',1,''),(6,'2010-08-06 09:35:58',1,3,'4','ade@ade.com',2,'Changed first_name, last_name, email, is_staff and groups.'),(7,'2010-08-06 09:36:45',1,3,'5','seyi@seyi.com',1,''),(8,'2010-08-06 09:37:11',1,3,'5','seyi@seyi.com',2,'Changed first_name, last_name, email, is_staff and groups.'),(9,'2010-08-06 09:48:38',1,9,'2','Fashion Dealer',1,''),(10,'2010-08-06 09:50:40',1,11,'1','Men\'s',1,''),(11,'2010-08-06 09:50:47',1,11,'2','Women\'s',1,''),(12,'2010-08-06 10:19:48',1,11,'2','Women\'s',3,''),(13,'2010-08-06 10:19:48',1,11,'1','Men\'s',3,''),(14,'2010-08-06 10:22:06',1,11,'1','Men\'s',1,''),(15,'2010-08-06 10:22:52',1,11,'2','Women\'s',1,''),(16,'2010-08-06 10:23:28',1,11,'3','Boy Toys',1,''),(17,'2010-08-06 10:23:46',1,11,'4','Coffee',1,''),(18,'2010-08-06 10:23:55',1,11,'5','Tea',1,''),(19,'2010-08-06 10:24:09',1,11,'6','Nokia',1,''),(20,'2010-08-06 10:33:09',1,11,'3','Boy Toys',3,''),(21,'2010-08-06 10:40:52',1,3,'2','alade@yahoo.com',2,'Changed is_staff.'),(22,'2010-08-06 10:41:22',1,9,'1','Fashion Dealer',3,''),(23,'2010-08-06 11:55:16',1,3,'2','alade@yahoo.com',3,''),(24,'2010-08-06 12:44:47',1,9,'3','Chigo Electronics',3,''),(25,'2010-08-06 12:45:24',1,3,'4','ade@ade.com',3,''),(26,'2010-08-06 12:50:27',1,2,'1','Merchant',3,''),(27,'2010-08-06 12:56:08',1,2,'2','Merchant',1,''),(28,'2010-08-06 12:56:22',1,3,'3','olu@olu.com',2,'Changed groups.'),(29,'2010-08-06 12:56:31',1,3,'5','seyi@seyi.com',2,'Changed groups.'),(30,'2010-08-09 08:49:38',1,2,'2','Merchant',2,'Changed permissions.'),(31,'2010-08-10 14:42:02',1,9,'1','Amaze Mobiles',1,''),(32,'2010-08-10 14:42:56',1,9,'2','The Grocery Shop',1,''),(33,'2010-08-10 14:43:14',1,11,'6','Nokia',2,'Changed store.'),(34,'2010-08-10 14:43:20',1,11,'5','Tea',2,'No fields changed.'),(35,'2010-08-10 14:43:24',1,11,'4','Coffee',2,'No fields changed.'),(36,'2010-08-13 16:23:22',1,2,'2','Merchant',2,'Changed permissions.'),(37,'2010-08-13 16:30:09',1,2,'2','Merchant',2,'Changed permissions.'),(38,'2010-08-13 16:31:25',1,2,'2','Merchant',2,'Changed permissions.'),(39,'2010-08-13 16:33:05',1,2,'2','Merchant',2,'Changed permissions.'),(40,'2010-08-13 16:39:03',1,2,'2','Merchant',2,'Changed permissions.'),(41,'2010-08-16 16:06:53',1,2,'2','Merchant',2,'Changed permissions.'),(42,'2010-08-18 12:14:43',1,21,'1','The Lame Man\'s story',1,''),(43,'2010-08-20 09:45:18',1,2,'2','Merchant',2,'Changed permissions.'),(44,'2010-08-23 11:53:49',1,14,'1','Household Goods',1,''),(45,'2010-08-23 11:54:10',1,14,'2','Gadgets',1,''),(46,'2010-08-24 09:29:20',1,15,'1','Mobile Phones',1,''),(47,'2010-08-24 09:30:04',1,15,'2','Groceries',1,'');
+INSERT INTO `django_admin_log` VALUES (1,'2010-08-05 17:19:32',1,3,'1','alwaysdeone@gmail.com',2,'Changed username, first_name and last_name.'),(2,'2010-08-06 09:26:37',1,2,'1','Merchant',1,''),(3,'2010-08-06 09:32:14',1,3,'3','olu@olu.com',1,''),(4,'2010-08-06 09:33:03',1,3,'3','olu@olu.com',2,'Changed first_name, last_name, email, is_staff and groups.'),(5,'2010-08-06 09:35:34',1,3,'4','ade@ade.com',1,''),(6,'2010-08-06 09:35:58',1,3,'4','ade@ade.com',2,'Changed first_name, last_name, email, is_staff and groups.'),(7,'2010-08-06 09:36:45',1,3,'5','seyi@seyi.com',1,''),(8,'2010-08-06 09:37:11',1,3,'5','seyi@seyi.com',2,'Changed first_name, last_name, email, is_staff and groups.'),(9,'2010-08-06 09:48:38',1,9,'2','Fashion Dealer',1,''),(10,'2010-08-06 09:50:40',1,11,'1','Men\'s',1,''),(11,'2010-08-06 09:50:47',1,11,'2','Women\'s',1,''),(12,'2010-08-06 10:19:48',1,11,'2','Women\'s',3,''),(13,'2010-08-06 10:19:48',1,11,'1','Men\'s',3,''),(14,'2010-08-06 10:22:06',1,11,'1','Men\'s',1,''),(15,'2010-08-06 10:22:52',1,11,'2','Women\'s',1,''),(16,'2010-08-06 10:23:28',1,11,'3','Boy Toys',1,''),(17,'2010-08-06 10:23:46',1,11,'4','Coffee',1,''),(18,'2010-08-06 10:23:55',1,11,'5','Tea',1,''),(19,'2010-08-06 10:24:09',1,11,'6','Nokia',1,''),(20,'2010-08-06 10:33:09',1,11,'3','Boy Toys',3,''),(21,'2010-08-06 10:40:52',1,3,'2','alade@yahoo.com',2,'Changed is_staff.'),(22,'2010-08-06 10:41:22',1,9,'1','Fashion Dealer',3,''),(23,'2010-08-06 11:55:16',1,3,'2','alade@yahoo.com',3,''),(24,'2010-08-06 12:44:47',1,9,'3','Chigo Electronics',3,''),(25,'2010-08-06 12:45:24',1,3,'4','ade@ade.com',3,''),(26,'2010-08-06 12:50:27',1,2,'1','Merchant',3,''),(27,'2010-08-06 12:56:08',1,2,'2','Merchant',1,''),(28,'2010-08-06 12:56:22',1,3,'3','olu@olu.com',2,'Changed groups.'),(29,'2010-08-06 12:56:31',1,3,'5','seyi@seyi.com',2,'Changed groups.'),(30,'2010-08-09 08:49:38',1,2,'2','Merchant',2,'Changed permissions.'),(31,'2010-08-10 14:42:02',1,9,'1','Amaze Mobiles',1,''),(32,'2010-08-10 14:42:56',1,9,'2','The Grocery Shop',1,''),(33,'2010-08-10 14:43:14',1,11,'6','Nokia',2,'Changed store.'),(34,'2010-08-10 14:43:20',1,11,'5','Tea',2,'No fields changed.'),(35,'2010-08-10 14:43:24',1,11,'4','Coffee',2,'No fields changed.'),(36,'2010-08-13 16:23:22',1,2,'2','Merchant',2,'Changed permissions.'),(37,'2010-08-13 16:30:09',1,2,'2','Merchant',2,'Changed permissions.'),(38,'2010-08-13 16:31:25',1,2,'2','Merchant',2,'Changed permissions.'),(39,'2010-08-13 16:33:05',1,2,'2','Merchant',2,'Changed permissions.'),(40,'2010-08-13 16:39:03',1,2,'2','Merchant',2,'Changed permissions.'),(41,'2010-08-16 16:06:53',1,2,'2','Merchant',2,'Changed permissions.'),(42,'2010-08-18 12:14:43',1,21,'1','The Lame Man\'s story',1,''),(43,'2010-08-20 09:45:18',1,2,'2','Merchant',2,'Changed permissions.'),(44,'2010-08-23 11:53:49',1,14,'1','Household Goods',1,''),(45,'2010-08-23 11:54:10',1,14,'2','Gadgets',1,''),(46,'2010-08-24 09:29:20',1,15,'1','Mobile Phones',1,''),(47,'2010-08-24 09:30:04',1,15,'2','Groceries',1,''),(48,'2010-08-24 10:44:37',3,12,'27','Nokia N900',2,'Changed description.'),(49,'2010-08-24 10:45:06',3,12,'27','Nokia N900',2,'Changed description.'),(50,'2010-08-24 10:59:16',1,2,'2','Merchant',2,'Changed permissions.'),(51,'2010-08-24 11:18:00',3,9,'2','The Grocery Shop',2,'Added product group \"Wines\".'),(52,'2010-08-24 11:20:37',3,9,'1','Amaze Mobiles',2,'Added product group \"Samsung\".'),(53,'2010-08-24 11:23:17',1,2,'2','Merchant',2,'Changed permissions.'),(54,'2010-08-24 11:58:31',3,9,'1','Amaze Mobiles',2,'Added product group \"HTC\".'),(55,'2010-08-24 13:37:19',1,2,'2','Merchant',2,'Changed permissions.'),(56,'2010-08-24 13:41:49',3,11,'9','HTC',2,'No fields changed.'),(57,'2010-08-24 13:46:18',5,11,'7','Wines',3,''),(58,'2010-08-24 13:46:26',5,11,'5','Tea',2,'No fields changed.'),(59,'2010-08-24 13:49:13',5,11,'5','Tea',2,'No fields changed.'),(60,'2010-08-24 13:56:56',5,11,'4','Coffee',2,'No fields changed.'),(61,'2010-08-24 13:59:52',5,11,'None','dfdfsdf',1,''),(62,'2010-08-24 14:00:22',5,11,'5','Tea',2,'No fields changed.'),(63,'2010-08-24 14:00:37',5,11,'None','sdfdfdf',1,''),(64,'2010-08-24 14:00:51',5,11,'None','sdfsdfsdf',1,''),(65,'2010-08-24 14:04:59',5,11,'5','Tea',2,'No fields changed.'),(66,'2010-08-24 14:05:16',5,11,'10','Wines',1,''),(67,'2010-08-24 14:06:31',3,11,'11','Blackberry',1,''),(68,'2010-08-24 14:06:47',3,11,'9','HTC',3,''),(69,'2010-08-24 14:06:51',3,11,'11','Blackberry',3,''),(70,'2010-08-24 14:06:55',3,11,'8','Samsung',3,''),(71,'2010-08-24 14:07:15',5,11,'10','Wines',3,''),(72,'2010-08-24 16:48:25',3,11,'12','Samsung',1,''),(73,'2010-08-25 08:55:49',1,14,'3','Computers & Office',1,''),(74,'2010-08-25 08:56:16',1,14,'4','Sports & Outdoors',1,''),(75,'2010-08-25 08:56:36',1,14,'5','Automotive & Industrial',1,''),(76,'2010-08-25 08:57:08',1,14,'2','Electronics',2,'Changed name.'),(77,'2010-08-25 08:57:44',1,14,'1','Household Goods',2,'No fields changed.'),(78,'2010-08-25 08:58:07',1,14,'6','Grocery',1,''),(79,'2010-08-25 09:00:44',1,14,'6','Grocery',3,''),(80,'2010-08-25 09:04:44',1,15,'3','Laptops & Netbooks',1,''),(81,'2010-08-25 09:10:39',1,15,'4','Desktops & Servers',1,''),(82,'2010-08-25 09:10:54',1,15,'5','Computer Components',1,''),(83,'2010-08-25 09:11:11',1,15,'6','TV & Video',1,''),(84,'2010-08-25 09:11:27',1,15,'7','Home Appliances',1,''),(85,'2010-08-25 09:11:49',1,15,'8','Exercise & Fitness',1,''),(86,'2010-08-25 09:12:00',1,15,'9','Outdoor Recreation',1,''),(87,'2010-08-25 09:12:25',1,15,'10','Automotive Parts & Accessories',1,''),(88,'2010-08-25 09:12:38',1,15,'11','Wheels & Tires',1,''),(89,'2010-08-25 09:13:17',1,15,'12','Furniture & Decor',1,''),(90,'2010-08-26 16:01:53',1,14,'1','dfjdfjff',1,''),(91,'2010-08-26 16:13:14',1,14,'2','dfhadf',1,''),(92,'2010-08-26 16:18:19',1,14,'1','Household Goods',1,''),(93,'2010-08-26 16:19:20',1,14,'2','Electronics',1,''),(94,'2010-08-26 16:20:22',1,14,'3','Computers & Office',1,''),(95,'2010-08-26 16:20:50',1,14,'4','Sports & Outdoors',1,''),(96,'2010-08-26 16:21:03',1,14,'5','Automotive & Industrial',1,''),(97,'2010-08-26 16:25:45',1,14,'1','Household Goods',1,''),(98,'2010-08-26 16:25:53',1,14,'2','Electronics',1,''),(99,'2010-08-26 16:29:40',1,14,'3','Computers & Office',1,''),(100,'2010-08-26 16:29:50',1,14,'4','Sports & Outdoors',1,''),(101,'2010-08-26 16:29:59',1,14,'5','Automotive & Industrial',1,'');
 /*!40000 ALTER TABLE `django_admin_log` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -298,7 +297,7 @@ CREATE TABLE `django_content_type` (
 
 LOCK TABLES `django_content_type` WRITE;
 /*!40000 ALTER TABLE `django_content_type` DISABLE KEYS */;
-INSERT INTO `django_content_type` VALUES (1,'permission','auth','permission'),(2,'group','auth','group'),(3,'user','auth','user'),(4,'message','auth','message'),(5,'content type','contenttypes','contenttype'),(6,'session','sessions','session'),(7,'log entry','admin','logentry'),(8,'profile','account','profile'),(9,'store','store','store'),(21,'note','myapp','note'),(11,'product group','store','productgroup'),(12,'product','store','product'),(13,'product detail','store','productdetail'),(14,'department','mall','department'),(15,'category','mall','category'),(20,'order','order','order'),(19,'ordered item','order','ordereditem');
+INSERT INTO `django_content_type` VALUES (1,'permission','auth','permission'),(2,'group','auth','group'),(3,'user','auth','user'),(4,'message','auth','message'),(5,'content type','contenttypes','contenttype'),(6,'session','sessions','session'),(7,'log entry','admin','logentry'),(8,'profile','account','profile'),(9,'store','store','store'),(11,'product group','store','productgroup'),(12,'product','store','product'),(13,'product detail','store','productdetail'),(14,'department','mall','department'),(15,'category','mall','category'),(20,'order','order','order'),(19,'ordered item','order','ordereditem');
 /*!40000 ALTER TABLE `django_content_type` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -323,7 +322,7 @@ CREATE TABLE `django_session` (
 
 LOCK TABLES `django_session` WRITE;
 /*!40000 ALTER TABLE `django_session` DISABLE KEYS */;
-INSERT INTO `django_session` VALUES ('8deff680023854e0e2d3c211259a8765','gAJ9cQEoVRJfYXV0aF91c2VyX2JhY2tlbmRxAlUpZGphbmdvLmNvbnRyaWIuYXV0aC5iYWNrZW5k\ncy5Nb2RlbEJhY2tlbmRxA1UNX2F1dGhfdXNlcl9pZHEEigEDdS5iYzk4YTI3ODBhN2Y1YmQ3NjI5\nMWU3OGVmZjU5ZjMxNg==\n','2010-08-27 17:33:41'),('d4828fc242fbb1d489b21b3bb8aa19f0','gAJ9cQEoVRJfYXV0aF91c2VyX2JhY2tlbmRxAlUpZGphbmdvLmNvbnRyaWIuYXV0aC5iYWNrZW5k\ncy5Nb2RlbEJhY2tlbmRxA1UNX2F1dGhfdXNlcl9pZHEEigEBdS5iNTZkMWU5ZmE0MmI5ZmVkMGUz\nNjgxNTM3YTZjZjU1OQ==\n','2010-09-07 09:28:40');
+INSERT INTO `django_session` VALUES ('8deff680023854e0e2d3c211259a8765','gAJ9cQEoVRJfYXV0aF91c2VyX2JhY2tlbmRxAlUpZGphbmdvLmNvbnRyaWIuYXV0aC5iYWNrZW5k\ncy5Nb2RlbEJhY2tlbmRxA1UNX2F1dGhfdXNlcl9pZHEEigEDdS5iYzk4YTI3ODBhN2Y1YmQ3NjI5\nMWU3OGVmZjU5ZjMxNg==\n','2010-08-27 17:33:41'),('cbc71469e554fb0b49a9f57adadc7b04','gAJ9cQEoVRJfYXV0aF91c2VyX2JhY2tlbmRxAlUpZGphbmdvLmNvbnRyaWIuYXV0aC5iYWNrZW5k\ncy5Nb2RlbEJhY2tlbmRxA1UNX2F1dGhfdXNlcl9pZHEEigEBdS5iNTZkMWU5ZmE0MmI5ZmVkMGUz\nNjgxNTM3YTZjZjU1OQ==\n','2010-09-09 16:23:24');
 /*!40000 ALTER TABLE `django_session` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -342,7 +341,7 @@ CREATE TABLE `mall_category` (
   PRIMARY KEY  (`id`),
   UNIQUE KEY `name` (`name`),
   KEY `mall_category_2ae7390` (`department_id`)
-) ENGINE=MyISAM AUTO_INCREMENT=3 DEFAULT CHARSET=latin1;
+) ENGINE=MyISAM AUTO_INCREMENT=13 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -351,7 +350,7 @@ CREATE TABLE `mall_category` (
 
 LOCK TABLES `mall_category` WRITE;
 /*!40000 ALTER TABLE `mall_category` DISABLE KEYS */;
-INSERT INTO `mall_category` VALUES (1,'Mobile Phones','',2),(2,'Groceries','',1);
+INSERT INTO `mall_category` VALUES (1,'Mobile Phones','',2),(2,'Groceries','',1),(3,'Laptops & Netbooks','',3),(4,'Desktops & Servers','',3),(5,'Computer Components','',3),(6,'TV & Video','',2),(7,'Home Appliances','',2),(8,'Exercise & Fitness','',4),(9,'Outdoor Recreation','',4),(10,'Automotive Parts & Accessories','',5),(11,'Wheels & Tires','',5),(12,'Furniture & Decor','',1);
 /*!40000 ALTER TABLE `mall_category` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -366,9 +365,11 @@ CREATE TABLE `mall_department` (
   `id` int(11) NOT NULL auto_increment,
   `name` varchar(100) NOT NULL,
   `description` longtext NOT NULL,
+  `slug` varchar(40) NOT NULL,
   PRIMARY KEY  (`id`),
-  UNIQUE KEY `name` (`name`)
-) ENGINE=MyISAM AUTO_INCREMENT=3 DEFAULT CHARSET=latin1;
+  UNIQUE KEY `name` (`name`),
+  UNIQUE KEY `slug` (`slug`)
+) ENGINE=MyISAM AUTO_INCREMENT=6 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -377,36 +378,8 @@ CREATE TABLE `mall_department` (
 
 LOCK TABLES `mall_department` WRITE;
 /*!40000 ALTER TABLE `mall_department` DISABLE KEYS */;
-INSERT INTO `mall_department` VALUES (1,'Household Goods',''),(2,'Gadgets','');
+INSERT INTO `mall_department` VALUES (1,'Household Goods','','household-goods'),(2,'Electronics','','electronics'),(3,'Computers & Office','','computers-office'),(4,'Sports & Outdoors','','sports-outdoors'),(5,'Automotive & Industrial','','automotive-industrial');
 /*!40000 ALTER TABLE `mall_department` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
--- Table structure for table `myapp_note`
---
-
-DROP TABLE IF EXISTS `myapp_note`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `myapp_note` (
-  `id` int(11) NOT NULL auto_increment,
-  `user_id` int(11) NOT NULL,
-  `pub_date` datetime NOT NULL,
-  `title` varchar(200) NOT NULL,
-  `body` longtext NOT NULL,
-  PRIMARY KEY  (`id`),
-  KEY `myapp_note_403f60f` (`user_id`)
-) ENGINE=MyISAM AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `myapp_note`
---
-
-LOCK TABLES `myapp_note` WRITE;
-/*!40000 ALTER TABLE `myapp_note` DISABLE KEYS */;
-INSERT INTO `myapp_note` VALUES (1,3,'2010-08-18 12:14:15','The Lame Man\'s story','Story, story, Once upon a time.');
-/*!40000 ALTER TABLE `myapp_note` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
@@ -427,7 +400,7 @@ CREATE TABLE `order_order` (
   `validation_number` varchar(20) default NULL,
   PRIMARY KEY  (`id`),
   KEY `order_order_47799232` (`store_id`)
-) ENGINE=MyISAM AUTO_INCREMENT=6 DEFAULT CHARSET=latin1;
+) ENGINE=MyISAM AUTO_INCREMENT=9 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -436,7 +409,7 @@ CREATE TABLE `order_order` (
 
 LOCK TABLES `order_order` WRITE;
 /*!40000 ALTER TABLE `order_order` DISABLE KEYS */;
-INSERT INTO `order_order` VALUES (1,1,'201081115321227','260500.00',0,'2010-08-17 12:36:38','2010-08-11 15:32:39','7366679184'),(2,2,'201081115321227','2530.00',0,'2010-08-17 12:36:38','2010-08-11 15:32:39','7366679184'),(3,2,'20108188175927','1080.00',1,'2010-08-18 08:17:59',NULL,NULL),(4,2,'201081881854571','600.00',1,'2010-08-18 08:18:54',NULL,NULL),(5,2,'2010823183320553','1020.00',1,'2010-08-23 18:33:21',NULL,NULL);
+INSERT INTO `order_order` VALUES (1,1,'201081115321227','260500.00',0,'2010-08-17 12:36:38','2010-08-11 15:32:39','7366679184'),(2,2,'201081115321227','2530.00',0,'2010-08-17 12:36:38','2010-08-11 15:32:39','7366679184'),(3,2,'20108188175927','1080.00',1,'2010-08-18 08:17:59',NULL,NULL),(4,2,'201081881854571','600.00',1,'2010-08-18 08:18:54',NULL,NULL),(5,2,'2010823183320553','1020.00',1,'2010-08-23 18:33:21',NULL,NULL),(6,1,'20108251532276','1430000.00',1,'2010-08-25 15:32:27',NULL,NULL),(7,2,'20108251532276','2800.00',1,'2010-08-25 15:32:27',NULL,NULL),(8,2,'2010826112833360','1800.00',1,'2010-08-26 11:28:33',NULL,NULL);
 /*!40000 ALTER TABLE `order_order` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -458,7 +431,7 @@ CREATE TABLE `order_ordereditem` (
   KEY `order_ordereditem_7cc8fcf5` (`order_id`),
   KEY `order_ordereditem_e99ab0` (`buyer_id`),
   KEY `order_ordereditem_44bdf3ee` (`product_id`)
-) ENGINE=MyISAM AUTO_INCREMENT=12 DEFAULT CHARSET=latin1;
+) ENGINE=MyISAM AUTO_INCREMENT=15 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -467,13 +440,35 @@ CREATE TABLE `order_ordereditem` (
 
 LOCK TABLES `order_ordereditem` WRITE;
 /*!40000 ALTER TABLE `order_ordereditem` DISABLE KEYS */;
-INSERT INTO `order_ordereditem` VALUES (1,1,8,26,1,'80500.00'),(2,1,8,27,2,'180000.00'),(3,2,8,17,4,'1000.00'),(4,2,8,21,3,'1530.00'),(11,5,8,21,2,'1020.00'),(10,4,8,16,3,'600.00'),(9,3,8,22,2,'1080.00');
+INSERT INTO `order_ordereditem` VALUES (1,1,8,26,1,'80500.00'),(2,1,8,27,2,'180000.00'),(3,2,8,17,4,'1000.00'),(4,2,8,21,3,'1530.00'),(11,5,8,21,2,'1020.00'),(10,4,8,16,3,'600.00'),(9,3,8,22,2,'1080.00'),(12,6,8,24,26,'1430000.00'),(13,7,8,19,10,'2800.00'),(14,8,8,23,3,'1800.00');
 /*!40000 ALTER TABLE `order_ordereditem` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
 -- Table structure for table `store_product`
 --
+
+DROP TABLE IF EXISTS `store_product`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `store_product` (
+  `id` int(11) NOT NULL auto_increment,
+  `name` varchar(100) NOT NULL,
+  `description` longtext NOT NULL,
+  `product_group_id` int(11) NOT NULL,
+  `category_id` int(11) NOT NULL,
+  `thumbnail` varchar(100) NOT NULL,
+  `large_image` varchar(100) NOT NULL,
+  `price` decimal(20,2) NOT NULL,
+  `quantity` int(11) NOT NULL,
+  `date_added` datetime NOT NULL,
+  `last_modified` datetime NOT NULL,
+  PRIMARY KEY  (`id`),
+  UNIQUE KEY `name` (`name`),
+  KEY `store_product_67dad9bc` (`product_group_id`),
+  KEY `store_product_42dc49bc` (`category_id`)
+) ENGINE=MyISAM AUTO_INCREMENT=28 DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
 
 --
 -- Dumping data for table `store_product`
@@ -527,7 +522,7 @@ CREATE TABLE `store_productgroup` (
   PRIMARY KEY  (`id`),
   UNIQUE KEY `name` (`name`),
   KEY `store_productgroup_47799232` (`store_id`)
-) ENGINE=MyISAM AUTO_INCREMENT=7 DEFAULT CHARSET=latin1;
+) ENGINE=MyISAM AUTO_INCREMENT=13 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -536,7 +531,7 @@ CREATE TABLE `store_productgroup` (
 
 LOCK TABLES `store_productgroup` WRITE;
 /*!40000 ALTER TABLE `store_productgroup` DISABLE KEYS */;
-INSERT INTO `store_productgroup` VALUES (4,'Coffee','',2),(5,'Tea','',2),(6,'Nokia','',1);
+INSERT INTO `store_productgroup` VALUES (4,'Coffee','',2),(5,'Tea','',2),(6,'Nokia','',1),(12,'Samsung','',1);
 /*!40000 ALTER TABLE `store_productgroup` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -585,4 +580,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2010-08-24  9:30:59
+-- Dump completed on 2010-08-26 16:34:27
