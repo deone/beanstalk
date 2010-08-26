@@ -20,7 +20,9 @@ class ShoppingCartForm(forms.Form):
     quantity = forms.IntegerField(label="QTY")
 
     def clean(self):
-	if self.cleaned_data["quantity"] < 1:
+	if "quantity" in self.cleaned_data:
+	    if self.cleaned_data["quantity"] > 0:
+		return self.cleaned_data
 	    raise forms.ValidationError("Quantity cannot be zero or less")
 
 class ProductGroupModelForm(forms.ModelForm):

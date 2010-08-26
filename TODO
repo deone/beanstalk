@@ -23,6 +23,7 @@ OPTIMIZATION
 * I'm thinking Store model should be in mall/models.
 * account_name usage in store url is OK for now, when we devise a better store url, e.g. http://amazemobiles.pay4memall.com/, we can start using slugs.
 * Don't forget; we can pass some extra argument to a view through a urlpattern.
+* Make ShoppingCartEditForm.quantity a select field based on stock amount.
 
 FEATURES
 * Unit Testing (models/views)**.
