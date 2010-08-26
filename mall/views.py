@@ -12,17 +12,6 @@ import random
 
 CONTEXT = base_forms
 
-DEPARTMENTS = Department.objects.all()
-HEADER_DEPARTMENTS = random.sample([department for department in Department.objects.all()], 2)
-
-def display_department(request, department_id, template="mall/department.html"):
-    department = get_object_or_404(Department, pk=department_id)
-
-    return render_to_response(template, {
-	    "department": department,
-	    "departments": DEPARTMENTS
-    }, context_instance=RequestContext(request))
-
 @h.json_response
 def show_cart_details(request):
     if request.session._session.has_key("testcookie"):
