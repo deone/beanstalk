@@ -24,6 +24,7 @@ OPTIMIZATION
 * account_name usage in store url is OK for now, when we devise a better store url, e.g. http://amazemobiles.pay4memall.com/, we can start using slugs.
 * Don't forget; we can pass some extra argument to a view through a urlpattern.
 * Make ShoppingCartEditForm.quantity a select field based on stock amount.
+* Validate account_name field to allow upper and lower cased alphabets, - and _.
 
 FEATURES
 * Unit Testing (models/views)**.
@@ -43,7 +44,6 @@ BUGS
 URGENT
 ======
 * User notification on add_to_cart().
-* Shopping cart quantity edit.
 * Image resizing.
 * Email store_owner on completion of transaction by buyer.
 * Split registration form into sub-units e.g. Personal Details, Login Details, e.t.c.

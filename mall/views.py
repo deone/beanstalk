@@ -1,16 +1,33 @@
 from django.shortcuts import render_to_response, get_object_or_404, get_list_or_404, redirect
 from django.template import RequestContext
+from django.views.generic import list_detail
 
 from mall.models import Department
-from store.models import Product
+from store.models import Product, Store
 
 import helpers as h
 from all_forms import base_forms
 from mall.forms import ShoppingCartForm
 
-import random
-
 CONTEXT = base_forms
+
+def products_in_department(request, department_name):
+    print department_name
+    department = get_object_or_404(Department, slug__iexact=department_name)
+    context = CONTEXT
+    context.update(
+	    {
+		"department": department,
+		"department_list": Department.objects.all(),
+	    }
+    )
+    
+    return list_detail.object_list(
+	    request,
+	    queryset = Product.objects.filter(category__department=department),
+	    template_name = "mall/department.html",
+	    extra_context = context
+    )
 
 @h.json_response
 def show_cart_details(request):
@@ -61,7 +78,7 @@ def preview_cart(request, template="mall/cart.html"):
     shopping_cart["order_total"] = str(shopping_cart["order_total"])
 
     context = CONTEXT
-    context.update({"shopping_cart": shopping_cart, "departments": DEPARTMENTS})
+    context.update({"shopping_cart": shopping_cart})
 
     return render_to_response(template, context, context_instance=RequestContext(request))
 

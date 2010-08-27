@@ -1,0 +1,32 @@
+{% extends "base_inner.html" %}
+
+{% block sidebar %}
+    <h2>Departments</h2>
+    {% for department in department_list %}
+	<ul>
+	    <li><a href="{{ department.get_absolute_url }}">{{ department.name }}</a></li>
+	    <li>
+		<ul>
+		{% for category in department.category_set.all %}
+		    <li><a href="{{ category.get_absolute_url }}">{{ category.name }}</a></li>
+		{% endfor %}
+		</ul>
+	    </li>
+	</ul>
+    {% endfor %}
+{% endblock %}
+
+{% block content_body %}
+    <h2>{{ department.name }}</h2>
+    {% for product in object_list %}
+	<div id="productItem">
+	    <a href="{{ product.get_absolute_url }}">
+		<img src="{{ MEDIA_URL }}{{ product.thumbnail }}"/>
+		<div class="clear"></div>
+		<span>{{ product.name }}<br/><b>{{ product.product_group.store.name }}</b></a></span>
+	    </a>
+	    <h2>{{ product.price }}</h2>
+	</div>
+    {% endfor %}
+    <div class="clear"></div>
+{% endblock %}

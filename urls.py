@@ -1,8 +1,8 @@
 from django.conf.urls.defaults import *
 from django.conf import settings
 from django.views.generic import list_detail
-from django.contrib import admin
 from django.shortcuts import get_list_or_404
+from django.contrib import admin
 admin.autodiscover()
 
 from haystack.views import SearchView
@@ -15,7 +15,6 @@ import mall.views
 import order.views
 
 import os
-import random
 
 product_info = {
     "queryset": Product.objects.order_by('?')[:8],
@@ -36,7 +35,6 @@ urlpatterns = patterns('',
     (r'^cart/update/(?P<product_id>\d+)/$', mall.views.update_cart),
     (r'^cart/preview/$', mall.views.preview_cart),
     (r'^cart/delete/(?P<product_id>\d+)/$', mall.views.delete_from_cart),
-    # Store
     # Account
     (r'^account/', include('account.urls')),
     # Order
@@ -49,6 +47,8 @@ urlpatterns = patterns('',
     # Search
     url(r'^search/', include('haystack.urls'), name='haystack_search'),
 
+
+    url(r'^departments/(?P<department_name>[-A-za-z0-9_]+)/$', mall.views.products_in_department, name="department_home"),
     url(r'^(?P<store_name>\w+)/$', store.views.products_in_store, name="store_home"),
 )
 
