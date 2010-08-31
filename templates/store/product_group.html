@@ -1,5 +1,7 @@
 {% extends "store/index.html" %}
 
+{% load thumbnail %}
+
 {% block crumbs %}
     <a href="{% url mall_home %}">Home</a> &rsaquo; <a href="{{ product_group.get_absolute_url }}">{{ product_group.store.name }}</a> &rsaquo; {{ product_group.name }}
 {% endblock %}
@@ -35,8 +37,9 @@
     <div class="clear"></div>
     {% for product in object_list %}
 	<div id="productItem">
+	    {% thumbnail product.large_image 160x160 as thumb %}
 	    <a href="{{ product.get_absolute_url }}">
-		<img src="{{ MEDIA_URL }}{{ product.thumbnail }}"/>
+		<img src="{{ thumb }}" width="{{ thumb.width }}" height="{{ thumb.height }}"/>
 		<div class="clear"></div>
 		<span>{{ product.name }}<br/><b>{{ product.product_group.store.name }}</b></a></span>
 	    <h2>{{ product.price }}</h2>

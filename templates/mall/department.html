@@ -1,17 +1,19 @@
 {% extends "base_inner.html" %}
 
+{% load thumbnail %}
+
 {% block sidebar %}
     <h2>Departments</h2>
     {% for department in department_list %}
 	<ul>
 	    <li><a href="{{ department.get_absolute_url }}">{{ department.name }}</a></li>
-	    <li>
+	    <!--<li>
 		<ul>
 		{% for category in department.category_set.all %}
 		    <li><a href="{{ category.get_absolute_url }}">{{ category.name }}</a></li>
 		{% endfor %}
 		</ul>
-	    </li>
+	    </li>-->
 	</ul>
     {% endfor %}
 {% endblock %}
@@ -19,9 +21,10 @@
 {% block content_body %}
     <h2>{{ department.name }}</h2>
     {% for product in object_list %}
+	{% thumbnail product.large_image 160x160 as thumb %}
 	<div id="productItem">
 	    <a href="{{ product.get_absolute_url }}">
-		<img src="{{ MEDIA_URL }}{{ product.thumbnail }}"/>
+		<img src="{{ thumb }}" width="{{ thumb.width }}" height="{{ thumb.height }}"/>
 		<div class="clear"></div>
 		<span>{{ product.name }}<br/><b>{{ product.product_group.store.name }}</b></a></span>
 	    </a>
