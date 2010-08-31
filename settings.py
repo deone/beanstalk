@@ -84,11 +84,15 @@ INSTALLED_APPS = (
     'mall',
     'order',
     'haystack',
+    'sorl.thumbnail',
 )
 
 HAYSTACK_SEARCH_ENGINE = "whoosh"
 HAYSTACK_SITECONF = "pay4memall.search_sites"
 HAYSTACK_WHOOSH_PATH = "/home/hercules/pay4memall_index"
+
+THUMBNAIL_DEBUG = True
+THUMBNAIL_SUBDIR = "thumbs"
 
 RESULTS_PER_PAGE = 5
 

@@ -1,5 +1,7 @@
 {% extends "base.html" %}
 
+{% load thumbnail %}
+
 {% block content %}
     <div id="homeAdv">
 	<img src="{{ MEDIA_URL }}img/adv.jpg">
@@ -12,7 +14,8 @@
 	{% for product in object_list %}
 	<div id="productItem">
 	    <a href="{{ product.get_absolute_url }}">
-		<img src="{{ MEDIA_URL }}{{ product.thumbnail }}"/>
+		{% thumbnail product.large_image 160x160 as thumb %}
+		<img src="{{ thumb }}" width="{{ thumb.width }}" height="{{ thumb.height }}"/>
 		<div class="clear"></div>
 		<span>{{ product.name }}<br/><b>{{ product.product_group.store.name }}</b></a></span>
 	    <h2>N{{ product.price }}</h2>

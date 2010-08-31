@@ -1,5 +1,7 @@
 {% extends "base_inner.html" %}
 
+{% load thumbnail %}
+
 {% block breadcrumbs %}{% endblock %}
 
 {% block content_body %}
@@ -17,8 +19,9 @@
 	</div>
 	{% for item in shopping_cart.items %}
 	<div class="item">
+	    {% thumbnail item.large_image 62x62 as thumb %}
 	    <div class="del"><a href="/cart/delete/{{ item.id }}/"><img src="{{ MEDIA_URL }}img/cartPreviewDelete.jpg"/></a></div>
-	    <div class="thumbnail"><img src="{{ MEDIA_URL }}{{ item.thumbnail }}"/></div><br />
+	    <div class="thumbnail"><a href="{{ item.get_absolute_url }}"><img src="{{ thumb }}" width="{{ thumb.width }}" height="{{ thumb.height }}"/></a></div><br />
 	    <div class="title"><a href="{{ item.get_absolute_url }}">{{ item.name }}</a></div>
 	    <div class="store">{{ item.product_group.store.name }}</div>
 	    <div class="quantity">

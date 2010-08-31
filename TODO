@@ -25,10 +25,10 @@ OPTIMIZATION
 * Don't forget; we can pass some extra argument to a view through a urlpattern.
 * Make ShoppingCartEditForm.quantity a select field based on stock amount.
 * Validate account_name field to allow upper and lower cased alphabets, - and _.
+* Fix NoReverseMatch error when url names are used.
 
 FEATURES
 * Unit Testing (models/views)**.
-* Bulk products upload.
 
 
 Before We Launch - Beta
@@ -44,9 +44,10 @@ BUGS
 URGENT
 ======
 * User notification on add_to_cart().
-* Image resizing.
-* Email store_owner on completion of transaction by buyer.
+* Email store_owner on completion of an order by buyer.
+* Email delivery guys on completion of a transaction.
 * Split registration form into sub-units e.g. Personal Details, Login Details, e.t.c.
+* Bulk products upload.
 
 FEATURES
 * Include a cron job file that runs './manage.py update_index' periodically.

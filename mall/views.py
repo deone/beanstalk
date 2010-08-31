@@ -12,7 +12,6 @@ from mall.forms import ShoppingCartForm
 CONTEXT = base_forms
 
 def products_in_department(request, department_name):
-    print department_name
     department = get_object_or_404(Department, slug__iexact=department_name)
     context = CONTEXT
     context.update(

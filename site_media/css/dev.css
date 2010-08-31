@@ -72,10 +72,10 @@
 #cartPreview .del{ width:20px; float:left; margin-top:20px;}
 #cartPreview .item{ padding:5px; border-top:1px solid #CCC; margin-top:10px; vertical-align:top;}
 #cartPreview .title{float:left; width:240px; margin-left:5px;}
-#cartPreview .thumbnail{ width:62px; float:left;margin-left:10px;}
-#cartPreview .thumbnail img {
+#cartPreview .thumbnail	{
     width: 62px;
-    height: 62px;
+    float: left;
+    margin-left: 10px;
 }
 #cartPreview .quantity{ width:80px; float:left; margin-left:10px; text-align:center;}
 #cartPreview #id_quantity   {

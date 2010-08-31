@@ -1,5 +1,7 @@
 {% extends "base_inner.html" %}
 
+{% load thumbnail %}
+
 {% block sidebar %}
     <div id="storeLogo"><a href="#"><img src="{{ MEDIA_URL }}{{ store.logo }}" alt="{{ store.name }}"></a></div>
     <!--<form id="store_search">
@@ -7,7 +9,7 @@
     </form>-->
     <ul>
 	{% for pg in store.productgroup_set.all %}
-	    <li><a class="cat" href="/store/{{ pg.store.account_name }}/browse/{{ pg.id }}/">{{ pg.name }}</a></li>
+	    <li><a class="cat" href="{{ pg.get_absolute_url }}">{{ pg.name }}</a></li>
 	{% endfor %}
     </ul>
 {% endblock %}
@@ -36,7 +38,8 @@
     {% for product in object_list %}
 	<div id="productItem">
 	    <a href="{{ product.get_absolute_url }}">
-		<img src="{{ MEDIA_URL }}{{ product.thumbnail }}"/>
+		{% thumbnail product.large_image 160x160 as thumb %}
+		<img src="{{ thumb }}"/>
 		<div class="clear"></div>
 		<span>{{ product.name }}<br/></span>
 	    </a>
