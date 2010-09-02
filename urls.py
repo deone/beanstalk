@@ -23,27 +23,17 @@ product_info = {
 
 urlpatterns = patterns('',
     url(r'^$', list_detail.object_list, product_info, name="mall_home"),
+    url(r'^search/', include('haystack.urls'), name='haystack_search'),
     (r'^account/', include('account.urls')),
     (r'^cart/', include('mall.urls')),
-
-
-    # This should read just products_in_store; using "from store.views import products_in_store"
-    # I'm using get_absolute_url here instead of url names.
-    (r'^(?P<store_name>\w+)/products/(?P<product_id>\d+)/$', store.views.product_detail),
-    (r'^(?P<store_name>\w+)/browse/(?P<product_group_id>\d+)/$', store.views.products_in_store_product_group),
+    (r'^(?P<store_name>\w+)/', include('store.urls')),
+    (r'^admin/', include(admin.site.urls)),
     # Order
     (r'^delivery/$', order.views.delivery),
     (r'^checkout/$', order.views.index),
     (r'^response$', order.views.process_payment_response),
     (r'^transact/$', order.views.transact),
-    # Admin
-    (r'^admin/', include(admin.site.urls)),
-    # Search
-    url(r'^search/', include('haystack.urls'), name='haystack_search'),
-
-
     url(r'^departments/(?P<department_name>[-A-za-z0-9_]+)/$', mall.views.products_in_department, name="department_home"),
-    url(r'^(?P<store_name>\w+)/$', store.views.products_in_store, name="store_home"),
 )
 
 if settings.DEBUG:
