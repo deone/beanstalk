@@ -33,7 +33,7 @@ def show_cart_details(request):
     if request.session._session.has_key("testcookie"):
 	request.session.delete_test_cookie()
 
-    if not request.session._session.has_key("_auth_user_id"):
+    if not request.user:
 	cart = request.session._session.iteritems()
     else:
 	cart = h.get_cart_from_session(request.session._session)
@@ -89,8 +89,8 @@ def update_cart(request, product_id):
     else:
 	pass
     
-    return redirect("/cart/preview/")
+    return redirect("/cart/")
 
 def delete_from_cart(request, product_id):
     del request.session[product_id]
-    return redirect("/cart/preview/")
+    return redirect("/cart/")
