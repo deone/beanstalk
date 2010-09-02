@@ -19,13 +19,13 @@
 				{% if user.is_staff %}
 				    <a href="/admin/">ADMIN</a> | 
 				{% endif %}
-				<a href="/account/logout/">SIGN OUT</a>
+				<a href="{% url account_logout %}">SIGN OUT</a>
 			    {% else %}
 				<a href="javascript:redirectToLogin();">SIGN IN</a> | <a href="javascript:redirectToRegister();">REGISTER</a>
 			    {% endif %}
 			</div>
 			<div class="btn">
-			    <a href="/cart/preview/"><img src="{{ MEDIA_URL }}img/checkout.gif" alt="CHECKOUT"/></a>
+			    <a href="{% url preview_cart %}"><img src="{{ MEDIA_URL }}img/checkout.gif" alt="CHECKOUT"/></a>
 			</div>
 			<div class="clear"></div>
 			<form id="mall_search" method="get" action="{% url haystack_search %}">
@@ -39,7 +39,7 @@
 	</div>
 	<div id="nav">
 	    <ul>
-		<li><a id="home_link" href="/"><img src="{{ MEDIA_URL }}img/home.gif"  alt="HOME" /></a></li>
+		<li><a id="home_link" href="{% url mall_home %}"><img src="{{ MEDIA_URL }}img/home.gif"  alt="HOME" /></a></li>
 		<li><a href="/departments/household-goods/">Household Goods</a></li>
 		<li><a href="/departments/electronics/">Electronics</a></li>
 		<!--{% for department in header_departments %}

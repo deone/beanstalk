@@ -52,3 +52,30 @@ URGENT
 FEATURES
 * Include a cron job file that runs './manage.py update_index' periodically.
 * Delivery to be handled by NIPOST, let's have email functionality for that, per transaction.
+
+New urls structure
+==================
+mall
+/cart/
+/cart/update/
+/cart/delete/
+/cart/details/
+
+store
+/{{ store_name }}/
+/{{ store_name }}/products/{{ product_name }}/
+/{{ store_name }}/browse/{{ product_group_name }}/
+
+account
+/account/
+/account/register/
+/account/login/
+/account/logout/
+
+payment
+/payment/
+/payment/response/
+
+order
+/order/checkout/
+/order/delivery/
