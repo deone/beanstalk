@@ -1,7 +1,6 @@
 from django.conf.urls.defaults import *
 from django.conf import settings
 from django.views.generic import list_detail
-from django.shortcuts import get_list_or_404
 from django.contrib import admin
 admin.autodiscover()
 
@@ -23,20 +22,15 @@ product_info = {
 }
 
 urlpatterns = patterns('',
-    # Mall
     url(r'^$', list_detail.object_list, product_info, name="mall_home"),
+    (r'^account/', include('account.urls')),
+    (r'^cart/', include('mall.urls')),
+
+
     # This should read just products_in_store; using "from store.views import products_in_store"
     # I'm using get_absolute_url here instead of url names.
-    (r'^store/(?P<store_name>\w+)/product/(?P<product_id>\d+)/$', store.views.product_detail),
-    (r'^store/(?P<store_name>\w+)/browse/(?P<product_group_id>\d+)/$', store.views.products_in_store_product_group),
-
-
-    (r'^cart/details/$', mall.views.show_cart_details),
-    (r'^cart/update/(?P<product_id>\d+)/$', mall.views.update_cart),
-    (r'^cart/preview/$', mall.views.preview_cart),
-    (r'^cart/delete/(?P<product_id>\d+)/$', mall.views.delete_from_cart),
-    # Account
-    (r'^account/', include('account.urls')),
+    (r'^(?P<store_name>\w+)/products/(?P<product_id>\d+)/$', store.views.product_detail),
+    (r'^(?P<store_name>\w+)/browse/(?P<product_group_id>\d+)/$', store.views.products_in_store_product_group),
     # Order
     (r'^delivery/$', order.views.delivery),
     (r'^checkout/$', order.views.index),

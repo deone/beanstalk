@@ -1,8 +1,8 @@
 from django.conf.urls.defaults import *
 
 urlpatterns = patterns('account.views',
-    (r'^$', 'index'),
-    (r'^register/$', 'register'),
-    (r'^login/$', 'login'),
-    (r'^logout/$', 'logout'),
+    url(r'^$', 'index', name="account_profile"),
+    url(r'^register/$', 'register', name="account_register"),
+    url(r'^login/$', 'login', name="account_login"),
+    url(r'^logout/$', 'logout', name="account_logout"),
 )
