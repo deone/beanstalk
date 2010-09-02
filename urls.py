@@ -29,10 +29,9 @@ urlpatterns = patterns('',
     url(r'^search/', include('haystack.urls'), name='haystack_search'),
     (r'^account/', include('account.urls')),
     (r'^cart/', include('mall.urls')),
-    (r'^(?P<store_name>\w+)/', include('store.urls')),
     (r'^admin/', include(admin.site.urls)),
-    
     url(r'^departments/(?P<department_name>[-A-za-z0-9_]+)/$', mall.views.products_in_department, name="department_home"),
+    (r'^(?P<store_name>\w+)/', include('store.urls')),
 )
 
 if settings.DEBUG:
