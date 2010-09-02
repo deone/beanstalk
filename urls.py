@@ -9,7 +9,6 @@ from store.models import Product, Store
 from all_forms import *
 
 # These views are too coupled to the project, decouple!
-import store.views
 import mall.views
 import order.views
 
@@ -22,17 +21,17 @@ product_info = {
 }
 
 urlpatterns = patterns('',
+    (r'^delivery/$', order.views.delivery),
+    (r'^checkout/$', order.views.index),
+    (r'^response$', order.views.process_payment_response),
+    (r'^transact/$', order.views.transact),
     url(r'^$', list_detail.object_list, product_info, name="mall_home"),
     url(r'^search/', include('haystack.urls'), name='haystack_search'),
     (r'^account/', include('account.urls')),
     (r'^cart/', include('mall.urls')),
     (r'^(?P<store_name>\w+)/', include('store.urls')),
     (r'^admin/', include(admin.site.urls)),
-    # Order
-    (r'^delivery/$', order.views.delivery),
-    (r'^checkout/$', order.views.index),
-    (r'^response$', order.views.process_payment_response),
-    (r'^transact/$', order.views.transact),
+    
     url(r'^departments/(?P<department_name>[-A-za-z0-9_]+)/$', mall.views.products_in_department, name="department_home"),
 )
 

@@ -48,7 +48,7 @@ function displayShoppingCart()	{
     });
 }
 
-$(function(){
+$(function()	{
     $("#nav select").change(function()   {
 	if (this.options[this.selectedIndex].value != "")	{
 	    document.location = this.options[this.selectedIndex].value;

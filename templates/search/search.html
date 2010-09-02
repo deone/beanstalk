@@ -1,5 +1,7 @@
 {% extends "base_inner.html" %}
 
+{% load thumbnail %}
+
 {% block sidebar %}{% endblock %}
 
 {% block breadcrumbs %}
@@ -24,8 +26,9 @@
     {% if query %}
 	{% for result in page.object_list %}
 	    <div id="productItem">
-		<a href="/store/{{ result.object.product_group.store.account_name }}/product/{{ result.object.id }}/">
-		    <img src="{{ MEDIA_URL }}{{ result.object.thumbnail }}"/>
+		{% thumbnail result.object.large_image 116x116 as thumb %}
+		<a href="{{ result.object.get_absolute_url }}">
+		    <img src="{{ thumb }}" width="{{ thumb.width }}" height="{{ thumb.height }}"/>
 		    <div class="clear"></div>
 		    <span>{{ result.object.name }}<br/><b>{{ result.object.product_group.store.name }}</b></a></span>
 		<h2>{{ result.object.price }}</h2>
