@@ -102,3 +102,6 @@ MERCHANT_SERVICE_ID = '100'
 PAYMENT_URL = 'http://pay4me.demo.swgindia.com/order/payment/payprocess/v1/PID/' + MERCHANT_CODE
 
 AUTH_PROFILE_MODULE = "account.Profile"
+
+EMAIL_HOST = "aerixnigeria.com"
+EMAIL_PORT = 25

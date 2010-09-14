@@ -14,14 +14,14 @@ TITLE_CHOICES = (
 
 class RegisterForm(forms.Form):
     title = forms.ChoiceField(choices=TITLE_CHOICES)
-    first_name = forms.CharField()
-    last_name = forms.CharField()
-    email = forms.EmailField()
-    mobile = forms.CharField()
-    address = forms.CharField()
-    city = forms.CharField()
-    state = forms.CharField()
-    country = forms.CharField()
+    first_name = forms.CharField(max_length=30)
+    last_name = forms.CharField(max_length=30)
+    email = forms.EmailField(max_length=75)
+    mobile = forms.CharField(max_length=15)
+    address = forms.CharField(max_length=200)
+    city = forms.CharField(max_length=20)
+    state = forms.CharField(max_length=20)
+    country = forms.CharField(max_length=50)
     password = forms.CharField(label="Choose a password", widget=forms.PasswordInput())
     password2 = forms.CharField(label="Confirm password", widget=forms.PasswordInput())
 
