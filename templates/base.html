@@ -15,7 +15,7 @@
 			    MY SHOPPING CART: <span id="cart_details"></span>
 			    <br/>
 			    {% if user.is_authenticated %}
-				<b>Welcome {{ user.first_name }}</b> | <a href="#">ACCOUNT</a> | 
+				<b>Welcome {{ user.first_name }}</b> | <!--<a href="#">ACCOUNT</a> | -->
 				{% if user.is_staff %}
 				    <a href="/admin/">ADMIN</a> | 
 				{% endif %}
