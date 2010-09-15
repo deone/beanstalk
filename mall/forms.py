@@ -2,9 +2,6 @@ from django import forms
 from django.shortcuts import get_object_or_404
 from store.models import Store, Product
 
-class MallSearchForm(forms.Form):
-    query = forms.CharField(label="")
-
 class ShoppingCartForm(forms.Form):
     quantity = forms.IntegerField(label="QTY")
 
