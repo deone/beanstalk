@@ -40,11 +40,9 @@
 	<div id="nav">
 	    <ul>
 		<li><a id="home_link" href="{% url mall_home %}"><img src="{{ MEDIA_URL }}img/home.gif"  alt="HOME" /></a></li>
-		<li><a href="/departments/household-goods/">Household Goods</a></li>
-		<li><a href="/departments/electronics/">Electronics</a></li>
-		<!--{% for department in header_departments %}
-		    <li><a href="{{ department.get_absolute_url }}">{{ department }}</a></li>
-		{% endfor %}-->
+	    {% for department in department_list|slice:":3" %}
+		<li><a href="{{ department.get_absolute_url }}">{{ department.name }}</a></li>
+	    {% endfor %}
 		<div class="clear"></div>
 	    </ul>
 	    
@@ -67,7 +65,7 @@
 	{% block content %}{% endblock %}
 	<div class="clear"></div>
 	<div id="footer">
-	    <ul>
+	    <!--<ul>
 		<li><a href="#">SHIPPING</a></li>
 		<li>CONTACT</li>
 		<li>CUSTOMER SERVICES</li>
@@ -81,7 +79,7 @@
 		<li><a href="#">SHIPPING</a></li>
 		<li><a href="#">CONTACT</a></li>
 		<li><a href="#">CUSTOMER SERVICES</a></li>
-	    </ul>
+	    </ul>-->
 	    <img src="{{ MEDIA_URL }}img/pay4me.gif" style="float:right; margin:10px;">
 	    <div class="clear"></div>
 	</div>

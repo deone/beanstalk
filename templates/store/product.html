@@ -2,7 +2,7 @@
 
 {% block crumbs %}
     <div id="url">
-	<a href="/">Home</a> &rsaquo; <a href="/store/{{ product.product_group.store.account_name}}/">{{ product.product_group.store.name }}</a> &rsaquo; <a href="/store/{{ product.product_group.store.account_name }}/browse/{{ product.product_group.id }}/">{{ product.product_group.name }}</a> &rsaquo; {{ product.name }}
+	<a href="{% url mall_home %}">Home</a> &rsaquo; <a href="{{ product.product_group.store.get_absolute_url }}">{{ product.product_group.store.name }}</a> &rsaquo; <a href="{{ product.product_group.get_absolute_url }}">{{ product.product_group.name }}</a> &rsaquo; {{ product.name }}
     </div>
 {% endblock %}
 

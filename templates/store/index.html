@@ -3,7 +3,7 @@
 {% load thumbnail %}
 
 {% block sidebar %}
-    <div id="storeLogo"><a href="#"><img src="{{ MEDIA_URL }}{{ store.logo }}" alt="{{ store.name }}"></a></div>
+    <div id="storeLogo"><a href="{{ store.get_absolute_url }}"><img src="{{ MEDIA_URL }}{{ store.logo }}" alt="{{ store.name }}"></a></div>
     <!--<form id="store_search">
 	{{ form_set.store_search_form.query }}
     </form>-->

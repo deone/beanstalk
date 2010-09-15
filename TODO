@@ -26,6 +26,7 @@ OPTIMIZATION
 * Make ShoppingCartEditForm.quantity a select field based on stock amount.
 * Validate account_name field to allow upper and lower cased alphabets, - and _.
 * Fix NoReverseMatch error when url names are used.
+* Implement SlugField in mall Category, store ProductGroup, Product and ProductDetail models.
 
 FEATURES
 * Unit Testing (models/views)**.
