@@ -4,7 +4,6 @@ from django.views.generic import list_detail
 from django.contrib import admin
 admin.autodiscover()
 
-from haystack.views import SearchView
 from haystack.forms import SearchForm
 from store.models import Product, Store
 from mall.models import Department
@@ -18,7 +17,8 @@ import os
 product_info = {
     "queryset": Product.objects.order_by('?')[:8],
     "template_name": "mall/index.html",
-    "extra_context": {"department_list": Department.objects.all, 
+    "extra_context": {
+	"department_list": Department.objects.all, 
 	"store_list": Store.objects.all,
 	"mall_search_form": SearchForm,
     }
@@ -29,12 +29,13 @@ urlpatterns = patterns('',
     (r'^checkout/$', order.views.index),
     (r'^response$', order.views.process_payment_response),
     (r'^transact/$', order.views.transact),
+
     url(r'^$', list_detail.object_list, product_info, name="mall_home"),
     url(r'^search/', include('haystack.urls'), name='haystack_search'),
     (r'^account/', include('account.urls')),
     (r'^cart/', include('mall.urls')),
     (r'^admin/', include(admin.site.urls)),
-    url(r'^departments/(?P<department_name>[-A-za-z0-9_]+)/$', mall.views.products_in_department, name="department_home"),
+    (r'^departments/(?P<department_name>[-A-za-z0-9_]+)/$', mall.views.products_in_department),
     (r'^(?P<store_name>\w+)/', include('store.urls')),
 )
 

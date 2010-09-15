@@ -2,19 +2,23 @@ from django.shortcuts import render_to_response, get_object_or_404, get_list_or_
 from django.views.generic import list_detail
 
 from store.models import *
+from mall.models import Department
 from mall.forms import ShoppingCartForm
 from store.forms import StoreSorterForm
 
+from haystack.forms import SearchForm
 import helpers as h
-from all_forms import base_forms
 
 def get_store(store_account_name):
     return get_object_or_404(Store, account_name__iexact=store_account_name)
 
 def get_common_context(store):
-    context = {"store": store}
-    context.update(base_forms)
-    return context
+    return {
+	"store": store,
+	"store_list": h.get_stores,
+	"department_list": h.get_departments,
+	"mall_search_form": SearchForm,
+    }
 
 def products_in_store(request, store_name):
     store = get_store(store_name)
@@ -51,14 +55,13 @@ def product_detail(request, store_name, product_id):
 def products_in_store_product_group(request, store_name, product_group_id):
     store = get_store(store_name)
     product_group = get_object_or_404(ProductGroup, pk=product_group_id)
+
     context = get_common_context(store)
-    context.update(
-	    {
+    context.update({
 		"product_list_length": product_group.product_set.count(),
 		"product_group": product_group,
 		"store_sorter_form": StoreSorterForm,
-	    }
-    )
+		})
 
     return list_detail.object_list(
 	    request,

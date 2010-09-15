@@ -3,6 +3,9 @@ from django.utils import simplejson
 from django.utils.functional import Promise
 from django.utils.encoding import force_unicode
 
+from mall.models import Department
+from store.models import Store
+
 from traceback import print_exc
 import datetime, random
 
@@ -65,3 +68,9 @@ def get_cart_from_session(session_object):
 	if isinstance(item[0], unicode):
 	    cart.append(item)
     return cart
+
+def get_departments():
+    return Department.objects.all()
+
+def get_stores():
+    return Store.objects.all()
