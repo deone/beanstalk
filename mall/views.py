@@ -6,26 +6,23 @@ from mall.models import Department
 from store.models import Product, Store
 
 import helpers as h
-from all_forms import base_forms
 from mall.forms import ShoppingCartForm
 
-CONTEXT = base_forms
+from haystack.forms import SearchForm
 
 def products_in_department(request, department_name):
     department = get_object_or_404(Department, slug__iexact=department_name)
-    context = CONTEXT
-    context.update(
-	    {
-		"department": department,
-		"department_list": Department.objects.all(),
-	    }
-    )
     
     return list_detail.object_list(
 	    request,
 	    queryset = Product.objects.filter(category__department=department),
 	    template_name = "mall/department.html",
-	    extra_context = context
+	    extra_context = {
+		"department": department,
+		"department_list": h.get_departments,
+		"store_list": h.get_stores,
+		"mall_search_form": SearchForm,
+	    }
     )
 
 @h.json_response
@@ -76,10 +73,12 @@ def preview_cart(request, template="mall/cart.html"):
 
     shopping_cart["order_total"] = str(shopping_cart["order_total"])
 
-    context = CONTEXT
-    context.update({"shopping_cart": shopping_cart})
-
-    return render_to_response(template, context, context_instance=RequestContext(request))
+    return render_to_response(template, {
+		"department_list": h.get_departments(),
+		"store_list": h.get_stores(),
+		"shopping_cart": shopping_cart,
+		"mall_search_form": SearchForm(),
+	    }, context_instance=RequestContext(request))
 
 def update_cart(request, product_id):
     if request.method == "POST":

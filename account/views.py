@@ -2,10 +2,17 @@ from django.shortcuts import render_to_response, redirect
 from django.template import RequestContext
 from django.contrib.auth import authenticate, login as auth_login
 
-from account.forms import *
-from all_forms import base_forms
+from haystack.forms import SearchForm
+import helpers as h
 
-CONTEXT = base_forms
+from account.forms import *
+
+def get_common_context():
+    return {
+	"department_list": h.get_departments(),
+	"store_list": h.get_stores(),
+	"mall_search_form": SearchForm(),
+    }
 
 def index(request, template="account/index.html"):
     """ Account home, shows the user's account settings. """
@@ -32,9 +39,9 @@ def register(request, template="account/register.html", form_class=RegisterForm)
     else:
 	form = form_class()
 
-    context = CONTEXT
-    context.update({"redirect_to": redirect_to, "register_form": form})
-	
+    context = get_common_context()
+    context.update({"redirect_to": redirect_to, "register_form": form,})
+
     return render_to_response(template, context, context_instance=RequestContext(request))
 
 def login(request, template="account/login.html", form_class=LoginForm):
@@ -53,8 +60,8 @@ def login(request, template="account/login.html", form_class=LoginForm):
     else:
 	form = form_class()
 
-    context = CONTEXT
-    context.update({"redirect_to": redirect_to, "login_form": form})
+    context = get_common_context()
+    context.update({"redirect_to": redirect_to, "login_form": form,})
 
     return render_to_response(template, context, context_instance=RequestContext(request))
 
