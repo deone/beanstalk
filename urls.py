@@ -5,8 +5,9 @@ from django.contrib import admin
 admin.autodiscover()
 
 from haystack.views import SearchView
+from haystack.forms import SearchForm
 from store.models import Product, Store
-from all_forms import *
+from mall.models import Department
 
 # These views are too coupled to the project, decouple!
 import mall.views
@@ -17,7 +18,10 @@ import os
 product_info = {
     "queryset": Product.objects.order_by('?')[:8],
     "template_name": "mall/index.html",
-    "extra_context": base_forms,
+    "extra_context": {"department_list": Department.objects.all, 
+	"store_list": Store.objects.all,
+	"mall_search_form": SearchForm,
+    }
 }
 
 urlpatterns = patterns('',

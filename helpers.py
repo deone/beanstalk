@@ -3,33 +3,17 @@ from django.utils import simplejson
 from django.utils.functional import Promise
 from django.utils.encoding import force_unicode
 
-from mall.models import Department
-from store.models import Store
-
 from traceback import print_exc
 import datetime, random
-
-def add(x, y):
-    return x+y
-
-def fetch(model):
-    result_list = []
-
-    if model == Store:
-	result_list.append(("", u"Stores"))
-    elif model == Department:
-	result_list.append(("", u"Departments"))
-    
-    for item in model.objects.all():
-	result_list.append((item.get_absolute_url(), item.name))
-	
-    return result_list
 
 class LazyEncoder(simplejson.JSONEncoder):
     def default(self, obj):
 	if isinstance(obj, Promise):
 	    return force_unicode(obj)
 	return super(LazyEncoder, self).default(obj)
+
+def add(x, y):
+    return x+y
 
 def json_response(func):
     def inner_func(request, *args, **kwargs):
