@@ -49,8 +49,18 @@
 	    </ul>
 	    
 	    <div id="selectMenu">
-		{{ store_select_form }}
-		{{ department_select_form }}
+		<select id="store_list">
+		    <option value="">Stores</option>
+		{% for store in store_list %}
+		    <option value="{{ store.get_absolute_url }}">{{ store.name }}</option>
+		{% endfor %}
+		</select>
+		<select id="department_list">
+		    <option value="">Departments</option>
+		{% for department in department_list %}
+		    <option value="{{ department.get_absolute_url }}">{{ department.name }}</option>
+		{% endfor %}
+		</select>
 	    </div>
 	    <div class="clear"></div>
 	</div>
