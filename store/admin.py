@@ -16,8 +16,9 @@ class ProductAdmin(admin.ModelAdmin):
 
     def formfield_for_foreignkey(self, db_field, request, **kwargs):
 	if db_field.name == "product_group":
-	    kwargs["queryset"] = ProductGroup.objects.filter(store=request.user.store)
-	    return db_field.formfield(**kwargs)
+	    if not request.user.is_superuser:
+		kwargs["queryset"] = ProductGroup.objects.filter(store=request.user.store)
+		return db_field.formfield(**kwargs)
 	return super(ProductAdmin, self).formfield_for_foreignkey(db_field, request, **kwargs)
 
     def queryset(self, request):
@@ -27,12 +28,14 @@ class ProductAdmin(admin.ModelAdmin):
 	return qs.filter(product_group__store=request.user.store)
 
 class ProductGroupAdmin(admin.ModelAdmin):
-    form = ProductGroupModelForm
 
-    def save_model(self, request, obj, form, change):
-	obj.store = request.user.store
-	obj.save()
-	
+    def formfield_for_foreignkey(self, db_field, request, **kwargs):
+	if db_field.name == "store":
+	    if not request.user.is_superuser:
+		kwargs["queryset"] = Store.objects.filter(owner=request.user)
+		return db_field.formfield(**kwargs)
+	return super(ProductGroupAdmin, self).formfield_for_foreignkey(db_field, request, **kwargs)
+
     def queryset(self, request):
 	qs = super(ProductGroupAdmin, self).queryset(request)
 	if request.user.is_superuser:
@@ -40,10 +43,12 @@ class ProductGroupAdmin(admin.ModelAdmin):
 	return qs.filter(store__owner=request.user)
 
 class ProductDetailAdmin(admin.ModelAdmin):
+
     def formfield_for_foreignkey(self, db_field, request, **kwargs):
 	if db_field.name == "product":
-	    kwargs["queryset"] = Product.objects.filter(product_group__store=request.user.store)
-	    return db_field.formfield(**kwargs)
+	    if not request.user.is_superuser:
+		kwargs["queryset"] = Product.objects.filter(product_group__store=request.user.store)
+		return db_field.formfield(**kwargs)
 	return super(ProductDetailAdmin, self).formfield_for_foreignkey(db_field, request, **kwargs)
 
     def queryset(self, request):
