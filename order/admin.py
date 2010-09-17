@@ -7,6 +7,9 @@ class OrderedItemInline(admin.TabularInline):
     extra = 0
     readonly_fields = ("buyer", "product", "cost", "quantity",)
 
+class OrderedItemAdmin(admin.ModelAdmin):
+    readonly_fields = ("order", "buyer", "product", "cost", "quantity",)
+
 class OrderAdmin(admin.ModelAdmin):
     readonly_fields = ("order_id", "amount", "status",)
     list_display = ("order_id", "amount", "status", "date_paid")
@@ -28,4 +31,4 @@ class OrderAdmin(admin.ModelAdmin):
 	return qs.filter(store__owner=request.user)
 
 admin.site.register(Order, OrderAdmin)
-admin.site.register(OrderedItem)
+admin.site.register(OrderedItem, OrderedItemAdmin)
