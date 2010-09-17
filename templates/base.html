@@ -21,7 +21,7 @@
 				{% endif %}
 				<a href="{% url account_logout %}">SIGN OUT</a>
 			    {% else %}
-				<a href="javascript:redirectToLogin();">SIGN IN</a> | <a href="javascript:redirectToRegister();">REGISTER</a>
+				<a href="{% url account_login %}">SIGN IN</a> | <a href="{% url account_register %}">REGISTER</a>
 			    {% endif %}
 			</div>
 			<div class="btn">

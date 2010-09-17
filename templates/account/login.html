@@ -4,8 +4,8 @@
     <div class="auth">
 	<h1>Log In To Pay4Me Mall</h1>
 	<div class="blk">
-	    <p>New customer? <a href="/account/register/?redirect_to={{ redirect_to }}">Register</a></p>
-	    <form action="/account/login/?redirect_to={{ redirect_to }}" method="post">
+	    <p>New customer? <a href="{% url account_register %}">Register</a></p>
+	    <form action="{% url account_login %}" method="post">
 		<ul>
 		    {{ login_form.as_ul }}
 		    <li><label><br/></label><input type="submit" value="Sign In"/></li>
@@ -13,8 +13,4 @@
 	    </form>
 	</div>
     </div>
-{% endblock %}
-
-{% block custom_js %}
-    <script type="text/javascript" src="{{ MEDIA_URL }}js/account.js"></script>
 {% endblock %}
