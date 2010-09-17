@@ -42,7 +42,7 @@ class ProductGroup(CommonInfo):
 class Product(CommonInfo):
     product_group = models.ForeignKey(ProductGroup)
     category = models.ForeignKey(Category)
-    large_image = models.ImageField(upload_to="products/large")
+    image = models.ImageField(upload_to="products")
     price = models.DecimalField(max_digits=20, decimal_places=2)
     quantity = models.IntegerField()
     date_added = models.DateTimeField(default=datetime.datetime.now)
