@@ -25,15 +25,13 @@ product_info = {
 }
 
 urlpatterns = patterns('',
-    (r'^delivery/$', order.views.delivery),
-    (r'^checkout/$', order.views.index),
     (r'^response$', order.views.process_payment_response),
-    (r'^transact/$', order.views.transact),
+    url(r'^transact/$', order.views.transact, name="pay"),
 
     url(r'^$', list_detail.object_list, product_info, name="mall_home"),
     url(r'^search/', include('haystack.urls'), name='haystack_search'),
     (r'^account/', include('account.urls')),
-    (r'^cart/', include('mall.urls')),
+    (r'^cart/', include('shopping_cart.urls')),
     (r'^admin/', include(admin.site.urls)),
     (r'^departments/(?P<department_name>[-A-za-z0-9_]+)/$', mall.views.products_in_department),
     (r'^(?P<store_name>\w+)/', include('store.urls')),

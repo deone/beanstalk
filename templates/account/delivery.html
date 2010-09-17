@@ -13,7 +13,7 @@
 	{% endif %}
     </p>
     <h2>Alternatively, you can specify a delivery address.</h2>
-    <form action="/delivery/" method="post">
+    <form action="{% url delivery_form %}" method="post">
 	{{ delivery_form.delivery_address }}
 	<fieldset style="border: none; padding: 10px 0 0 0">
 	    <input type="submit" value="Continue"/>
