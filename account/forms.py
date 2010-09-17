@@ -76,5 +76,22 @@ class LoginForm(forms.Form):
 	return self.cleaned_data
 
     def login(self, request):
-	login(request, self.user)
-	return True
+	if self.is_valid():
+	    login(request, self.user)
+	    return True
+	return False
+
+
+class DeliveryAddressForm(forms.Form):
+    delivery_address = forms.CharField(widget=forms.Textarea, required=False)
+
+    def save(self, user):
+	user_profile = user.get_profile()
+
+	if self.cleaned_data["delivery_address"] == "":
+	    user_profile.delivery_address = "%s, %s, %s, %s" % (user_profile.address, 
+		    user_profile.city, user_profile.state, user_profile.country)
+	else:
+	    user_profile.delivery_address = self.cleaned_data["delivery_address"]
+
+	user_profile.save()

@@ -45,23 +45,17 @@ def register(request, template="account/register.html", form_class=RegisterForm)
     return render_to_response(template, context, context_instance=RequestContext(request))
 
 def login(request, template="account/login.html", form_class=LoginForm):
-    try:
-	redirect_to = request.GET.get("redirect_to")
-    except KeyError:
-	pass
-
     if request.method == "POST":
 	form = form_class(request.POST)
 
-	if form.is_valid():
-	    if form.login(request):
-		return redirect(redirect_to)
+	if form.login(request):
+	    return redirect("/")
 
     else:
 	form = form_class()
 
     context = get_common_context()
-    context.update({"redirect_to": redirect_to, "login_form": form,})
+    context.update({"login_form": form,})
 
     return render_to_response(template, context, context_instance=RequestContext(request))
 
@@ -69,3 +63,17 @@ def logout(request, template="mall/index.html"):
 
     request.session.flush()
     return redirect("/")
+
+def set_delivery_address(request, template="account/delivery.html", form_class=DeliveryAddressForm):
+    if request.method == "POST":
+	form = form_class(request.POST)
+	if form.is_valid():
+	    form.save(request.user)
+	    return redirect("/cart/")
+
+    else:
+	form = form_class()
+
+    return render_to_response(template, {
+		"delivery_form": form,
+	    }, context_instance=RequestContext(request))
