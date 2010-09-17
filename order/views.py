@@ -11,18 +11,12 @@ from order.forms import *
 from store.models import Product
 
 import base64
+import urllib
 import urllib2
 from decimal import Decimal
 from BeautifulSoup import BeautifulStoneSoup
 
 import helpers as h
-
-@h.json_response
-def index(request):
-    if not request.user.id:
-	return ("string", "/account/login/")
-    else:
-	return ("string", "/delivery/")
 
 def compute_cart(request):
     # Grab cart items from session
@@ -50,7 +44,6 @@ def compute_cart(request):
 
     return order_id, total
 
-@h.json_response
 def transact(request):
     order_details = compute_cart(request)
 
@@ -76,7 +69,7 @@ def transact(request):
 
     request.session.flush()
 
-    return ("string", url)
+    return redirect(urllib.unquote(url))
 
 def process_payment_response(request):
     # Process response from pay4me.
@@ -114,17 +107,3 @@ def process_payment_response(request):
 	so.save()
 
     return HttpResponse(mimetype="text/plain", content="OK")
-
-def delivery(request, template="order/delivery.html", form_class=DeliveryForm):
-    if request.method == "POST":
-	form = form_class(request.POST)
-	if form.is_valid():
-	    form.save(request.user)
-	    return redirect("/cart/preview/")
-
-    else:
-	form = form_class()
-
-    return render_to_response(template, {
-		"delivery_form": form,
-	    }, context_instance=RequestContext(request))
