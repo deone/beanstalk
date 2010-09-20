@@ -7,69 +7,73 @@
 {% block content_body %}
     <div id="cartPreview">
 	<h1>Your ShOPPING CART </h1>
-	<div class="heading">
+	{% if shopping_cart.items %}
+	    <div class="heading">
+		<div class="item">
+		    <div class="title">Item</div>
+		    <div class="store">Store</div>
+		    <div class="quantity">Quantity</div>
+		    <div class=" itemCost">Item Cost</div>
+		    <div class="totalCost">Total</div>
+		    <div class="clear"></div>
+		</div>
+	    </div>
+	    {% for item in shopping_cart.items %}
 	    <div class="item">
-		<div class="title">Item</div>
-		<div class="store">Store</div>
-		<div class="quantity">Quantity</div>
-		<div class=" itemCost">Item Cost</div>
-		<div class="totalCost">Total</div>
+		{% thumbnail item.image 62x62 as thumb %}
+		<div class="del"><a href="{% url delete_from_cart item.id %}"><img src="{{ MEDIA_URL }}img/cartPreviewDelete.jpg"/></a></div>
+		<div class="thumbnail"><a href="{{ item.get_absolute_url }}"><img src="{{ thumb }}" width="{{ thumb.width }}" height="{{ thumb.height }}"/></a></div><br />
+		<div class="title"><a href="{{ item.get_absolute_url }}">{{ item.name }}</a></div>
+		<div class="store">{{ item.product_group.store.name }}</div>
+		<div class="quantity">
+		    <form action="{% url update_cart item.id %}" method="post">
+			{{ item.qty_edit_form }}
+			<input type="submit" value="Update"/>
+		    </form>
+		</div>
+		<div class="itemCost">N{{ item.price }}</div>
+		<div class="totalCost">N{{ item.total_cost }}</div>
 		<div class="clear"></div>
 	    </div>
-	</div>
-	{% for item in shopping_cart.items %}
-	<div class="item">
-	    {% thumbnail item.image 62x62 as thumb %}
-	    <div class="del"><a href="{% url delete_from_cart item.id %}"><img src="{{ MEDIA_URL }}img/cartPreviewDelete.jpg"/></a></div>
-	    <div class="thumbnail"><a href="{{ item.get_absolute_url }}"><img src="{{ thumb }}" width="{{ thumb.width }}" height="{{ thumb.height }}"/></a></div><br />
-	    <div class="title"><a href="{{ item.get_absolute_url }}">{{ item.name }}</a></div>
-	    <div class="store">{{ item.product_group.store.name }}</div>
-	    <div class="quantity">
-		<form action="{% url update_cart item.id %}" method="post">
-		    {{ item.qty_edit_form }}
-		    <input type="submit" value="Update"/>
-		</form>
-	    </div>
-	    <div class="itemCost">N{{ item.price }}</div>
-	    <div class="totalCost">N{{ item.total_cost }}</div>
-	    <div class="clear"></div>
-	</div>
-	{% endfor %}
-	<div class="bagTotal">Order Total<span class="totalAmount">N{{ shopping_cart.order_total }}0</span></div>
-	<div class="shippingAdd">
-	    <h2>Shipping Address</h2>
-	    <p>
-	    {% if not user.id %}
-		Please <a href="{% url account_login %}">sign in</a> to continue.
-	    {% else %}
-		{% if user.get_profile.delivery_address %}
-		    {{ user.get_profile.delivery_address }}
+	    {% endfor %}
+	    <div class="bagTotal">Order Total<span class="totalAmount">N{{ shopping_cart.order_total }}0</span></div>
+	    <div class="shippingAdd">
+		<h2>Shipping Address</h2>
+		<p>
+		{% if not user.id %}
+		    Please <a href="{% url account_login %}">sign in</a> to continue.
 		{% else %}
-		    You have not provided a delivery address.
+		    {% if user.get_profile.delivery_address %}
+			{{ user.get_profile.delivery_address }}
+		    {% else %}
+			You have not provided a delivery address.
+		    {% endif %}
 		{% endif %}
-	    {% endif %}
-	    </p>
-	    <!--<span><a href="#">Edit Address</a></span>-->
-	</div>
-	<br/>
-	{% if not user.id %}
-	    <form action="{% url account_login %}">
-		<input type="submit" value="" class="chkoutBtn"/>
-	    </form>
-	{% else %}
-	    {% if not user.get_profile.delivery_address %}
-		<form action="{% url delivery_form %}">
+		</p>
+		<!--<span><a href="#">Edit Address</a></span>-->
+	    </div>
+	    <br/>
+	    {% if not user.id %}
+		<form action="{% url account_login %}">
 		    <input type="submit" value="" class="chkoutBtn"/>
 		</form>
 	    {% else %}
-		<form action="{% url pay %}">
-		    <input type="submit" value="" class="payBtn"/>
-		</form>
+		{% if not user.get_profile.delivery_address %}
+		    <form action="{% url delivery_form %}">
+			<input type="submit" value="" class="chkoutBtn"/>
+		    </form>
+		{% else %}
+		    <form action="{% url payment %}">
+			<input type="submit" value="" class="payBtn"/>
+		    </form>
+		{% endif %}
 	    {% endif %}
+	    <div class="continue">
+		<a href="{% url mall_home %}"><img src="{{ MEDIA_URL }}img/contShop.jpg" alt="Continue Shopping"/></a>
+	    </div>
+	    <div class="clear"></div>
+	{% else %}
+	    <p>There are no items in your shopping cart. <a href="{% url mall_home %}">Continue shopping</a></p>
 	{% endif %}
-	<div class="continue">
-	    <a href="{% url mall_home %}"><img src="{{ MEDIA_URL }}img/contShop.jpg" alt="Continue Shopping"/></a>
-	</div>
-	<div class="clear"></div>
     </div>
 {% endblock %}
