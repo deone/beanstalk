@@ -10,7 +10,7 @@ from mall.models import Department
 
 # These views are too coupled to the project, decouple!
 import mall.views
-import order.views
+import payment.views
 
 import os
 
@@ -25,10 +25,10 @@ product_info = {
 }
 
 urlpatterns = patterns('',
-    (r'^response$', order.views.process_payment_response),
-    url(r'^transact/$', order.views.transact, name="pay"),
-
     url(r'^$', list_detail.object_list, product_info, name="mall_home"),
+    # Merge these payment urls in production
+    url(r'^payment/$', payment.views.index, name="payment"),
+    url(r'^response$', payment.views.process_payment_response, name="payment_response"),
     url(r'^search/', include('haystack.urls'), name='haystack_search'),
     (r'^account/', include('account.urls')),
     (r'^cart/', include('shopping_cart.urls')),

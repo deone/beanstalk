@@ -27,6 +27,7 @@ class Store(CommonInfo):
     def __unicode__(self):
 	return self.name
 
+
 class ProductGroup(CommonInfo):
     store = models.ForeignKey(Store)
 
@@ -38,6 +39,7 @@ class ProductGroup(CommonInfo):
 
     class Meta:
 	verbose_name_plural = "Product Groups"
+
 
 class Product(CommonInfo):
     product_group = models.ForeignKey(ProductGroup)
@@ -54,6 +56,7 @@ class Product(CommonInfo):
     def __unicode__(self):
 	return self.name
 
+
 class ProductDetail(CommonInfo):
     product = models.ForeignKey(Product)
 
@@ -62,3 +65,36 @@ class ProductDetail(CommonInfo):
 
     class Meta:
 	verbose_name_plural = "Product Details"
+
+
+class Order(models.Model):
+    PENDING, DONE = 1, 0
+    PAYMENT_STATUS_CHOICES = (
+	    (PENDING, "Pending"),
+	    (DONE, "Payment Successful"),
+    )
+
+    store = models.ForeignKey(Store)
+    order_id = models.CharField(max_length=20)
+    amount = models.DecimalField(max_digits=20, decimal_places=2)
+    status = models.SmallIntegerField(choices=PAYMENT_STATUS_CHOICES, default=PENDING)
+    created_at = models.DateTimeField(default=datetime.datetime.now)
+    date_paid = models.DateTimeField(null=True)
+    validation_number = models.CharField(max_length=20, null=True)
+
+    def __unicode__(self):
+	return self.order_id
+
+
+class OrderedItem(models.Model):
+    order = models.ForeignKey(Order)
+    buyer = models.ForeignKey(User)
+    product = models.ForeignKey(Product)
+    quantity = models.IntegerField()
+    cost = models.DecimalField(max_digits=20, decimal_places=2)
+
+    def __unicode__(self):
+	return self.product.name
+
+    class Meta:
+	verbose_name_plural = "Ordered Items"

@@ -7,16 +7,12 @@ from mall.models import Department
 from store.models import Store
 
 from traceback import print_exc
-import datetime, random
 
 class LazyEncoder(simplejson.JSONEncoder):
     def default(self, obj):
 	if isinstance(obj, Promise):
 	    return force_unicode(obj)
 	return super(LazyEncoder, self).default(obj)
-
-def add(x, y):
-    return x+y
 
 def json_response(func):
     def inner_func(request, *args, **kwargs):
@@ -56,10 +52,6 @@ def create_response(code, type=None, value=None):
 	}
 
     return simplejson.dumps(response, cls=LazyEncoder)
-
-def generate_id():
-    digits = datetime.datetime.now().timetuple()[:6] + (random.randint(0, 999),)
-    return ''.join(map(str, digits))
 
 def get_cart_from_session(session_object):
     cart = []

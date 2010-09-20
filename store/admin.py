@@ -1,9 +1,10 @@
 from django.contrib import admin
 from store.models import *
-from store.forms import ProductGroupModelForm
+
 
 class ProductDetailInline(admin.TabularInline):
     model = ProductDetail
+
 
 class ProductAdmin(admin.ModelAdmin):
     radio_fields = {"product_group": admin.VERTICAL}
@@ -27,6 +28,7 @@ class ProductAdmin(admin.ModelAdmin):
 	    return qs
 	return qs.filter(product_group__store=request.user.store)
 
+
 class ProductGroupAdmin(admin.ModelAdmin):
 
     def formfield_for_foreignkey(self, db_field, request, **kwargs):
@@ -41,6 +43,7 @@ class ProductGroupAdmin(admin.ModelAdmin):
 	if request.user.is_superuser:
 	    return qs
 	return qs.filter(store__owner=request.user)
+
 
 class ProductDetailAdmin(admin.ModelAdmin):
 
@@ -57,7 +60,41 @@ class ProductDetailAdmin(admin.ModelAdmin):
 	    return qs
 	return qs.filter(product__product_group__store__owner=request.user)
 
+
+class OrderedItemInline(admin.TabularInline):
+    model = OrderedItem
+    extra = 0
+    readonly_fields = ("buyer", "product", "cost", "quantity",)
+
+
+class OrderedItemAdmin(admin.ModelAdmin):
+    readonly_fields = ("order", "buyer", "product", "cost", "quantity",)
+
+
+class OrderAdmin(admin.ModelAdmin):
+    readonly_fields = ("order_id", "amount", "status",)
+    list_display = ("order_id", "amount", "status", "date_paid")
+    date_hierarchy = "created_at"
+    fieldsets = (
+	    (None, {
+		'fields': (("order_id", "amount", "status"),)
+	    }),
+    )
+
+    inlines = [
+	OrderedItemInline,
+    ]
+    
+    def queryset(self, request):
+	qs = super(OrderAdmin, self).queryset(request)
+	if request.user.is_superuser:
+	    return qs
+	return qs.filter(store__owner=request.user)
+
+
 admin.site.register(Store)
 admin.site.register(ProductGroup, ProductGroupAdmin)
 admin.site.register(Product, ProductAdmin)
 admin.site.register(ProductDetail, ProductDetailAdmin)
+admin.site.register(Order, OrderAdmin)
+admin.site.register(OrderedItem, OrderedItemAdmin)
