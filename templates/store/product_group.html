@@ -37,7 +37,7 @@
     <div class="clear"></div>
     {% for product in object_list %}
 	<div id="productItem">
-	    {% thumbnail product.large_image 160x160 as thumb %}
+	    {% thumbnail product.image 160x160 as thumb %}
 	    <a href="{{ product.get_absolute_url }}">
 		<img src="{{ thumb }}" width="{{ thumb.width }}" height="{{ thumb.height }}"/>
 		<div class="clear"></div>

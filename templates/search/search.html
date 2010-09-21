@@ -26,7 +26,7 @@
     {% if query %}
 	{% for result in page.object_list %}
 	    <div id="productItem">
-		{% thumbnail result.object.large_image 116x116 as thumb %}
+		{% thumbnail result.object.image 116x116 as thumb %}
 		<a href="{{ result.object.get_absolute_url }}">
 		    <img src="{{ thumb }}" width="{{ thumb.width }}" height="{{ thumb.height }}"/>
 		    <div class="clear"></div>
