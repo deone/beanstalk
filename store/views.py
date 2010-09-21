@@ -38,7 +38,7 @@ def product_detail(request, store_name, product_id):
 	if form.is_valid():
 	    form.save(request, product_id)
     else:
-	form = ShoppingCartForm()
+	form = ShoppingCartForm(initial={"product_id": product_id})
 
     context = get_common_context(store)
     context.update({"shopping_cart_form": form})
