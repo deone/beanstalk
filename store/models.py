@@ -14,8 +14,8 @@ GENDER_CHOICES = (
 class Store(CommonInfo):
     owner = models.OneToOneField(User)
     account_name = models.CharField(max_length=100, unique=True)
-    logo = models.ImageField(upload_to="store/logos/")
-    banner = models.ImageField(upload_to="store/banners/")
+    logo = models.ImageField(upload_to="store/logos/", help_text="Required width: 160px, Image formats: JPEG, PNG, GIF.")
+    banner = models.ImageField(upload_to="store/banners/", help_text="Required width: 750px, Image formats: JPEG, PNG, GIF.")
     office_number = models.CharField(max_length=9, null=True, blank=True)
     street_address = models.CharField(max_length=100)
     city = models.CharField(max_length=20)

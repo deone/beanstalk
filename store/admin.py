@@ -1,5 +1,6 @@
 from django.contrib import admin
 from store.models import *
+from store.forms import StoreModelForm
 
 
 class ProductDetailInline(admin.TabularInline):
@@ -45,8 +46,11 @@ class ProductGroupAdmin(admin.ModelAdmin):
 	return qs.filter(store__owner=request.user)
 
 
-class ProductDetailAdmin(admin.ModelAdmin):
+class StoreAdmin(admin.ModelAdmin):
+    form = StoreModelForm
 
+
+class ProductDetailAdmin(admin.ModelAdmin):
     def formfield_for_foreignkey(self, db_field, request, **kwargs):
 	if db_field.name == "product":
 	    if not request.user.is_superuser:
@@ -92,7 +96,7 @@ class OrderAdmin(admin.ModelAdmin):
 	return qs.filter(store__owner=request.user)
 
 
-admin.site.register(Store)
+admin.site.register(Store, StoreAdmin)
 admin.site.register(ProductGroup, ProductGroupAdmin)
 admin.site.register(Product, ProductAdmin)
 admin.site.register(ProductDetail, ProductDetailAdmin)
