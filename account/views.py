@@ -1,5 +1,6 @@
 from django.shortcuts import render_to_response, redirect
 from django.template import RequestContext
+from django.views.decorators.cache import never_cache
 from django.contrib.auth import authenticate, login as auth_login
 
 from haystack.forms import SearchForm
@@ -44,6 +45,7 @@ def register(request, template="account/register.html", form_class=RegisterForm)
 
     return render_to_response(template, context, context_instance=RequestContext(request))
 
+@never_cache
 def login(request, template="account/login.html", form_class=LoginForm):
     if request.method == "POST":
 	form = form_class(request.POST)
@@ -58,11 +60,6 @@ def login(request, template="account/login.html", form_class=LoginForm):
     context.update({"login_form": form,})
 
     return render_to_response(template, context, context_instance=RequestContext(request))
-
-def logout(request, template="mall/index.html"):
-
-    request.session.flush()
-    return redirect("/")
 
 def set_delivery_address(request, template="account/delivery.html", form_class=DeliveryAddressForm):
     if request.method == "POST":
