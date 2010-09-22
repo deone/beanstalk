@@ -11,7 +11,7 @@ class ShoppingCartForm(forms.Form):
 
 	if "quantity" in self.cleaned_data:
 	    if not product.update_quantity(self.cleaned_data["quantity"]):
-		raise forms.ValidationError("Insufficient Stock")
+		raise forms.ValidationError("Insufficient Stock. Please check back later.")
 
 	    if self.cleaned_data["quantity"] > 0:
 		return self.cleaned_data
@@ -22,7 +22,7 @@ class ShoppingCartForm(forms.Form):
 	item_price = product.price
 	stock_quantity = product.quantity
 
-	quantity_demanded, price = self.cleaned_data["quantity"], item_price
+	quantity_demanded, price = self.cleaned_data["quantity"], float(item_price)
 	
 	cart_item = []
 	cart_item.append(quantity_demanded)
