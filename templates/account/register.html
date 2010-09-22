@@ -4,7 +4,7 @@
     <div class="auth">
 	<h1>Register With Pay4Me Mall</h1>
 	<div class="blk">
-	    <form action="/account/register/?redirect_to={{ redirect_to }}" method="post">
+	    <form action="{% url account_register %}" method="post">
 		<p>All fields are required.</p>
 		<ul>
 		    {{ register_form.as_ul }}

@@ -1,7 +1,9 @@
-from django.shortcuts import render_to_response, redirect
+from django.shortcuts import render_to_response, redirect, get_object_or_404
 from django.template import RequestContext
 from django.views.decorators.cache import never_cache
 from django.contrib.auth import authenticate, login as auth_login
+from django.core.mail import send_mail
+from django.conf import settings
 
 from haystack.forms import SearchForm
 import helpers as h
@@ -23,25 +25,26 @@ def index(request, template="account/index.html"):
 
 def register(request, template="account/register.html", form_class=RegisterForm):
     """ Buyers' registration page. """
-
-    try:
-	redirect_to = request.GET.get("redirect_to")
-    except KeyError:
-	pass
+    context = get_common_context()
 
     if request.method == "POST":
 	form = form_class(request.POST)
-
 	if form.is_valid():
 	    username, password = form.save()
-	    user = authenticate(username=username, password=password)
-	    auth_login(request, user)
-	    return redirect(redirect_to)
+	    try:
+		user = get_object_or_404(User, username=username)
+		user.email_user("Welcome to Pay4Me Mall", "Test Message", "oosikoya@pay4me.com")
+	    except Exception,e:
+		user.delete()
+	    else:
+		user = authenticate(username=username, password=password)
+		auth_login(request, user)
+
+	    return render_to_response("account/feedback.html", context, context_instance=RequestContext(request))
     else:
 	form = form_class()
 
-    context = get_common_context()
-    context.update({"redirect_to": redirect_to, "register_form": form,})
+    context.update({"register_form": form,})
 
     return render_to_response(template, context, context_instance=RequestContext(request))
 

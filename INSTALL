@@ -16,12 +16,57 @@ Application dependencies
     Download and install python setuptools.
     Run `easy_install BeautifulSoup`.
 
-Installation from Source
-========================
-Run the following commands on the linux command prompt and follow instructions.
-1. `make rpm HOST=${HOST}`
-    where ${HOST} is the hostname of the machine.
-2. `rpm -ivh pay4memall-0.1-*.rpm`
-3. `pay4memall-setup`
-4. Open /etc/httpd/conf.d/pay4memallmod_wsgi.conf in a text editor of your choice and replace the ServerName and ServerAdmin parameters with your server-specific parameters.
-5. Restart httpd.
+* sorl_thumbnail
+* haystack 1.1.0
+* whoosh 0.3.18
+
+How to use Django with Apache and mod_wsgi
+==========================================
+Deploying Django with Apache and mod_wsgi is the recommended way to get Django into production.
+
+Basic Configuration
+===================
+Once you’ve got mod_wsgi installed and activated, edit your httpd.conf file and add:
+
+WSGIScriptAlias / /path/to/mysite/apache/django.wsgi
+
+The first bit above is the url you want to be serving your application at (/ indicates the root url), and the second is the location of a "WSGI file" -- see below -- on your system, usually inside of your project. This tells Apache to serve any request below the given URL using the WSGI application defined by that file.
+
+Next we'll need to actually create this WSGI application, so create the file mentioned in the second part of WSGIScriptAlias and add:
+
+import os
+import sys
+
+os.environ['DJANGO_SETTINGS_MODULE'] = 'mysite.settings'
+
+import django.core.handlers.wsgi
+application = django.core.handlers.wsgi.WSGIHandler()
+
+If your project is not on your PYTHONPATH by default you can add:
+
+sys.path.append('/usr/local/django')
+
+just above the final import line to place your project on the path. Remember to replace 'mysite.settings' with your correct settings file, and '/usr/local/django' with your own project's location.
+
+Serving media files
+===================
+This example sets up Django at the site root, but explicitly serves robots.txt, favicon.ico, any CSS file, and anything in the /media/ URL space as a static file. All other URLs will be served using mod_wsgi:
+
+Alias /robots.txt /usr/local/wsgi/static/robots.txt
+Alias /favicon.ico /usr/local/wsgi/static/favicon.ico
+
+AliasMatch /([^/]*\.css) /usr/local/wsgi/static/styles/$1
+
+Alias /media/ /usr/local/wsgi/static/media/
+
+<Directory /usr/local/wsgi/static>
+Order deny,allow
+Allow from all
+</Directory>
+
+WSGIScriptAlias / /usr/local/wsgi/scripts/django.wsgi
+
+<Directory /usr/local/wsgi/scripts>
+Order allow,deny
+Allow from all
+</Directory>
