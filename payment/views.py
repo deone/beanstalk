@@ -19,25 +19,15 @@ def add(x, y):
     return x + y
 
 def generate_unique_id():
+    """ Generate unique id """
     digits = datetime.datetime.now().timetuple()[:6] + (random.randint(0, 999),)
     return ''.join(map(str, digits))
 
-def get_order_details(request):
-    """ Computes and returns the value of the order together with a generated unique order identifier """
+def index(request):
+    """ Submits a payment request, creates order entry in the database and redirects user to Pay4Me. """
     cart = h.get_cart_from_session(request.session._session)
-
     order_id = generate_unique_id()
     order_total = reduce(add, [item[1][0] * item[1][1] for item in cart])
-
-    return cart, order_id, order_total
-
-def index(request):
-    """ Submits a payment request to Pay4Me """
-    order_details = get_order_details(request)
-
-    cart = order_details[0]
-    order_id = order_details[1]
-    order_total = order_details[2]
 
     auth_token = base64.b64encode(settings.MERCHANT_CODE + ':' + settings.MERCHANT_KEY)
     t = get_template("payment/request.xml")
@@ -59,21 +49,26 @@ def index(request):
 
     url = soup.find("redirect-url").string
 
-    # Create order entry in database
     for item in cart:
 	product = Product.objects.get(pk=item[0])
 	product_cost = product.price * item[1][0]
 	
-	try:
-	    order = Order.objects.get(order_id=order_id, store=product.product_group.store)
-	except Order.DoesNotExist:
-	    order = Order.objects.create(order_id=order_id, store=product.product_group.store, amount=product_cost)
-	else:
+	# Check if order already exists. If not create one.
+	order, created = Order.objects.get_or_create(order_id=order_id, store=product.product_group.store, \
+		defaults = {'amount': product_cost})
+
+	# If a new order was not created, update the gotten order.
+	if not created:
 	    order.amount += product_cost
 	    order.save()
 
+	# Also create entry of each item in the order.
 	OrderedItem.objects.create(order=order, buyer=request.user, \
 	    product=product, quantity=item[1][0], cost=str(item[1][0] * item[1][1]))
+
+	# Now subtract the quantity of this item from the quantity in stock.
+	product.quantity = product.quantity - item[1][0]
+	product.save()
 
     request.session.flush()
 

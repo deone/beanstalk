@@ -59,9 +59,6 @@ class Product(CommonInfo):
     def update_quantity(self, quantity_demanded):
 	if quantity_demanded > self.quantity:
 	    return False
-
-	self.quantity = self.quantity - quantity_demanded
-	self.save()
 	return True
 
 
