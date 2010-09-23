@@ -27,6 +27,8 @@ OPTIMIZATION
 * Validate account_name field to allow upper and lower cased alphabets, - and _.
 * Fix NoReverseMatch error when url names are used.
 * Implement SlugField in mall Category, store ProductGroup, Product and ProductDetail models.
+* What do we do when a buyer has insufficient balance in his ewallet or bank and he is not allowed to pay? Issue:
+- We've already created an order and deducted the quantity demanded from the stock quantity.
 
 FEATURES
 * Unit Testing (models/views)**.

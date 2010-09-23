@@ -16,7 +16,7 @@ Application dependencies
     Download and install python setuptools.
     Run `easy_install BeautifulSoup`.
 
-* sorl_thumbnail
+* sorl_thumbnail 3.2.5
 * haystack 1.1.0
 * whoosh 0.3.18
 

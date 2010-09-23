@@ -3,7 +3,7 @@ from django.template import RequestContext
 from haystack.forms import SearchForm
 
 from store.models import Product
-from mall.forms import ShoppingCartForm
+from shopping_cart.forms import ShoppingCartForm
 
 import helpers as h
 
@@ -47,7 +47,7 @@ def preview_cart(request, template="shopping_cart/index.html"):
     # Can't we use recursion in cases like this?
     for item in cart:
 	product = get_object_or_404(Product, pk=item[0])
-	product.qty_edit_form = ShoppingCartForm(initial={"quantity": item[1][0]})
+	product.qty_edit_form = ShoppingCartForm(initial={"product_id": product.id, "quantity": item[1][0]})
 	product.total_cost = item[1][0] * item[1][1]
 	shopping_cart["order_total"] += product.total_cost
 	product.total_cost = str(product.total_cost) + "0"

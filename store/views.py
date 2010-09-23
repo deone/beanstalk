@@ -3,8 +3,8 @@ from django.views.generic import list_detail
 
 from store.models import *
 from mall.models import Department
-from mall.forms import ShoppingCartForm
 from store.forms import StoreSorterForm
+from shopping_cart.forms import ShoppingCartForm
 
 from haystack.forms import SearchForm
 import helpers as h
