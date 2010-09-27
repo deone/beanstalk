@@ -56,7 +56,7 @@ class Product(CommonInfo):
     def __unicode__(self):
 	return self.name
 
-    def update_quantity(self, quantity_demanded):
+    def is_quantity_available(self, quantity_demanded):
 	if quantity_demanded > self.quantity:
 	    return False
 	return True
@@ -73,27 +73,29 @@ class ProductDetail(CommonInfo):
 
 
 class Order(models.Model):
+    # Change this to PAYMENT_PENDING, PAYMENT_SUCCESSFUL, ORDER_DELIVERED
     PENDING, DONE = 1, 0
+    # Change this to ORDER_STATUS_CHOICES
     PAYMENT_STATUS_CHOICES = (
 	    (PENDING, "Pending"),
 	    (DONE, "Payment Successful"),
     )
 
-    store = models.ForeignKey(Store)
     order_id = models.CharField(max_length=20)
+    store = models.ForeignKey(Store)
+    buyer = models.ForeignKey(User)
     amount = models.DecimalField(max_digits=20, decimal_places=2)
     status = models.SmallIntegerField(choices=PAYMENT_STATUS_CHOICES, default=PENDING)
     created_at = models.DateTimeField(default=datetime.datetime.now)
     date_paid = models.DateTimeField(null=True)
     validation_number = models.CharField(max_length=20, null=True)
 
-    def __unicode__(self):
-	return self.order_id
+    def __str__(self):
+	return "%s's share of order %s" % (self.store.name, self.order_id)
 
 
 class OrderedItem(models.Model):
     order = models.ForeignKey(Order)
-    buyer = models.ForeignKey(User)
     product = models.ForeignKey(Product)
     quantity = models.IntegerField()
     cost = models.DecimalField(max_digits=20, decimal_places=2)

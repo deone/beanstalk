@@ -10,7 +10,7 @@ class ShoppingCartForm(forms.Form):
 	product = get_object_or_404(Product, pk=self.cleaned_data["product_id"])
 
 	if "quantity" in self.cleaned_data:
-	    if not product.update_quantity(self.cleaned_data["quantity"]):
+	    if not product.is_quantity_available(self.cleaned_data["quantity"]):
 		raise forms.ValidationError("Insufficient Stock. Please check back later.")
 
 	    if self.cleaned_data["quantity"] > 0:

@@ -68,20 +68,20 @@ class ProductDetailAdmin(admin.ModelAdmin):
 class OrderedItemInline(admin.TabularInline):
     model = OrderedItem
     extra = 0
-    readonly_fields = ("buyer", "product", "cost", "quantity",)
+    readonly_fields = ("product", "cost", "quantity",)
 
 
 class OrderedItemAdmin(admin.ModelAdmin):
-    readonly_fields = ("order", "buyer", "product", "cost", "quantity",)
+    readonly_fields = ("order", "product", "cost", "quantity",)
 
 
 class OrderAdmin(admin.ModelAdmin):
-    readonly_fields = ("order_id", "amount", "status",)
-    list_display = ("order_id", "amount", "status", "date_paid")
+    readonly_fields = ("buyer", "store", "amount",)
+    list_display = ("order_id", "store", "amount", "status", "created_at", "date_paid")
     date_hierarchy = "created_at"
     fieldsets = (
 	    (None, {
-		'fields': (("order_id", "amount", "status"),)
+		'fields': (("buyer", "store", "amount", "status"),)
 	    }),
     )
 
