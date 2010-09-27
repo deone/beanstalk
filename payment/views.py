@@ -1,7 +1,9 @@
 from django.conf import settings
-from django.shortcuts import redirect
+from django.http import HttpResponse
+from django.shortcuts import redirect, get_list_or_404
 from django.template.loader import get_template
 from django.template import Context, RequestContext
+from django.core.mail import send_mail
 
 from store.models import Product, Order, OrderedItem
 
@@ -12,7 +14,10 @@ import random
 import base64
 import urllib
 import urllib2
+from decimal import Decimal
 from BeautifulSoup import BeautifulStoneSoup
+
+from traceback import print_exc
 
 def add(x, y):
     """ Adds up the value of items in the cart and returns total """
@@ -29,6 +34,22 @@ def index(request):
     order_id = generate_unique_id()
     order_total = reduce(add, [item[1][0] * item[1][1] for item in cart])
 
+    for item in cart:
+	product = Product.objects.get(pk=item[0])
+	product_cost = product.price * item[1][0]
+
+	# Check if order already exists. If not create one.
+	order, created = Order.objects.get_or_create(order_id=order_id, store=product.product_group.store, \
+		defaults = {'buyer': request.user, 'amount': product_cost})
+
+	# If a new order was not created, update the gotten order.
+	if not created:
+	    order.amount += product_cost
+	    order.save()
+
+	# Also create entry of each item in the order.
+	OrderedItem.objects.create(order=order, product=product, quantity=item[1][0], cost=str(item[1][0] * item[1][1]))
+
     auth_token = base64.b64encode(settings.MERCHANT_CODE + ':' + settings.MERCHANT_KEY)
     t = get_template("payment/request.xml")
 
@@ -44,31 +65,10 @@ def index(request):
     req.add_header("Content-type", "application/xml; charset=utf-8")
     req.add_header("Accept", "application/xml; charset=utf-8")
     
+    # Handle exception URLError
     response = urllib2.urlopen(req)
     soup = BeautifulStoneSoup(response.read())
-
     url = soup.find("redirect-url").string
-
-    for item in cart:
-	product = Product.objects.get(pk=item[0])
-	product_cost = product.price * item[1][0]
-	
-	# Check if order already exists. If not create one.
-	order, created = Order.objects.get_or_create(order_id=order_id, store=product.product_group.store, \
-		defaults = {'amount': product_cost})
-
-	# If a new order was not created, update the gotten order.
-	if not created:
-	    order.amount += product_cost
-	    order.save()
-
-	# Also create entry of each item in the order.
-	OrderedItem.objects.create(order=order, buyer=request.user, \
-	    product=product, quantity=item[1][0], cost=str(item[1][0] * item[1][1]))
-
-	# Now subtract the quantity of this item from the quantity in stock.
-	product.quantity = product.quantity - item[1][0]
-	product.save()
 
     request.session.flush()
 
@@ -83,7 +83,7 @@ def process_payment_response(request):
     status = int(item.status.code.string)
     date_paid = item.find('payment-date').string 
     validation_no = item.find('validation-number').string
-
+    
     #message = """
     #order_id: %s type: %s \n
     #amount: %s type: %s \n
@@ -109,4 +109,76 @@ def process_payment_response(request):
 	so.validation_number = validation_no
 	so.save()
 
+	# Subtract ordered item quantity from product quantity.
+	update_stock(so.ordereditem_set.all())
+
+	"""# Send email notification to merchant(s) so that products can be shipped.
+	store_order_info = {
+	    "merchant_email": so.store.owner.email,
+	    "order_id": so.order_id,
+	    "buyer_address": so.buyer.get_profile().delivery_address,
+	    "amount": so.amount,
+	    "order_date": so.created_at,
+	}
+	items_ordered_in_store = so.ordereditem_set.all()
+	notify_merchant(*items_ordered_in_store, **store_order_info)"""
+
+    # Send email to buyer. Grab items by querying OrderedItem with order_id, pronto!
+    items_ordered_by_buyer = OrderedItem.objects.filter(order__order_id=order_id)
+    notify_buyer(*items_ordered_by_buyer)
+
     return HttpResponse(mimetype="text/plain", content="OK")
+
+def update_stock(ordered_items):
+    for oi in ordered_items:
+	oi.product.quantity = oi.product.quantity - oi.quantity
+	oi.product.save()
+
+def notify_merchant(*args, **kwargs):
+    pass
+
+def notify_buyer(*args):
+    order_id = args[0].order.order_id
+    buyer = args[0].order.buyer
+
+    email_title = "Your Order with Pay4Me Mall"
+    order_total = reduce(add, [item.quantity * float(item.cost) for item in args])
+
+    # Read this from a text file.
+    message = """
+    Thank you for your order, %s.
+
+    Purchasing Information
+    Email Address: %s
+
+    Shipping Address:
+    %s
+    
+    Order Grand Total: _____
+
+    Order Summary
+    Order ID: %s
+    Shipping Method: ______
+    Subtotal of Items: N%s
+    Shipping & Handling: ______
+
+    Total for this Order: ______
+
+    Delivery estimate:
+    Shipping estimate for these items:
+    """ % (buyer.first_name, buyer.email, buyer.get_profile().delivery_address, order_id, order_total)
+
+    # The 'sold by' info should be a link to the store.
+    for item in args:
+	message += """
+	%s %s
+	N%s
+	Sold by: %s
+	""" % (item.quantity, item.product.name, item.product.price, item.product.product_group.store)
+
+    try:
+	send_mail(email_title, message, "oosikoya@pay4me.com", [buyer.email])
+    except:
+	print_exc()
+    else:
+	return HttpResponse(mimetype="text/plain", content="OK")
