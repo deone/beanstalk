@@ -3,12 +3,9 @@ from django.shortcuts import get_object_or_404
 from store.models import Store, Product
 
 class ShoppingCartForm(forms.Form):
-    product_id = forms.IntegerField(widget=forms.HiddenInput)
     quantity = forms.IntegerField(label="QTY")
 
     def clean(self):
-	product = get_object_or_404(Product, pk=self.cleaned_data["product_id"])
-
 	if "quantity" in self.cleaned_data:
 	    if self.cleaned_data["quantity"] > 0:
 		return self.cleaned_data
@@ -17,7 +14,6 @@ class ShoppingCartForm(forms.Form):
     def save(self, request, product_id):
 	product = get_object_or_404(Product, pk=product_id)
 	item_price = product.price
-	stock_quantity = product.quantity
 
 	quantity_demanded, price = self.cleaned_data["quantity"], float(item_price)
 	

@@ -5,9 +5,10 @@
 {% block breadcrumbs %}{% endblock %}
 
 {% block content_body %}
+    <p>{{ feedback }}</p>
     <div id="cartPreview">
-	<h1>Your ShOPPING CART </h1>
 	{% if shopping_cart.items %}
+	    <h1>Your ShOPPING CART </h1>
 	    <div class="heading">
 		<div class="item">
 		    <div class="title">Item</div>
