@@ -112,7 +112,7 @@ def process_payment_response(request):
 	# Subtract ordered item quantity from product quantity.
 	update_stock(so.ordereditem_set.all())
 
-	"""# Send email notification to merchant(s) so that products can be shipped.
+	# Send email notification to merchant(s) so that products can be shipped.
 	store_order_info = {
 	    "merchant_email": so.store.owner.email,
 	    "order_id": so.order_id,
@@ -120,8 +120,7 @@ def process_payment_response(request):
 	    "amount": so.amount,
 	    "order_date": so.created_at,
 	}
-	items_ordered_in_store = so.ordereditem_set.all()
-	notify_merchant(*items_ordered_in_store, **store_order_info)"""
+	notify_merchant(so)
 
     # Send email to buyer. Grab items by querying OrderedItem with order_id, pronto!
     items_ordered_by_buyer = OrderedItem.objects.filter(order__order_id=order_id)
@@ -134,15 +133,26 @@ def update_stock(ordered_items):
 	oi.product.quantity = oi.product.quantity - oi.quantity
 	oi.product.save()
 
-def notify_merchant(*args, **kwargs):
-    pass
+def notify_merchant(order):
+    email_title = "Items Ordered on your store, %s" % order.store
+    message = ""
+
+    for item in order.ordereditem_set.all():
+	message += """
+	%s %s
+	N%s
+	""" % (item.quantity, item.product.name, item.product.price)
+
+    send_mail(email_title, message, "oosikoya@pay4me.com", [order.store.owner.email])
 
 def notify_buyer(*args):
     order_id = args[0].order.order_id
     buyer = args[0].order.buyer
 
-    email_title = "Your Order with Pay4Me Mall"
+    email_title = "Pay4Me Mall Order Confirmation - Order %s" % order_id
     order_total = reduce(add, [item.quantity * float(item.cost) for item in args])
+    shipping_total = reduce(add, [item.quantity * item.product.delivery_charge for item in args])
+    order_grand_total = float(order_total) + float(shipping_total)
 
     # Read this from a text file.
     message = """
@@ -154,19 +164,18 @@ def notify_buyer(*args):
     Shipping Address:
     %s
     
-    Order Grand Total: _____
+    Order Grand Total: N%s
 
     Order Summary
     Order ID: %s
-    Shipping Method: ______
     Subtotal of Items: N%s
-    Shipping & Handling: ______
+    Shipping & Handling: N%s
 
-    Total for this Order: ______
+    Total for this Order: N%s
 
     Delivery estimate:
     Shipping estimate for these items:
-    """ % (buyer.first_name, buyer.email, buyer.get_profile().delivery_address, order_id, order_total)
+    """ % (buyer.first_name, buyer.email, buyer.get_profile().delivery_address, order_grand_total, order_id, order_total, shipping_total, order_grand_total)
 
     # The 'sold by' info should be a link to the store.
     for item in args:

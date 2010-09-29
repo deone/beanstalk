@@ -46,7 +46,7 @@ class Product(CommonInfo):
     category = models.ForeignKey(Category)
     image = models.ImageField(upload_to="products")
     price = models.DecimalField(max_digits=20, decimal_places=2)
-    delivery_charge = models.DecimalField(max_digits=20, decimal_places=2, blank=True)
+    delivery_charge = models.DecimalField(max_digits=20, decimal_places=2)
     quantity = models.IntegerField()
     date_added = models.DateTimeField(default=datetime.datetime.now)
     last_modified = models.DateTimeField(default=datetime.datetime.now)
