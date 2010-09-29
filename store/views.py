@@ -30,17 +30,41 @@ def products_in_store(request, store_name):
 	    extra_context = get_common_context(store)
     )
 
+def save_form(form, request, product_id):
+    if form.is_valid():
+	form.save(request, product_id)
+
+def add_item_to_cart(request, product_id, quantity, feedback=""):
+    """ Increment quantity of an existing item, or add a new item to cart. 
+	Returns feedback to be displayed in template. """
+
+    product = Product.objects.get(pk=product_id)
+
+    if not product.is_quantity_available(quantity):
+	form = ShoppingCartForm(initial={"product_id": product_id})
+	return form, {"feedback": "Insufficient Stock."}
+    else:
+	form = ShoppingCartForm(request.POST)
+	save_form(form, request, product_id)
+	return form, {"feedback": feedback}
+
 def product_detail(request, store_name, product_id):
     store = get_store(store_name)
+    context = get_common_context(store)
 
     if request.method == "POST":
-	form = ShoppingCartForm(request.POST)
-	if form.is_valid():
-	    form.save(request, product_id)
+	quantity = int(request.POST["quantity"])
+	try:
+	    product_demanded = request.session[product_id]
+	except KeyError:
+	    form, feedback = add_item_to_cart(request, product_id, quantity, feedback="Item added to cart")
+	else:
+	    total_quantity = product_demanded[0] + quantity
+	    form, feedback = add_item_to_cart(request, product_id, total_quantity, feedback="Item updated in cart.")
+	context.update(feedback)
     else:
 	form = ShoppingCartForm(initial={"product_id": product_id})
 
-    context = get_common_context(store)
     context.update({"shopping_cart_form": form})
 
     return list_detail.object_detail(

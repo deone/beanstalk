@@ -1,36 +1,22 @@
 OPTIMIZATION
 * We should be able to import abstract_model and helpers the same way.
-* Decouple all components. For templates, use url names instead of actual urls.
-* We need to make related changes (csrf enable, EmailBackend disable) and upgrade Django to latest version on both pay4me mall development and production.
-* We might need to change payment app name.
+* We're currently running a 1.1.1 project in a 1.2 environment. We should upgrade the project soon. We would be able to use the csrf and messages framework.
 * Fix page controls and searches.
-* Learn how to use post_save(), it's useful when a user is created at the admin.
-* Host on rackspace server with mod_wsgi.
-* Use django redirects app.
 * Use session_expiry.
 * Use user.has_perms() or user.groups() to set backend staff permissions in ModelAdmin queryset().
 * Do we need **kwargs in functions with h.json_response as helper?
-* Calling a javascript function in form action. Is it not bad practice?
-* Use model get_absolute_url() instead of explicitly-defined links in templates.
 * As a temporary alternative to bulk products upload, we might use formsets to enable merchants upload more than one product at a time.
 * Store Search.
-* ShoppingCartForm isn't supposed to be in store/forms.py.
-* Implement edit in shopping cart preview.
 * Disable checkout link if there're no items in shopping cart.
-* Use clearer urls. e.g. Instead of /departments/1/, use /departments/household-goods/
 * Set last_modified column when product changes.
 * Implement shopping cart history feature.
-* I'm thinking Store model should be in mall/models.
 * account_name usage in store url is OK for now, when we devise a better store url, e.g. http://amazemobiles.pay4memall.com/, we can start using slugs.
 * Don't forget; we can pass some extra argument to a view through a urlpattern.
 * Make ShoppingCartEditForm.quantity a select field based on stock amount.
 * Validate account_name field to allow upper and lower cased alphabets, - and _.
-* Fix NoReverseMatch error when url names are used.
 * Implement SlugField in mall Category, store ProductGroup, Product and ProductDetail models.
 * What do we do when a buyer has insufficient balance in his ewallet or bank and he is not allowed to pay? Issue:
 - We've already created an order and deducted the quantity demanded from the stock quantity.
-
-FEATURES
 * Unit Testing (models/views)**.
 
 
@@ -47,7 +33,6 @@ BUGS
 URGENT
 ======
 * User notification on add_to_cart().
-* Email store_owner on completion of an order by buyer.
 * Email delivery guys on completion of a transaction.
 * Split registration form into sub-units e.g. Personal Details, Login Details, e.t.c.
 * Bulk products upload.
