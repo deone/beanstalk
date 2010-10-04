@@ -1,6 +1,6 @@
 from django.contrib import admin
 from store.models import *
-from store.forms import StoreModelForm
+from store.forms import StoreModelForm, ProductModelForm
 
 
 class ProductDetailInline(admin.TabularInline):
@@ -8,6 +8,7 @@ class ProductDetailInline(admin.TabularInline):
 
 
 class ProductAdmin(admin.ModelAdmin):
+    form = ProductModelForm
     radio_fields = {"product_group": admin.VERTICAL}
     readonly_fields = ("date_added", "last_modified")
     date_hierarchy = "date_added"
@@ -31,7 +32,6 @@ class ProductAdmin(admin.ModelAdmin):
 
 
 class ProductGroupAdmin(admin.ModelAdmin):
-
     def formfield_for_foreignkey(self, db_field, request, **kwargs):
 	if db_field.name == "store":
 	    if not request.user.is_superuser:

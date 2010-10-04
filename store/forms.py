@@ -44,3 +44,18 @@ class StoreModelForm(forms.ModelForm):
 	if banner.size[0] != settings.STORE_BANNER_WIDTH:
 	    raise forms.ValidationError("Banner width must be %spx." % settings.STORE_BANNER_WIDTH)
 	return self.cleaned_data["banner"]
+
+
+class ProductModelForm(forms.ModelForm):
+    class Meta:
+	model = Store
+
+    def clean_image(self):
+	image = Image.open(self.cleaned_data["image"])
+	if image.format not in settings.IMAGE_FORMATS:
+	    raise forms.ValidationError("Incorrect image format.")
+	if image.size[0] != image.size[1]:
+	    raise forms.ValidationError("Product image must be square.")
+	if image.size[0] < settings.PRODUCT_IMAGE_MIN_WIDTH:
+	    raise forms.ValidationError("Product image width should not be less than %s pixels." % settings.PRODUCT_IMAGE_MIN_WIDTH)
+	return self.cleaned_data["image"]

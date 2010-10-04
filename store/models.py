@@ -3,7 +3,6 @@ from django.contrib.auth.models import User
 from mall.models import Category
 
 from pay4memall.abstract_model import CommonInfo
-
 import datetime
 
 GENDER_CHOICES = (
@@ -14,8 +13,8 @@ GENDER_CHOICES = (
 class Store(CommonInfo):
     owner = models.OneToOneField(User)
     account_name = models.CharField(max_length=100, unique=True)
-    logo = models.ImageField(upload_to="store/logos/", help_text="Required width: 160px, Image formats: JPEG, PNG, GIF.")
-    banner = models.ImageField(upload_to="store/banners/", help_text="Required width: 750px, Image formats: JPEG, PNG, GIF.")
+    logo = models.ImageField(upload_to="store/logos/", help_text="Required width: 160px, Allowed formats: JPEG, PNG, GIF.")
+    banner = models.ImageField(upload_to="store/banners/", help_text="Required width: 750px, Allowed formats: JPEG, PNG, GIF.")
     office_number = models.CharField(max_length=9, null=True, blank=True)
     street_address = models.CharField(max_length=100)
     city = models.CharField(max_length=20)
@@ -44,7 +43,7 @@ class ProductGroup(CommonInfo):
 class Product(CommonInfo):
     product_group = models.ForeignKey(ProductGroup)
     category = models.ForeignKey(Category)
-    image = models.ImageField(upload_to="products")
+    image = models.ImageField(upload_to="products", help_text="Allowed formats: JPEG, PNG, GIF. Must be square, larger than or equal to 300 X 300 pixels")
     price = models.DecimalField(max_digits=20, decimal_places=2)
     delivery_charge = models.DecimalField(max_digits=20, decimal_places=2)
     quantity = models.IntegerField()
