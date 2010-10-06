@@ -1,7 +1,7 @@
 from django.contrib import admin
 from store.models import *
 from store.forms import StoreModelForm, ProductModelForm
-
+from django.contrib.auth.models import User
 
 class ProductDetailInline(admin.TabularInline):
     model = ProductDetail
@@ -48,6 +48,13 @@ class ProductGroupAdmin(admin.ModelAdmin):
 
 class StoreAdmin(admin.ModelAdmin):
     form = StoreModelForm
+
+    def formfield_for_foreignkey(self, db_field, request, **kwargs):
+	if db_field.name == "owner":
+	    # When we start creating staff who are not superusers, we would need to rewrite this.
+	    kwargs["queryset"] = User.objects.filter(is_staff=True).exclude(is_superuser=True)
+	    return db_field.formfield(**kwargs)
+	return super(StoreAdmin, self).formfield_for_foreignkey(db_field, request, **kwargs)
 
 
 class ProductDetailAdmin(admin.ModelAdmin):
