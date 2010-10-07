@@ -30,7 +30,11 @@ class RegisterForm(forms.Form):
 	    return
 	if "password" in self.cleaned_data and "password2" in self.cleaned_data:
 	    if self.cleaned_data["password"] != self.cleaned_data["password2"]:
-		raise forms.ValidationError("Your password entries must be the same")
+		raise forms.ValidationError("Your password entries must be the same.")
+	if "email" in self.cleaned_data:
+	    if self.cleaned_data["email"] in [object.email for object in User.objects.all()]:
+		raise forms.ValidationError("Email belongs to another user.")
+		
 	return self.cleaned_data
 
     def save(self):
@@ -50,7 +54,7 @@ class RegisterForm(forms.Form):
 	user.last_name = last_name
 	user.save()
 	profile = Profile.objects.create(user=user, title=title, mobile=mobile, 
-		address=address, city=city, state=state, country=country)
+	    address=address, city=city, state=state, country=country)
 
 	return username, password
 
