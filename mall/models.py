@@ -21,6 +21,14 @@ class Department(CommonInfo):
 
 class Category(CommonInfo):
     department = models.ForeignKey(Department)
+    slug = models.SlugField(max_length=40, unique=True, editable=False)
+
+    def save(self):
+	self.slug = slugify(self.name)
+	super(Category, self).save()
+
+    def get_absolute_url(self):
+	return "/categories/%s/" % self.slug
 
     def __unicode__(self):
 	return self.name

@@ -34,6 +34,7 @@ urlpatterns = patterns('',
     (r'^cart/', include('shopping_cart.urls')),
     (r'^admin/', include(admin.site.urls)),
     (r'^departments/(?P<department_name>[-A-za-z0-9_]+)/$', mall.views.products_in_department),
+    (r'^categories/(?P<category_name>[-A-za-z0-9_]+)/$', mall.views.products_in_category),
     (r'^(?P<store_name>\w+)/', include('store.urls')),
 )
 
