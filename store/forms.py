@@ -54,8 +54,6 @@ class ProductModelForm(forms.ModelForm):
 	image = Image.open(self.cleaned_data["image"])
 	if image.format not in settings.IMAGE_FORMATS:
 	    raise forms.ValidationError("Incorrect image format.")
-	if image.size[0] != image.size[1]:
-	    raise forms.ValidationError("Product image must be square.")
 	if image.size[0] < settings.PRODUCT_IMAGE_MIN_WIDTH:
 	    raise forms.ValidationError("Product image width should not be less than %s pixels." % settings.PRODUCT_IMAGE_MIN_WIDTH)
 	return self.cleaned_data["image"]

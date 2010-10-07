@@ -21,7 +21,7 @@
 	    </div>
 	    {% for item in shopping_cart.items %}
 	    <div class="item">
-		{% thumbnail item.image 62x62 as thumb %}
+		{% thumbnail item.image 62x62 crop as thumb %}
 		<div class="del"><a href="{% url delete_from_cart item.id %}"><img src="{{ MEDIA_URL }}img/cartPreviewDelete.jpg"/></a></div>
 		<div class="thumbnail"><a href="{{ item.get_absolute_url }}"><img src="{{ thumb }}" width="{{ thumb.width }}" height="{{ thumb.height }}"/></a></div><br />
 		<div class="title"><a href="{{ item.get_absolute_url }}">{{ item.name }}</a></div>
