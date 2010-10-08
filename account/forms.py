@@ -1,6 +1,7 @@
 from django import forms
 from django.contrib.auth import authenticate, login
 from django.contrib.auth.models import User
+from django.core.exceptions import ValidationError
 
 from account.models import Profile
 
@@ -12,12 +13,19 @@ TITLE_CHOICES = (
 	    ("Dr.", "Dr."),
 	)
 
+def validate_alpha(value):
+    if not value.isalpha():
+	raise ValidationError("Names must not contain numbers")
+
+def validate_number(value):
+    pass
+
 class RegisterForm(forms.Form):
     title = forms.ChoiceField(choices=TITLE_CHOICES)
-    first_name = forms.CharField(max_length=30)
-    last_name = forms.CharField(max_length=30)
+    first_name = forms.CharField(max_length=30, validators=[validate_alpha])
+    last_name = forms.CharField(max_length=30, validators=[validate_alpha])
     email = forms.EmailField(max_length=75)
-    mobile = forms.CharField(max_length=15)
+    mobile = forms.CharField(max_length=13, help_text="e.g. 2348023450000. Country code + number")
     address = forms.CharField(max_length=200)
     city = forms.CharField(max_length=20)
     state = forms.CharField(max_length=20)
@@ -25,16 +33,20 @@ class RegisterForm(forms.Form):
     password = forms.CharField(label="Choose a password", widget=forms.PasswordInput())
     password2 = forms.CharField(label="Confirm password", widget=forms.PasswordInput())
 
+    def clean_email(self):
+	if self.cleaned_data["email"] in [object.email for object in User.objects.all()]:
+	    raise forms.ValidationError("Email belongs to another user.")
+	return self.cleaned_data["email"]
+
+    def clean_mobile(self):
+	if not self.cleaned_data["mobile"].isdigit():
+	    raise ValidationError("Please enter a valid phone number")
+
     def clean(self):
 	if self._errors:
 	    return
-	if "password" in self.cleaned_data and "password2" in self.cleaned_data:
-	    if self.cleaned_data["password"] != self.cleaned_data["password2"]:
-		raise forms.ValidationError("Your password entries must be the same.")
-	if "email" in self.cleaned_data:
-	    if self.cleaned_data["email"] in [object.email for object in User.objects.all()]:
-		raise forms.ValidationError("Email belongs to another user.")
-		
+	if self.cleaned_data["password"] != self.cleaned_data["password2"]:
+	    raise forms.ValidationError("Your password entries must be the same.")
 	return self.cleaned_data
 
     def save(self):
