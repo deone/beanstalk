@@ -1,5 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import User
+from django.template.defaultfilters import slugify
 from mall.models import Category
 
 from pay4memall.abstract_model import CommonInfo
@@ -12,7 +13,7 @@ GENDER_CHOICES = (
 
 class Store(CommonInfo):
     owner = models.OneToOneField(User)
-    account_name = models.CharField(max_length=100, unique=True)
+    slug = models.SlugField(max_length=100, unique=True, editable=False)
     logo = models.ImageField(upload_to="store/logos/", help_text="Required width: 160px, height preferably 95px. Allowed formats: JPEG, PNG, GIF.")
     banner = models.ImageField(upload_to="store/banners/", help_text="Required width: 750px, height preferably 254px. Allowed formats: JPEG, PNG, GIF.")
     office_number = models.CharField(max_length=9, null=True, blank=True)
@@ -20,8 +21,12 @@ class Store(CommonInfo):
     city = models.CharField(max_length=20)
     state = models.CharField(max_length=20)
 
+    def save(self):
+	self.slug = slugify(self.name)
+	super(Store, self).save()
+
     def get_absolute_url(self):
-	return "/%s/" % self.account_name
+	return "/%s/" % self.slug
 
     def __unicode__(self):
 	return self.name
@@ -31,7 +36,7 @@ class ProductGroup(CommonInfo):
     store = models.ForeignKey(Store)
 
     def get_absolute_url(self):
-	return "/%s/browse/%s/" % (self.store.account_name, self.id)
+	return "/%s/browse/%s/" % (self.store.slug, self.id)
     
     def __unicode__(self):
 	return self.name
@@ -40,18 +45,19 @@ class ProductGroup(CommonInfo):
 	verbose_name_plural = "Product Groups"
 
 
+# Custom-validate admin form!
 class Product(CommonInfo):
     product_group = models.ForeignKey(ProductGroup)
     category = models.ForeignKey(Category)
     image = models.ImageField(upload_to="products", help_text="Allowed formats: JPEG, PNG, GIF. Must be square, larger than or equal to 300 X 300 pixels")
     price = models.DecimalField(max_digits=20, decimal_places=2)
     delivery_charge = models.DecimalField(max_digits=20, decimal_places=2)
-    quantity = models.IntegerField()
+    quantity = models.PositiveSmallIntegerField()
     date_added = models.DateTimeField(default=datetime.datetime.now)
     last_modified = models.DateTimeField(default=datetime.datetime.now)
 
     def get_absolute_url(self):
-	return "/%s/products/%s/" % (self.product_group.store.account_name, self.id)
+	return "/%s/products/%s/" % (self.product_group.store.slug, self.id)
 
     def __unicode__(self):
 	return self.name

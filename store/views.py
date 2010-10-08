@@ -9,8 +9,8 @@ from shopping_cart.forms import ShoppingCartForm
 from haystack.forms import SearchForm
 import helpers as h
 
-def get_store(store_account_name):
-    return get_object_or_404(Store, account_name__iexact=store_account_name)
+def get_store(store_slug):
+    return get_object_or_404(Store, slug__iexact=store_slug)
 
 def get_common_context(store):
     return {
