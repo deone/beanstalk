@@ -41,6 +41,7 @@ class RegisterForm(forms.Form):
     def clean_mobile(self):
 	if not self.cleaned_data["mobile"].isdigit():
 	    raise ValidationError("Please enter a valid phone number")
+	return self.cleaned_data["mobile"]
 
     def clean(self):
 	if self._errors:
