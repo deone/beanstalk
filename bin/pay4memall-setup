@@ -10,13 +10,10 @@ echo "OK"
 echo -n "Creating tables..."
 python /usr/local/www/pay4memall/manage.py syncdb || exit
 
-echo -n "Inserting test data..."
-mysql -u root -p < /var/lib/pay4memall/sql/data.sql || exit
-
 echo -n "Changing owner to apache..."
 chown -R apache:apache /usr/local/www/pay4memall/ || exit
 
 echo -n "Restarting Web Server..."
 apachectl restart
 
-echo "Setup Complete!"
+echo "Setup Complete! Don't forget to truncate django_site table and load test data. Ideally, this script should do that too."
