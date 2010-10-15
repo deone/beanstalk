@@ -40,7 +40,7 @@ def product_detail(request, store_name, product_id, form_class=ShoppingCartForm)
 	if form.is_valid():
 	    try:
 		# Check if product has been previously added to cart
-		product_demanded = request.session[product_id]
+		product_demanded = request.session.get(product_id)
 	    except KeyError:
 		quantity = int(request.POST["quantity"])
 		if not product.is_quantity_available(quantity):

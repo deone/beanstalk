@@ -3,7 +3,6 @@ from django.template import RequestContext
 from haystack.forms import SearchForm
 
 from store.models import Product
-from store.views import add_item_to_cart
 from shopping_cart.forms import ShoppingCartForm
 
 import helpers as h
@@ -56,12 +55,24 @@ def preview_cart(request, template="shopping_cart/index.html"):
     context = get_context_variables(request)
     return render_to_response(template, context, context_instance=RequestContext(request))
 
-def update_cart(request, product_id, template="shopping_cart/index.html"):
+def update_cart(request, product_id, template="shopping_cart/index.html", form_class=ShoppingCartForm):
+    product = Product.objects.get(pk=product_id)
+    context = get_context_variables(request)
+
     if request.method == "POST":
-	quantity = int(request.POST["quantity"])
-	form, feedback = add_item_to_cart(request, product_id, quantity, feedback="Item updated in cart", action="update")
-	context = get_context_variables(request)
-	context.update(feedback)
+	form = form_class(request.POST)
+	if form.is_valid():
+	    quantity = int(request.POST["quantity"])
+	    if not product.is_quantity_available(quantity):
+		form = form_class()
+		context.update({"feedback": "Insufficient Stock"})
+	    else:
+		form.change_item_quantity(request, product_id)
+		context.update({"feedback": "Item quantity changed."})
+
+    else:
+	form = form_class()
+
     return render_to_response(template, context, context_instance=RequestContext(request))
 
 def delete_from_cart(request, product_id, template="shopping_cart/index.html"):
