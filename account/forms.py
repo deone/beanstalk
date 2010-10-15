@@ -101,7 +101,7 @@ class LoginForm(forms.Form):
 
 
 class DeliveryAddressForm(forms.Form):
-    delivery_address = forms.CharField(max_length=200)#widget=forms.Textarea, required=False, max_length=200)
+    delivery_address = forms.CharField(max_length=200, required=False)
 
     def save(self, user):
 	user_profile = user.get_profile()
