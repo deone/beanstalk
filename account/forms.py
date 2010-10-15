@@ -17,9 +17,6 @@ def validate_alpha(value):
     if not value.isalpha():
 	raise ValidationError("Names must not contain numbers")
 
-def validate_number(value):
-    pass
-
 class RegisterForm(forms.Form):
     title = forms.ChoiceField(choices=TITLE_CHOICES)
     first_name = forms.CharField(max_length=30, validators=[validate_alpha])
@@ -44,10 +41,9 @@ class RegisterForm(forms.Form):
 	return self.cleaned_data["mobile"]
 
     def clean(self):
-	if self._errors:
-	    return
-	if self.cleaned_data["password"] != self.cleaned_data["password2"]:
-	    raise forms.ValidationError("Your password entries must be the same.")
+	if "password" in self.cleaned_data and "password2" in self.cleaned_data:
+	    if self.cleaned_data["password"] != self.cleaned_data["password2"]:
+		raise forms.ValidationError("Your password entries must be the same.")
 	return self.cleaned_data
 
     def save(self):

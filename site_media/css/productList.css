@@ -30,9 +30,12 @@
 #storeLogo{margin-bottom:10px;}
 #storeSearch{border:1px solid #9e9e9e; width:160px; margin-bottom:10px; line-height:20px; height:20px;}
 #productDetail{ margin-bottom:40px;}
-#productDetailLeft{ float:left; margin-right:15px; width:360px; }
+#productDetailLeft{ float:left; margin-right:15px; width:322px; }
 /*#productDetail .imgHolder{border:1px solid #cacaca; text-align:center; padding:10px;}*/
-#productDetailRight{ float:right; width:370px;}
+#productDetailRight {
+    float: right;
+    width: 410px;
+}
 #productDetailRight p{ line-height:20px;} 
 .enlarge{margin-top:5px; font-style:italic;}
 #productDetail .imgHolder   {
@@ -40,5 +43,5 @@
 }
 #productDetail .imgHolder img	{
     margin: 10px;
-    width: 339px;
+    width: 300px;
 }

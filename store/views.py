@@ -33,37 +33,41 @@ def products_in_store(request, store_name):
 def add_item_to_cart(request, product_id, quantity, feedback="", action="add"):
     """ Increment quantity of an existing item, or add a new item to cart. 
 	Returns feedback to be displayed in template. """
-
-    product = Product.objects.get(pk=product_id)
-
-    if not product.is_quantity_available(quantity):
-	form = ShoppingCartForm()
-	return form, {"feedback": "Insufficient Stock."}
+    if action == "update":
+	form.update_cart(request, product_id)
     else:
-	form = ShoppingCartForm(request.POST)
-	if form.is_valid():
-	    if action == "update":
-		form.update_cart(request, product_id)
-	    else:
-		form.save(request, product_id)
-	return form, {"feedback": feedback}
+	form.save(request, product_id)
+    return form, {"feedback": feedback}
 
-def product_detail(request, store_name, product_id):
+def product_detail(request, store_name, product_id, form_class=ShoppingCartForm):
     store = get_store(store_name)
     context = get_common_context(store)
+    product = Product.objects.get(pk=product_id)
 
     if request.method == "POST":
-	quantity = int(request.POST["quantity"])
-	try:
-	    product_demanded = request.session[product_id]
-	except KeyError:
-	    form, feedback = add_item_to_cart(request, product_id, quantity, feedback="Item added to cart")
-	else:
-	    total_quantity = product_demanded[0] + quantity
-	    form, feedback = add_item_to_cart(request, product_id, total_quantity, feedback="Item updated in cart.")
-	context.update(feedback)
+	form = form_class(request.POST)
+	if form.is_valid():
+	    try:
+		# Check if product has been previously added to cart
+		product_demanded = request.session[product_id]
+	    except KeyError:
+		quantity = int(request.POST["quantity"])
+		if not product.is_quantity_available(quantity):
+		    form = form_class()
+		    context.update({"feedback": "Insufficient Stock"})
+		else:
+		    form.add_item(request, product_id, float(product.price))
+		    context.update({"feedback": "Item added to cart."})
+	    else:
+		quantity = product_demanded[0] + int(request.POST["quantity"])
+		if not product.is_quantity_available(quantity):
+		    form = form_class()
+		    context.update({"feedback": "Insufficient Stock"})
+		else:
+		    form.add_to_item(request, product_id, product_demanded)
+		    context.update({"feedback": "Item updated in cart."})
     else:
-	form = ShoppingCartForm(initial={"product_id": product_id})
+	form = form_class()
 
     context.update({"shopping_cart_form": form})
 
