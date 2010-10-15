@@ -30,15 +30,6 @@ def products_in_store(request, store_name):
 	    extra_context = get_common_context(store)
     )
 
-def add_item_to_cart(request, product_id, quantity, feedback="", action="add"):
-    """ Increment quantity of an existing item, or add a new item to cart. 
-	Returns feedback to be displayed in template. """
-    if action == "update":
-	form.update_cart(request, product_id)
-    else:
-	form.save(request, product_id)
-    return form, {"feedback": feedback}
-
 def product_detail(request, store_name, product_id, form_class=ShoppingCartForm):
     store = get_store(store_name)
     context = get_common_context(store)

@@ -29,27 +29,6 @@ class ShoppingCartForm(forms.Form):
     def change_item_quantity(self):
 	pass
 
-    def save(self, request, product_id):
-	product = get_object_or_404(Product, pk=product_id)
-	item_price = product.price
-
-	quantity_demanded, price = self.cleaned_data["quantity"], float(item_price)
-	
-	cart_item = []
-	cart_item.append(quantity_demanded)
-	cart_item.append(price)
-
-	item = request.session.get(product_id)
-
-	# Save object
-	if item is not None:
-	    item[0] += quantity_demanded
-	    request.session[product_id] = item
-	else:
-	    request.session[product_id] = cart_item
-
-	return request.session[product_id]
-
     def update_cart(self, request, product_id):
 	quantity = int(self.cleaned_data["quantity"])
 	item = request.session.get(product_id)
