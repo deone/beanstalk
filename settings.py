@@ -105,8 +105,11 @@ PAYMENT_URL = 'http://pay4me.demo.swgindia.com/order/payment/payprocess/v1/PID/'
 
 AUTH_PROFILE_MODULE = "account.Profile"
 
-EMAIL_HOST = "aerixnigeria.com"
+EMAIL_HOST = "smtp2289.socketlabs-od.com"
 EMAIL_PORT = 25
+
+EMAIL_HOST_USER = "swglobal"
+EMAIL_HOST_PASSWORD = "wnMVRrZ8Q5nZ"
 
 IMAGE_FORMATS = ["JPEG", "PNG", "GIF"]
 STORE_LOGO_WIDTH = 160
