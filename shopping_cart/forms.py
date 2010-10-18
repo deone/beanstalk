@@ -12,7 +12,6 @@ class ShoppingCartForm(forms.Form):
 	    raise forms.ValidationError("Quantity cannot be zero or less")
 
     def add_item(self, request, product_id):
-	# We would eliminate item_price when we re-write show_cart_details().
 	request.session[product_id] = self.cleaned_data["quantity"]
 	return request.session[product_id]
 

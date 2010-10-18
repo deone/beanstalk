@@ -7,30 +7,6 @@ from shopping_cart.forms import ShoppingCartForm
 
 import helpers as h
 
-def get_cart(request):
-    if not request.user:
-	return request.session._session.iteritems()
-    else:
-	return h.get_cart_from_session(request.session._session)
-
-@h.json_response
-def show_cart_details(request):
-    if request.session._session.has_key("testcookie"):
-	request.session.delete_test_cookie()
-
-    cart = get_cart(request)
-
-    items_qty = items_price = 0
-
-    for item in cart:
-	items_qty += item[1]
-
-    cart_object = {
-	"quantity": items_qty,
-    }
-
-    return ("object", cart_object)
-
 def create_shopping_cart(cart):
     shopping_cart = {}
     shopping_cart["order_total"] = 0
@@ -75,7 +51,7 @@ def update_cart(request, product_id, template="shopping_cart/index.html", form_c
 def delete_from_cart(request, product_id, template="shopping_cart/index.html"):
     del request.session[product_id]
     context = get_context_variables(request)
-    context.update({"feedback": "Item deleted"})
+    context.update({"feedback": "Item deleted from cart."})
     return render_to_response(template, context, context_instance=RequestContext(request))
 
 def get_context_variables(request):
