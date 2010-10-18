@@ -1,9 +1,8 @@
 function displayShoppingCart()	{
     $.getJSON("/cart/details/", function(response)   {
-	    var price = response.data.body.price;
 	    var quantity = response.data.body.quantity;
 
-	    $("#cart_details").html(quantity + " ITEMS | " + "N" + price + ".00");
+	    $("#cart_details").html(quantity + " ITEMS");
     });
 }
 
