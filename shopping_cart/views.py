@@ -23,13 +23,10 @@ def show_cart_details(request):
     items_qty = items_price = 0
 
     for item in cart:
-	items_qty += item[1][0]
-	total_price = item[1][0] * item[1][1]
-	items_price += total_price
+	items_qty += item[1]
 
     cart_object = {
 	"quantity": items_qty,
-	"price": items_price
     }
 
     return ("object", cart_object)
