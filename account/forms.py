@@ -33,6 +33,8 @@ class RegisterForm(forms.Form):
     def clean_email(self):
 	if self.cleaned_data["email"] in [object.email for object in User.objects.all()]:
 	    raise forms.ValidationError("Email belongs to another user.")
+	if len(self.cleaned_data["email"]) > 30:
+	    raise forms.ValidationError("Email too long.")
 	return self.cleaned_data["email"]
 
     def clean_mobile(self):
