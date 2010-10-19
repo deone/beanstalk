@@ -12,6 +12,4 @@ $(function()	{
 	    document.location = this.options[this.selectedIndex].value;
 	}
     });
-
-    displayShoppingCart();
 });

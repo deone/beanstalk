@@ -37,7 +37,9 @@
 		<div class="clear"></div>
 	    </div>
 	    {% endfor %}
-	    <div class="bagTotal">Order Total<span class="totalAmount">N{{ shopping_cart.order_total }}0</span></div>
+	    <div class="bagTotal">Sub Total<span class="totalAmount">N{{ shopping_cart.sub_total }}</span></div>
+	    <div class="bagTotal">Delivery&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="totalAmount">N{{ shopping_cart.delivery_total }}</span></div>
+	    <div class="bagTotal">Order Total<span class="totalAmount">N{{ shopping_cart.order_total }}</span></div>
 	    <div class="shippingAdd">
 		<h2>Shipping Address</h2>
 		<p>

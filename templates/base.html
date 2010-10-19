@@ -12,7 +12,14 @@
 	    <div id="checkout">
 		    {% block cart_indicator %}
 			<div id="cart_indicator" class="cartUpdate">
-			    MY SHOPPING CART: <span id="cart_details"></span>
+			    MY SHOPPING CART: 
+			    <span id="cart_details">
+				{% ifequal cart.quantity 1 %}
+				    {{ cart.quantity }} ITEM
+				{% else %}
+				    {{ cart.quantity }} ITEMS
+				{% endifequal %} | {{ cart.price }}
+			    </span>
 			    <br/>
 			    {% if user.is_authenticated %}
 				<b>Welcome {{ user.first_name }}</b> | <!--<a href="#">ACCOUNT</a> | -->
