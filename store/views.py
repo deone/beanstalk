@@ -46,6 +46,8 @@ def product_detail(request, store_name, product_id, form_class=ShoppingCartForm)
 		else:
 		    form.add_to_item(request, product_id, product_quantity_in_cart)
 		    feedback = "Item updated in cart."
+	else:
+	     feedback = ""
 
     else:
 	form = form_class()
