@@ -39,7 +39,7 @@ def preview_cart(request, template="shopping_cart/index.html"):
 
 def update_cart(request, product_id, template="shopping_cart/index.html", form_class=ShoppingCartForm):
     product = Product.objects.get(pk=product_id)
-    context = get_global_context_variables(request.session._session)
+    context = h.get_global_context_variables(request.session._session)
 
     if request.method == "POST":
 	form = form_class(request.POST)
