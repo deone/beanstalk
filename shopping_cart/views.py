@@ -70,6 +70,13 @@ def update_cart(request, product_id, template="shopping_cart/index.html", form_c
 
 def delete_from_cart(request, product_id, template="shopping_cart/index.html"):
     del request.session[product_id]
-    context = get_global_context_variables(request.session._session)
-    context.update({"feedback": "Item deleted from cart."})
+    context = h.get_global_context_variables(request.session._session)
+
+    cart = h.get_cart(request.session._session)
+    shopping_cart = create_shopping_cart(cart)
+    context.update({
+	    "feedback": "Item deleted from cart.",
+	    "shopping_cart": shopping_cart,
+	})
+
     return render_to_response(template, context, context_instance=RequestContext(request))
