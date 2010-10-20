@@ -50,6 +50,8 @@ def update_cart(request, product_id, template="shopping_cart/index.html", form_c
 	    else:
 		form.change_item_quantity(request, product_id)
 		feedback = "Item quantity changed."
+	else:
+	    feedback = ""
 
     else:
 	form = form_class()
