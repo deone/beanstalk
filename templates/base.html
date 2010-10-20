@@ -14,11 +14,15 @@
 			<div id="cart_indicator" class="cartUpdate">
 			    MY SHOPPING CART: 
 			    <span id="cart_details">
-				{% ifequal cart.quantity 1 %}
-				    {{ cart.quantity }} ITEM
+				{% ifequal cart.quantity 0 %}
+				    NO ITEMS
 				{% else %}
-				    {{ cart.quantity }} ITEMS
-				{% endifequal %} | {{ cart.price }}
+				    {% ifequal cart.quantity 1 %}
+					{{ cart.quantity }} ITEM
+				    {% else %}
+					{{ cart.quantity }} ITEMS
+				    {% endifequal %} | {{ cart.price }}
+				{% endifequal %}
 			    </span>
 			    <br/>
 			    {% if user.is_authenticated %}
