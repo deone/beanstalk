@@ -22,11 +22,11 @@ class ShoppingCartForm(forms.Form):
 	return request.session[product_id]
 
     def change_item_quantity(self, request, product_id):
-	item = request.session.get(product_id)
+	item_quantity = request.session.get(product_id)
 
-	if item is not None:
-	    item[0] = self.cleaned_data["quantity"]
+	if item_quantity is not None:
+	    item_quantity = self.cleaned_data["quantity"]
 
-	request.session[product_id] = item
+	request.session[product_id] = item_quantity
 
 	return request.session[product_id]

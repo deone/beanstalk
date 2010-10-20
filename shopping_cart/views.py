@@ -39,7 +39,6 @@ def preview_cart(request, template="shopping_cart/index.html"):
 
 def update_cart(request, product_id, template="shopping_cart/index.html", form_class=ShoppingCartForm):
     product = Product.objects.get(pk=product_id)
-    context = h.get_global_context_variables(request.session._session)
 
     if request.method == "POST":
 	form = form_class(request.POST)
@@ -47,13 +46,23 @@ def update_cart(request, product_id, template="shopping_cart/index.html", form_c
 	    quantity = int(request.POST["quantity"])
 	    if not product.is_quantity_available(quantity):
 		form = form_class()
-		context.update({"feedback": "Insufficient Stock"})
+		feedback = "Insufficient Stock."
 	    else:
 		form.change_item_quantity(request, product_id)
-		context.update({"feedback": "Item quantity changed."})
+		feedback = "Item quantity changed."
 
     else:
 	form = form_class()
+	feedback = ""
+
+    cart = h.get_cart(request.session._session)
+    shopping_cart = create_shopping_cart(cart)
+
+    context = h.get_global_context_variables(request.session._session)
+    context.update({
+		"shopping_cart": shopping_cart,
+		"feedback": feedback,
+	    })
 
     return render_to_response(template, context, context_instance=RequestContext(request))
 
