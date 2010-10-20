@@ -2,8 +2,7 @@ from django.conf import settings
 from django.http import HttpResponse
 from django.shortcuts import redirect, get_list_or_404
 from django.template.loader import get_template
-from django.template import Context, RequestContext
-from django.core.mail import send_mail
+from django.template import Context
 
 from store.models import Product, Order, OrderedItem
 
@@ -20,23 +19,26 @@ from BeautifulSoup import BeautifulStoneSoup
 from traceback import print_exc
 
 def add(x, y):
-    """ Adds up the value of items in the cart and returns total """
     return x + y
 
 def generate_unique_id():
-    """ Generate unique id """
+    """ Generates a unique identifier """
     digits = datetime.datetime.now().timetuple()[:6] + (random.randint(0, 999),)
     return ''.join(map(str, digits))
 
 def index(request):
-    """ Submits a payment request, creates order entry in the database and redirects user to Pay4Me. """
-    cart = h.get_cart_from_session(request.session._session)
+    """ Submits a payment request, creates order entry in database and redirects to payment gateway. """
+    cart = h.get_cart(request.session._session)
     order_id = generate_unique_id()
-    order_total = reduce(add, [item[1][0] * item[1][1] for item in cart])
+
+    sub_total = reduce(add, [item[1] * Product.objects.get(pk=item[0]).price for item in cart])
+    delivery_total = reduce(add, [item[1] * Product.objects.get(pk=item[0]).delivery_charge for item in cart])
+
+    order_total = sub_total + delivery_total
 
     for item in cart:
 	product = Product.objects.get(pk=item[0])
-	product_cost = product.price * item[1][0]
+	product_cost = product.price * item[1]
 
 	# Check if order already exists. If not create one.
 	order, created = Order.objects.get_or_create(order_id=order_id, store=product.product_group.store, \
@@ -47,9 +49,16 @@ def index(request):
 	    order.amount += product_cost
 	    order.save()
 
-	# Also create entry of each item in the order.
-	OrderedItem.objects.create(order=order, product=product, quantity=item[1][0], cost=str(item[1][0] * item[1][1]))
+	# Also create item entries for each order.
+	OrderedItem.objects.create(order=order, product=product, quantity=item[1], cost=item[1] * product.price)
 
+    url = get_gateway_url(order_id, order_total)
+
+    request.session.flush()
+
+    return redirect(urllib.unquote(url))
+
+def get_gateway_url(order_id, order_total):
     auth_token = base64.b64encode(settings.MERCHANT_CODE + ':' + settings.MERCHANT_KEY)
     t = get_template("payment/request.xml")
 
@@ -65,14 +74,11 @@ def index(request):
     req.add_header("Content-type", "application/xml; charset=utf-8")
     req.add_header("Accept", "application/xml; charset=utf-8")
     
-    # Handle exception URLError
     response = urllib2.urlopen(req)
     soup = BeautifulStoneSoup(response.read())
     url = soup.find("redirect-url").string
 
-    request.session.flush()
-
-    return redirect(urllib.unquote(url))
+    return url
 
 def process_payment_response(request):
     """ Gets payment confirmation from Pay4Me, updates order accordingly and returns a 200 OK HttpResponse """
@@ -84,6 +90,10 @@ def process_payment_response(request):
     date_paid = item.find('payment-date').string 
     validation_no = item.find('validation-number').string
     
+    """ Debug """
+
+    #from django.core.mail import send_mail
+
     #message = """
     #order_id: %s type: %s \n
     #amount: %s type: %s \n
