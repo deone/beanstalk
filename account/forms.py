@@ -5,6 +5,9 @@ from django.core.exceptions import ValidationError
 
 from account.models import Profile
 
+import random
+import string
+
 TITLE_CHOICES = (
 	    ("Mr.", "Mr."),
 	    ("Mrs.", "Mrs."),
@@ -27,8 +30,6 @@ class RegisterForm(forms.Form):
     city = forms.CharField(max_length=20)
     state = forms.CharField(max_length=20)
     country = forms.CharField(max_length=50)
-    password = forms.CharField(label="Choose a password", widget=forms.PasswordInput())
-    password2 = forms.CharField(label="Confirm password", widget=forms.PasswordInput())
 
     def clean_email(self):
 	if self.cleaned_data["email"] in [object.email for object in User.objects.all()]:
@@ -42,15 +43,9 @@ class RegisterForm(forms.Form):
 	    raise ValidationError("Please enter a valid phone number")
 	return self.cleaned_data["mobile"]
 
-    def clean(self):
-	if "password" in self.cleaned_data and "password2" in self.cleaned_data:
-	    if self.cleaned_data["password"] != self.cleaned_data["password2"]:
-		raise forms.ValidationError("Your password entries must be the same.")
-	return self.cleaned_data
-
     def save(self):
 	username = email = self.cleaned_data["email"]
-	password = self.cleaned_data["password"]
+	password = "".join(random.sample(string.letters + string.digits, 8))
 	title = self.cleaned_data["title"]
 	first_name = self.cleaned_data["first_name"]
 	last_name = self.cleaned_data["last_name"]

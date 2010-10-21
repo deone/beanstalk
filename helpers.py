@@ -64,8 +64,8 @@ def get_cart(session):
     return cart
 
 def get_cart_details(session):
-    if session.has_key("testcookie"):
-	session.delete_test_cookie()
+    """if session.has_key("testcookie"):
+	session.delete_test_cookie()"""
 
     cart = get_cart(session)
 	

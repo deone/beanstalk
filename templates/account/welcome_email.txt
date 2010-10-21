@@ -1,0 +1,12 @@
+{% extends "email_base.txt" %}
+
+{% block email_body %}
+Welcome to Pay4Me Mall. Here are your log-in details:
+
+Username: {{ username }}
+Password: {{ password }}
+
+Please change your password as soon as you log in.
+
+Log in here: {{ login_url }}
+{% endblock %}

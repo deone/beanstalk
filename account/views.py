@@ -1,5 +1,9 @@
 from django.shortcuts import render_to_response, redirect, get_object_or_404
-from django.template import RequestContext
+from django.template import RequestContext, Context
+from django.template.loader import get_template
+from django.conf import settings
+
+from django.contrib.sites.models import Site
 from django.contrib.auth import authenticate, login as auth_login
 
 import helpers as h
@@ -18,11 +22,21 @@ def register(request, template="account/register.html", form_class=RegisterForm)
     if request.method == "POST":
 	form = form_class(request.POST)
 	if form.is_valid():
+	    # This ain't DRY.
 	    username, password = form.save()
+	    user = get_object_or_404(User, username=username)
+
+	    mail_template = get_template("account/welcome_email.txt")
+	    message = mail_template.render(Context({
+			    "first_name": user.first_name,
+			    "username": user.username,
+			    "password": user.password,
+			    "login_url": "http://%s/account/login/" % Site.objects.all()[0],
+			}))
+
 	    try:
-		user = get_object_or_404(User, username=username)
-		user.email_user("Welcome to Pay4Me Mall", "Test Message", "oosikoya@pay4me.com")
-	    except Exception,e:
+		user.email_user(settings.WELCOME_EMAIL_TITLE, message, settings.EMAIL_SENDER)
+	    except Exception, e:
 		user.delete()
 	    else:
 		user = authenticate(username=username, password=password)
