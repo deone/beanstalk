@@ -1,7 +1,14 @@
+from django.conf import settings
+from django.template import Context
+from django.template.loader import get_template
+from django.template.defaultfilters import slugify
+
 from django.contrib import admin
+from django.contrib.sites.models import Site
+from django.contrib.auth.models import User
+
 from store.models import *
 from store.forms import StoreModelForm, ProductModelForm
-from django.contrib.auth.models import User
 
 class ProductDetailInline(admin.TabularInline):
     model = ProductDetail
@@ -51,10 +58,25 @@ class StoreAdmin(admin.ModelAdmin):
 
     def formfield_for_foreignkey(self, db_field, request, **kwargs):
 	if db_field.name == "owner":
-	    # When we start creating staff who are not superusers, we would need to rewrite this.
+	    # When we start creating staff who are not superusers, we would need to rewrite this to use has_perms().
 	    kwargs["queryset"] = User.objects.filter(is_staff=True).exclude(is_superuser=True)
 	    return db_field.formfield(**kwargs)
 	return super(StoreAdmin, self).formfield_for_foreignkey(db_field, request, **kwargs)
+
+    def save_model(self, request, obj, form, change):
+	if not change:
+	    mail_template = get_template("store/store_creation_email.txt")
+	    message = mail_template.render(Context({
+				"first_name": obj.owner.first_name,
+				"store_home_url": "http://%s/%s/" % (Site.objects.all()[0], slugify(obj.name)),
+				"store_admin_url": "http://%s/admin/" % Site.objects.all()[0],
+				"username": obj.owner.username,
+				"password": obj.owner.password,
+				"user_manual_url": "http://%s/%s" % (Site.objects.all()[0], settings.USER_MANUAL_NAME)
+			    }))
+
+	    obj.owner.email_user(settings.STORE_CREATION_EMAIL_TITLE, message, settings.EMAIL_SENDER)
+	    obj.save()
 
 
 class ProductDetailAdmin(admin.ModelAdmin):

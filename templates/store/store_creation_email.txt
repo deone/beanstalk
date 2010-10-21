@@ -1,0 +1,17 @@
+{% extends "email_base.txt" %}
+
+{% block email_body %}
+Your store has been created on Pay4me Mall.
+
+Your access URLs are:
+Store Front: {{ store_home_url }}
+Store Administration: {{ store_admin_url }}
+
+Your Store Administration login details are:
+Username: {{ username }}
+Password: {{ password }}
+
+Here's the user manual: {{ user_manual_url }}.
+
+Please change your password as soon as you log in. Consult the manual to get started with Store Administration.
+{% endblock %}
