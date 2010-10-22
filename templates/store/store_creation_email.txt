@@ -11,7 +11,8 @@ Your Store Administration login details are:
 Username: {{ username }}
 Password: {{ password }}
 
-Here's the user manual: {{ user_manual_url }}.
+Your password is system-generated and secure, even the administrator has no knowledge of it. 
+You would not be able to change it yet, we are working on that feature. In the meantime, keep it safe.
 
-Please change your password as soon as you log in. Consult the manual to get started with Store Administration.
+To get started with Store Administration, here's the user manual: {{ user_manual_url }}.
 {% endblock %}

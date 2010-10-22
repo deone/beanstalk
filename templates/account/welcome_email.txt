@@ -6,7 +6,8 @@ Welcome to Pay4Me Mall. Here are your log-in details:
 Username: {{ username }}
 Password: {{ password }}
 
-Please change your password as soon as you log in.
+Your password is system-generated and secure, even the administrator has no knowledge of it. 
+You would not be able to change it yet, we are working on that feature. In the meantime, keep it safe.
 
 Log in here: {{ login_url }}
 {% endblock %}
