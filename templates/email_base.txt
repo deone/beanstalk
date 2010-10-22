@@ -1,4 +1,4 @@
 Hi {{ first_name }},
 {% block email_body %}{% endblock %}
 Love,
-The Pay4me Mall Team.
+The Pay4Me Mall Team.

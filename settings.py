@@ -108,7 +108,7 @@ AUTH_PROFILE_MODULE = "account.Profile"
 EMAIL_HOST = "smtp2289.socketlabs-od.com"
 EMAIL_PORT = 25
 
-EMAIL_SENDER = "Pay4me Mall<no-reply@notification.pay4memall.com>"
+EMAIL_SENDER = "Pay4Me Mall<no-reply@notification.pay4memall.com>"
 EMAIL_HOST_USER = "swglobal"
 EMAIL_HOST_PASSWORD = "wnMVRrZ8Q5nZ"
 
@@ -117,13 +117,13 @@ STORE_LOGO_WIDTH = 160
 STORE_BANNER_WIDTH = 750
 PRODUCT_IMAGE_MIN_WIDTH = 300
 
-USER_MANUAL_NAME = "Pay4me_Mall_User_Manual.pdf"
+USER_MANUAL_NAME = "Pay4Me_Mall_User_Manual.pdf"
 
 """ Email title settings """
 
-WELCOME_EMAIL_TITLE = "Your Account on Pay4me Mall"
-STORE_CREATION_EMAIL_TITLE = "Store Created on Pay4me Mall"
-BUYER_ORDER_CONFIRMATION_EMAIL_TITLE = ""
-MERCHANT_ORDER_CONFIRMATION_EMAIL_TITLE = ""
+WELCOME_EMAIL_TITLE = "Your Account on Pay4Me Mall"
+STORE_CREATION_EMAIL_TITLE = "Store Created on Pay4Me Mall"
+BUYER_ORDER_CONFIRMATION_EMAIL_TITLE = "Your Order on Pay4Me Mall"
+MERCHANT_ORDER_CONFIRMATION_EMAIL_TITLE = "Order Placed on Your Pay4Me Mall Store"
 PAYMENT_SUCCESSFUL_EMAIL_TITLE = ""
 PAYMENT_UNSUCCESSFUL_EMAIL_TITLE = ""

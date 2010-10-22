@@ -1,7 +1,7 @@
 {% extends "email_base.txt" %}
 
 {% block email_body %}
-Your store has been created on Pay4me Mall.
+Your store has been created on Pay4Me Mall.
 
 Your access URLs are:
 Store Front: {{ store_home_url }}
