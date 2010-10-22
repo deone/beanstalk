@@ -102,11 +102,11 @@ class ProductDetailAdmin(admin.ModelAdmin):
 class OrderedItemInline(admin.TabularInline):
     model = OrderedItem
     extra = 0
-    readonly_fields = ("product", "cost", "quantity",)
+    readonly_fields = ("product", "total_product_cost", "total_delivery_cost", "quantity",)
 
 
 class OrderedItemAdmin(admin.ModelAdmin):
-    readonly_fields = ("order", "product", "cost", "quantity",)
+    readonly_fields = ("order", "product", "quantity", "total_product_cost", "total_delivery_charge")
 
 
 class OrderAdmin(admin.ModelAdmin):

@@ -104,7 +104,8 @@ class OrderedItem(models.Model):
     order = models.ForeignKey(Order)
     product = models.ForeignKey(Product)
     quantity = models.IntegerField()
-    cost = models.DecimalField(max_digits=20, decimal_places=2)
+    total_product_cost = models.DecimalField(max_digits=20, decimal_places=2)
+    total_delivery_charge = models.DecimalField(max_digits=10, decimal_places=2)
 
     def __unicode__(self):
 	return self.product.name

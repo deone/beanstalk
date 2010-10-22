@@ -38,19 +38,22 @@ def index(request):
 
     for item in cart:
 	product = Product.objects.get(pk=item[0])
+	delivery_charge = product.delivery_charge * item[1]
 	product_cost = product.price * item[1]
+	order_cost = delivery_charge + product_cost
 
 	# Check if order already exists. If not create one.
 	order, created = Order.objects.get_or_create(order_id=order_id, store=product.product_group.store, \
-		defaults = {'buyer': request.user, 'amount': product_cost})
+		defaults = {'buyer': request.user, 'amount': order_cost})
 
 	# If a new order was not created, update the gotten order.
 	if not created:
-	    order.amount += product_cost
+	    order.amount += order_cost
 	    order.save()
 
 	# Also create item entries for each order.
-	OrderedItem.objects.create(order=order, product=product, quantity=item[1], cost=item[1] * product.price)
+	OrderedItem.objects.create(order=order, product=product, quantity=item[1], total_product_cost=item[1] * product.price, \
+		total_delivery_charge=item[1] * product.delivery_charge)
 
     url = get_gateway_url(order_id, order_total)
 
@@ -153,7 +156,7 @@ def notify_merchant(order):
 	N%s
 	""" % (item.quantity, item.product.name, item.product.price)
 
-    send_mail(email_title, message, "oosikoya@pay4me.com", [order.store.owner.email])
+    order.store.owner.email_user(title, message, settings.EMAIL_SENDER)
 
 def notify_buyer(*args):
     order_id = args[0].order.order_id
