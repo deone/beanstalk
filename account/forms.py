@@ -16,6 +16,9 @@ TITLE_CHOICES = (
 	    ("Dr.", "Dr."),
 	)
 
+def generate_password():
+    return "".join(random.sample(string.letters + string.digits, 8))
+
 def validate_alpha(value):
     if not value.isalpha():
 	raise ValidationError("Names must not contain numbers")
@@ -45,7 +48,7 @@ class RegisterForm(forms.Form):
 
     def save(self):
 	username = email = self.cleaned_data["email"]
-	password = "".join(random.sample(string.letters + string.digits, 8))
+	password = generate_password()
 	title = self.cleaned_data["title"]
 	first_name = self.cleaned_data["first_name"]
 	last_name = self.cleaned_data["last_name"]

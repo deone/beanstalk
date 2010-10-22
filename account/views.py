@@ -24,13 +24,13 @@ def register(request, template="account/register.html", form_class=RegisterForm)
 	if form.is_valid():
 	    # This ain't DRY.
 	    username, password = form.save()
-	    user = get_object_or_404(User, username=username)
+	    user = get_object_or_404(User, username__iexact=username)
 
 	    mail_template = get_template("account/welcome_email.txt")
 	    message = mail_template.render(Context({
 			    "first_name": user.first_name,
-			    "username": user.username,
-			    "password": user.password,
+			    "username": username,
+			    "password": password,
 			    "login_url": "http://%s/account/login/" % Site.objects.all()[0],
 			}))
 
