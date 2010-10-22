@@ -52,8 +52,8 @@ def index(request):
 	    order.save()
 
 	# Also create item entries for each order.
-	OrderedItem.objects.create(order=order, product=product, quantity=item[1], total_product_cost=item[1] * product.price, \
-		total_delivery_charge=item[1] * product.delivery_charge)
+	OrderedItem.objects.create(order=order, product=product, quantity=item[1], product_total=item[1] * product.price, \
+		delivery_total=item[1] * product.delivery_charge)
 
     items_ordered_by_buyer = OrderedItem.objects.filter(order__order_id=order_id)
     notify_buyer(*items_ordered_by_buyer)
@@ -160,8 +160,8 @@ def notify_buyer(*ordered_items):
     order_id = ordered_items[0].order.order_id
     buyer = ordered_items[0].order.buyer
 
-    product_total = reduce(add, [item.total_product_cost for item in ordered_items])
-    delivery_total = reduce(add, [item.total_delivery_charge for item in ordered_items])
+    product_total = reduce(add, [item.product_total for item in ordered_items])
+    delivery_total = reduce(add, [item.delivery_total for item in ordered_items])
 
     order_total = product_total + delivery_total
 
