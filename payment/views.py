@@ -58,7 +58,7 @@ def index(request):
     items_ordered_by_buyer = OrderedItem.objects.filter(order__order_id=order_id)
     notify_buyer(*items_ordered_by_buyer)
 
-    request.session.flush()
+    #request.session.flush()
 
     url = get_gateway_url(order_id, order_total)
     return redirect(urllib.unquote(url))
@@ -165,8 +165,19 @@ def notify_buyer(*ordered_items):
 
     order_total = product_total + delivery_total
 
+    mail_template = get_template("account/buyer_order_confirmation_email.txt")
+    message = mail_template.render(Context({
+		    "first_name": buyer.first_name,
+		    "buyer_email": buyer.email,
+		    "buyer_delivery_address": buyer.get_profile().delivery_address,
+		    "order_total": order_total,
+		    "order_id": order_id,
+		    "product_total": product_total,
+		    "delivery_total": delivery_total,
+		}))
+
     # Read this from a text file.
-    message = """
+    e = """
     Thank you for your order, %s.
 
     Purchasing Information

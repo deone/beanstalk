@@ -1,0 +1,20 @@
+{% extends "email_base.txt" %}
+
+{% block email_body %}
+Thank you for your order.
+
+Purchasing Information
+Email Address: {{ buyer_email }}
+
+Shipping Address:
+{{ buyer_delivery_address }}
+
+Order Grand Total: N{{ order_total }}
+
+Order Summary
+Order ID: {{ order_id }}
+Subtotal of Items: N{{ product_total }}
+Shipping & Handling: N{{ delivery_total }}
+
+Total for this Order: N{{ order_total }}
+{% endblock %}
