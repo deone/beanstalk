@@ -55,10 +55,12 @@ def index(request):
 	OrderedItem.objects.create(order=order, product=product, quantity=item[1], total_product_cost=item[1] * product.price, \
 		total_delivery_charge=item[1] * product.delivery_charge)
 
-    url = get_gateway_url(order_id, order_total)
+    items_ordered_by_buyer = OrderedItem.objects.filter(order__order_id=order_id)
+    notify_buyer(*items_ordered_by_buyer)
 
     request.session.flush()
 
+    url = get_gateway_url(order_id, order_total)
     return redirect(urllib.unquote(url))
 
 def get_gateway_url(order_id, order_total):
@@ -135,10 +137,6 @@ def process_payment_response(request):
 	}
 	notify_merchant(so)
 
-    # Send email to buyer. Grab items by querying OrderedItem with order_id, pronto!
-    items_ordered_by_buyer = OrderedItem.objects.filter(order__order_id=order_id)
-    notify_buyer(*items_ordered_by_buyer)
-
     return HttpResponse(mimetype="text/plain", content="OK")
 
 def update_stock(ordered_items):
@@ -158,14 +156,14 @@ def notify_merchant(order):
 
     order.store.owner.email_user(title, message, settings.EMAIL_SENDER)
 
-def notify_buyer(*args):
-    order_id = args[0].order.order_id
-    buyer = args[0].order.buyer
+def notify_buyer(*ordered_items):
+    order_id = ordered_items[0].order.order_id
+    buyer = ordered_items[0].order.buyer
 
-    email_title = "Pay4Me Mall Order Confirmation - Order %s" % order_id
-    order_total = reduce(add, [item.quantity * float(item.cost) for item in args])
-    shipping_total = reduce(add, [item.quantity * item.product.delivery_charge for item in args])
-    order_grand_total = float(order_total) + float(shipping_total)
+    product_total = reduce(add, [item.total_product_cost for item in ordered_items])
+    delivery_total = reduce(add, [item.total_delivery_charge for item in ordered_items])
+
+    order_total = product_total + delivery_total
 
     # Read this from a text file.
     message = """
@@ -188,19 +186,16 @@ def notify_buyer(*args):
 
     Delivery estimate:
     Shipping estimate for these items:
-    """ % (buyer.first_name, buyer.email, buyer.get_profile().delivery_address, order_grand_total, order_id, order_total, shipping_total, order_grand_total)
+    """ % (buyer.first_name, buyer.email, buyer.get_profile().delivery_address, order_total, order_id, product_total, delivery_total, order_total)
 
     # The 'sold by' info should be a link to the store.
-    for item in args:
+    for item in ordered_items:
 	message += """
 	%s %s
 	N%s
 	Sold by: %s
 	""" % (item.quantity, item.product.name, item.product.price, item.product.product_group.store)
 
-    try:
-	send_mail(email_title, message, "oosikoya@pay4me.com", [buyer.email])
-    except:
-	print_exc()
-    else:
-	return HttpResponse(mimetype="text/plain", content="OK")
+    buyer.email_user(settings.BUYER_ORDER_CONFIRMATION_EMAIL_TITLE % order_id, message, settings.EMAIL_SENDER)
+
+    return HttpResponse(mimetype="text/plain", content="OK")

@@ -66,6 +66,8 @@ class StoreAdmin(admin.ModelAdmin):
 
     def save_model(self, request, obj, form, change):
 	if not change:
+	    store_slug = slugify(obj.name)
+
 	    password = generate_password()
 	    obj.owner.set_password(password)
 	    obj.owner.save()
@@ -73,14 +75,14 @@ class StoreAdmin(admin.ModelAdmin):
 	    mail_template = get_template("store/store_creation_email.txt")
 	    message = mail_template.render(Context({
 				"first_name": obj.owner.first_name,
-				"store_home_url": "http://%s/%s/" % (Site.objects.all()[0], slugify(obj.name)),
+				"store_home_url": "http://%s/%s/" % (Site.objects.all()[0], store_slug),
 				"store_admin_url": "http://%s/admin/" % Site.objects.all()[0],
 				"username": obj.owner.username,
 				"password": password,
 				"user_manual_url": "http://%s/%s" % (Site.objects.all()[0], settings.USER_MANUAL_NAME)
 			    }))
 
-	    obj.owner.email_user(settings.STORE_CREATION_EMAIL_TITLE, message, settings.EMAIL_SENDER)
+	    obj.owner.email_user(settings.STORE_CREATION_EMAIL_TITLE % store_slug, message, settings.EMAIL_SENDER)
 	    obj.save()
 
 
