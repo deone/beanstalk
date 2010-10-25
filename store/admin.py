@@ -57,10 +57,18 @@ class ProductGroupAdmin(admin.ModelAdmin):
 class StoreAdmin(admin.ModelAdmin):
     form = StoreModelForm
 
+    def queryset(self, request):
+	qs = super(StoreAdmin, self).queryset(request)
+	if request.user.is_superuser:
+	    return qs
+	return qs.filter(owner=request.user)
+
     def formfield_for_foreignkey(self, db_field, request, **kwargs):
 	if db_field.name == "owner":
 	    # When we start creating staff who are not superusers, we would need to rewrite this to use has_perms().
 	    kwargs["queryset"] = User.objects.filter(is_staff=True).exclude(is_superuser=True)
+	    if not request.user.is_superuser:
+		kwargs["queryset"] = User.objects.filter(pk=request.user.id)
 	    return db_field.formfield(**kwargs)
 	return super(StoreAdmin, self).formfield_for_foreignkey(db_field, request, **kwargs)
 
