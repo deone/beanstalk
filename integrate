@@ -11,10 +11,8 @@ git checkout master || exit
 git merge $1
 echo "ok"
 
-# Don't do this unless master is the parent branch
-
-echo -n "Pushing to origin..."
-git push origin master
+echo -n "Pushing to aerix..."
+git push aerix master
 echo "ok"
 
 git checkout $1
