@@ -5,7 +5,7 @@ Your store has been created on Pay4Me Mall.
 
 Your access URLs are:
 Store Front: {{ store_home_url }}
-Store Administration: {{ store_admin_url }}
+Store Administration: {{ admin_url }}
 
 Your Store Administration login details are:
 Username: {{ username }}

@@ -76,7 +76,7 @@ class StoreAdmin(admin.ModelAdmin):
 	    message = mail_template.render(Context({
 				"first_name": obj.owner.first_name,
 				"store_home_url": "http://%s/%s/" % (Site.objects.all()[0], store_slug),
-				"store_admin_url": "http://%s/admin/" % Site.objects.all()[0],
+				"admin_url": "http://%s/admin/" % Site.objects.all()[0],
 				"username": obj.owner.username,
 				"password": password,
 				"user_manual_url": "http://%s/%s" % (Site.objects.all()[0], settings.USER_MANUAL_NAME)

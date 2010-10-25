@@ -15,8 +15,10 @@ Order Summary
 Order ID: {{ order_id }}
 Subtotal of Items: N{{ product_total }}
 Shipping & Handling: N{{ delivery_total }}
-
 Total for this Order: N{{ order_total }}
+
+Delivery estimate:
+Shipping estimate for these items:
 
 {% for item in items %}
 {{ item.quantity }} {{ item.product.name }}

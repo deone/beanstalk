@@ -57,9 +57,9 @@ def index(request):
 		delivery_total=item[1] * product.delivery_charge)
 
     items_ordered_by_buyer = OrderedItem.objects.filter(order__order_id=order_id)
-    notify_buyer(*items_ordered_by_buyer)
+    send_order_confirmation(*items_ordered_by_buyer)
 
-    #request.session.flush()
+    request.session.flush()
 
     url = get_gateway_url(order_id, order_total)
     return redirect(urllib.unquote(url))
@@ -119,6 +119,8 @@ def process_payment_response(request):
 
     store_orders = get_list_or_404(Order, order_id=order_id)
 
+    mail_template = get_template("store/merchant_order_confirmation_email.txt")
+
     for so in store_orders:
 	so.status = Order.DONE
 	so.date_paid = date_paid.replace('T', ' ')
@@ -136,7 +138,18 @@ def process_payment_response(request):
 	    "amount": so.amount,
 	    "order_date": so.created_at,
 	}
-	notify_merchant(so)
+
+	message = mail_template.render(Context({
+	    "first_name": so.store.owner.first_name,
+	    "store_name": so.store.name,
+	    "items": so.ordereditem_set.all(),
+	    "buyer_delivery_address": so.buyer.get_profile().delivery_address,
+	    "admin_url": "http://%s/admin/" % Site.objects.all()[0],
+	}))
+
+	so.store.owner.email_user(settings.MERCHANT_ORDER_CONFIRMATION_EMAIL_TITLE % so.store.name, message, settings.EMAIL_SENDER)
+
+    send_receipt()
 
     return HttpResponse(mimetype="text/plain", content="OK")
 
@@ -144,20 +157,9 @@ def update_stock(ordered_items):
     for oi in ordered_items:
 	oi.product.quantity = oi.product.quantity - oi.quantity
 	oi.product.save()
+    return True
 
-def notify_merchant(order):
-    email_title = "Items Ordered on your store, %s" % order.store
-    message = ""
-
-    for item in order.ordereditem_set.all():
-	message += """
-	%s %s
-	N%s
-	""" % (item.quantity, item.product.name, item.product.price)
-
-    order.store.owner.email_user(title, message, settings.EMAIL_SENDER)
-
-def notify_buyer(*ordered_items):
+def send_order_confirmation(*ordered_items):
     order_id = ordered_items[0].order.order_id
     buyer = ordered_items[0].order.buyer
 
@@ -185,3 +187,6 @@ def notify_buyer(*ordered_items):
     buyer.email_user(settings.BUYER_ORDER_CONFIRMATION_EMAIL_TITLE % order_id, message, settings.EMAIL_SENDER)
 
     return HttpResponse(mimetype="text/plain", content="OK")
+
+def send_receipt():
+    pass
