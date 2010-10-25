@@ -3,6 +3,7 @@ from django.http import HttpResponse
 from django.shortcuts import redirect, get_list_or_404
 from django.template.loader import get_template
 from django.template import Context
+from django.contrib.sites.models import Site
 
 from store.models import Product, Order, OrderedItem
 
@@ -166,6 +167,10 @@ def notify_buyer(*ordered_items):
     order_total = product_total + delivery_total
 
     mail_template = get_template("account/buyer_order_confirmation_email.txt")
+
+    for item in ordered_items:
+	item.store_url = "http://%s/%s" % (Site.objects.all()[0], item.product.product_group.store.slug)
+
     message = mail_template.render(Context({
 		    "first_name": buyer.first_name,
 		    "buyer_email": buyer.email,
@@ -174,38 +179,8 @@ def notify_buyer(*ordered_items):
 		    "order_id": order_id,
 		    "product_total": product_total,
 		    "delivery_total": delivery_total,
+		    "items": ordered_items,
 		}))
-
-    # Read this from a text file.
-    e = """
-    Thank you for your order, %s.
-
-    Purchasing Information
-    Email Address: %s
-
-    Shipping Address:
-    %s
-    
-    Order Grand Total: N%s
-
-    Order Summary
-    Order ID: %s
-    Subtotal of Items: N%s
-    Shipping & Handling: N%s
-
-    Total for this Order: N%s
-
-    Delivery estimate:
-    Shipping estimate for these items:
-    """ % (buyer.first_name, buyer.email, buyer.get_profile().delivery_address, order_total, order_id, product_total, delivery_total, order_total)
-
-    # The 'sold by' info should be a link to the store.
-    for item in ordered_items:
-	message += """
-	%s %s
-	N%s
-	Sold by: %s
-	""" % (item.quantity, item.product.name, item.product.price, item.product.product_group.store)
 
     buyer.email_user(settings.BUYER_ORDER_CONFIRMATION_EMAIL_TITLE % order_id, message, settings.EMAIL_SENDER)
 

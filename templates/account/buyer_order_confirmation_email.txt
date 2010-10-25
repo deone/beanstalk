@@ -17,4 +17,10 @@ Subtotal of Items: N{{ product_total }}
 Shipping & Handling: N{{ delivery_total }}
 
 Total for this Order: N{{ order_total }}
+
+{% for item in items %}
+{{ item.quantity }} {{ item.product.name }}
+N{{ item.product.price }}
+Sold by: {{ item.store_url }}
+{% endfor %}
 {% endblock %}
