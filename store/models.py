@@ -95,6 +95,9 @@ class Order(models.Model):
     created_at = models.DateTimeField(default=datetime.datetime.now)
     date_paid = models.DateTimeField(null=True)
     validation_number = models.CharField(max_length=20, null=True)
+    payment_mode = models.CharField(max_length=20, null=True)
+    bank_name = models.CharField(max_length=20, null=True)
+    bank_branch = models.CharField(max_length=20, null=True)
 
     def __str__(self):
 	return "%s's share of order %s" % (self.store.name, self.order_id)

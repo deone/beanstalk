@@ -95,6 +95,10 @@ def process_payment_response(request):
     status = int(item.status.code.string)
     date_paid = item.find('payment-date').string 
     validation_no = item.find('validation-number').string
+    payment_mode = item.find('mode').string
+    bank_name = item.bank.find('name').string
+    bank_branch = item.bank.find('branch').string
+
     
     """ Debug """
 
@@ -106,40 +110,42 @@ def process_payment_response(request):
     #status: %s type: %s \n
     #validation_no: %s type: %s
     #date_paid: %s type: %s
+    #payment_mode: %s type: %s
+    #bank_name: %s type: %s
+    #bank_branch: %s type: %s
     #""" % (
-    """
-	    order_id, type(order_id), 
-	    amount, str(type(amount)),
-	    str(status), str(type(status)),
-	    validation_no, str(type(validation_no)),
-	    date_paid, str(type(date_paid))
-    )
+    
+	    #order_id, type(order_id), 
+	    #amount, str(type(amount)),
+	    #str(status), str(type(status)),
+	    #validation_no, str(type(validation_no)),
+	    #date_paid, str(type(date_paid)),
+	    #payment_mode, str(type(payment_mode)),
+	    #bank_name, str(type(bank_name)),
+	    #bank_branch, str(type(bank_branch)),
+    #)
 
-    send_mail("Pay4Me Mall response debug", message, "dayo@aerixnigeria.com", ["oosikoya@pay4me.com"])"""
+    #send_mail("Pay4Me Mall response debug", message, "dayo@aerixnigeria.com", ["oosikoya@pay4me.com"])
+
+    merchant_order_mail_template = get_template("store/merchant_order_confirmation_email.txt")
+    payment_success_template = get_template("account/payment_successful_email.txt")
 
     store_orders = get_list_or_404(Order, order_id=order_id)
-
-    mail_template = get_template("store/merchant_order_confirmation_email.txt")
 
     for so in store_orders:
 	so.status = Order.DONE
 	so.date_paid = date_paid.replace('T', ' ')
 	so.validation_number = validation_no
+	so.payment_mode = payment_mode
+	if payment_mode != "ewallet":
+	    so.bank_name = bank_name
+	    so.bank_branch = bank_branch
 	so.save()
 
 	# Subtract ordered item quantity from product quantity.
 	update_stock(so.ordereditem_set.all())
 
-	# Send email notification to merchant(s) so that products can be shipped.
-	store_order_info = {
-	    "merchant_email": so.store.owner.email,
-	    "order_id": so.order_id,
-	    "buyer_address": so.buyer.get_profile().delivery_address,
-	    "amount": so.amount,
-	    "order_date": so.created_at,
-	}
-
-	message = mail_template.render(Context({
+	merchant_order_confirmation = merchant_order_mail_template.render(Context({
 	    "first_name": so.store.owner.first_name,
 	    "store_name": so.store.name,
 	    "items": so.ordereditem_set.all(),
@@ -147,10 +153,9 @@ def process_payment_response(request):
 	    "admin_url": "http://%s/admin/" % Site.objects.all()[0],
 	}))
 
-	so.store.owner.email_user(settings.MERCHANT_ORDER_CONFIRMATION_EMAIL_TITLE % so.store.name, message, settings.EMAIL_SENDER)
+	so.store.owner.email_user(settings.MERCHANT_ORDER_CONFIRMATION_EMAIL_TITLE % so.store.name, merchant_order_confirmation, settings.EMAIL_SENDER)
 
-    send_receipt()
-
+    send_receipt(order_id, payment_success_template)
     return HttpResponse(mimetype="text/plain", content="OK")
 
 def update_stock(ordered_items):
@@ -165,7 +170,6 @@ def send_order_confirmation(*ordered_items):
 
     product_total = reduce(add, [item.product_total for item in ordered_items])
     delivery_total = reduce(add, [item.delivery_total for item in ordered_items])
-
     order_total = product_total + delivery_total
 
     mail_template = get_template("account/buyer_order_confirmation_email.txt")
@@ -188,5 +192,17 @@ def send_order_confirmation(*ordered_items):
 
     return HttpResponse(mimetype="text/plain", content="OK")
 
-def send_receipt():
-    pass
+def send_receipt(order_id, email_template):
+    ordered_items = OrderedItem.objects.filter(order__order_id=order_id)
+    amount = reduce(add, [item.product_total + item.delivery_total for item in ordered_items])
+
+    receipt = email_template.render(Context({
+		    "first_name": ordered_items[0].order.buyer.first_name,
+		    "amount": amount,
+		    "payment_mode": ordered_items[0].order.payment_mode,
+		    "bank_name": ordered_items[0].order.bank_name,
+		    "bank_branch": ordered_items[0].order.bank_branch,
+		}))
+
+    ordered_items[0].order.buyer.email_user(settings.PAYMENT_SUCCESSFUL_EMAIL_TITLE % ordered_items[0].order.order_id, \
+	    receipt, settings.EMAIL_SENDER)
