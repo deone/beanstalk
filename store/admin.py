@@ -92,6 +92,8 @@ class StoreAdmin(admin.ModelAdmin):
 
 	    obj.owner.email_user(settings.STORE_CREATION_EMAIL_TITLE % store_slug, message, settings.EMAIL_SENDER)
 	    obj.save()
+	else:
+	    obj.save()
 
 
 class ProductDetailAdmin(admin.ModelAdmin):
