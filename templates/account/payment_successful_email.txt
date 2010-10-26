@@ -3,7 +3,7 @@
 {% block email_body %}
 Your payment has been confirmed.
 
-Amount: {{ amount }}
+Amount: N{{ amount }}
 Payment Mode: {{ payment_mode }}
 {% ifequal payment_mode "bank" %}
 Bank Name: {{ bank_name }}
