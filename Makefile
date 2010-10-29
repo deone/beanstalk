@@ -32,8 +32,12 @@ dist: distclean
 	@cp -r bin $(NAME)-$(VERSION)/
 	@cp -r conf $(NAME)-$(VERSION)/
 	@cp -r apache $(NAME)-$(VERSION)/
+<<<<<<< HEAD:Makefile
 	@cp -r account/ mall/ store/ payment/ shopping_cart/ templates/ $(NAME)-$(VERSION)/
 	@cp -r site_media/css/ site_media/js/ site_media/img/ $(NAME)-$(VERSION)/site_media/
+=======
+	@cp -r account/ mall/ store/ payment/ shopping_cart/ templates/ site_media/css/ site_media/js/ site_media/img/ sql/ $(NAME)-$(VERSION)/
+>>>>>>> shopping_cart:Makefile
 	@cp helpers.* __init__.* manage.py settings* urls.* abstract_model.* search_sites.* $(NAME)-$(VERSION)/
 	@cp INSTALL MANIFEST.in Makefile README TODO $(NAME)-$(VERSION)/
 	@cp install.sh install.conf pay4memall.spec $(NAME)-$(VERSION)/
