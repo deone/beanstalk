@@ -90,7 +90,7 @@ class StoreAdmin(admin.ModelAdmin):
 				"user_manual_url": "http://%s/%s" % (Site.objects.all()[0], settings.USER_MANUAL_NAME)
 			    }))
 
-	    obj.owner.email_user(settings.STORE_CREATION_EMAIL_TITLE % store_slug, message, settings.EMAIL_SENDER)
+	    obj.owner.email_user(settings.STORE_CREATION_EMAIL_TITLE % obj.name, message, settings.EMAIL_SENDER)
 	    obj.save()
 	else:
 	    obj.save()
