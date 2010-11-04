@@ -2,7 +2,7 @@
 
 {% block content %}
     {% if user.id %}
-	<p>Thank you for registering. You may <a href="{% url mall_home %}">continue shopping</a> or <a href="{% url preview_cart %}">proceed to checkout</a>.<p>
+	<p>Thank you for registering. Your log in details have been sent to your email, you might need to check your spam folder. You may <a href="{% url mall_home %}">continue shopping</a> or <a href="{% url preview_cart %}">proceed to checkout</a>.<p>
     {% else %}
 	<p>Sorry, something went wrong and you could not be registered at this time. Please check your internet connection and <a href="{% url account_register %}">try again</a>.</p>
     {% endif %}
