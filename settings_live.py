@@ -15,4 +15,4 @@ PAYMENT_URL = 'https://www.pay4me.com/order/payment/payprocess/v1/PID/%s' % MERC
 DATABASE_NAME = 'pay4memall'
 DATABASE_USER = 'pay4me_admin'
 DATABASE_PASSWORD = 'p4y4m3_4dm1n'
-DATABASE_HOST = 'myinstance.csnuhzoafqcv.us-east-1.rds.amazonaws.com
+DATABASE_HOST = 'myinstance.csnuhzoafqcv.us-east-1.rds.amazonaws.com'
