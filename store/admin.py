@@ -122,7 +122,7 @@ class OrderedItemAdmin(admin.ModelAdmin):
 
 
 class OrderAdmin(admin.ModelAdmin):
-    readonly_fields = ("buyer", "store", "amount",)
+    readonly_fields = ("buyer", "store", "amount", "status")
     list_display = ("order_id", "store", "amount", "status", "created_at", "date_paid")
     date_hierarchy = "created_at"
     fieldsets = (
