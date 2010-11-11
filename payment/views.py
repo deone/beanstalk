@@ -81,6 +81,7 @@ def get_gateway_url(order_id, order_total):
     req.add_header("Accept", "application/xml; charset=utf-8")
     
     response = urllib2.urlopen(req)
+
     soup = BeautifulStoneSoup(response.read())
     url = soup.find("redirect-url").string
 
