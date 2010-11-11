@@ -1,7 +1,9 @@
 {% extends "email_base.txt" %}
-
+{% block salutation %}
+Congratulations {{ first_name }},
+{% endblock %}
 {% block email_body %}
-Your store has been created on Pay4Me Mall.
+Your store {{ store_name }} has been created on Pay4Me Mall. Please find details below.
 
 Your access URLs are:
 Store Front: {{ store_home_url }}
@@ -11,8 +13,7 @@ Your Store Administration login details are:
 Username: {{ username }}
 Password: {{ password }}
 
-Your password is system-generated and secure, even the administrator has no knowledge of it. 
-You would not be able to change it yet, we are working on that feature. In the meantime, keep it safe.
+Please ensure that you change your password to a safe but memorable password. Remember that passwords are personal and should not be disclosed to anyone under any circumstances.
 
 To get started with Store Administration, here's the user manual: {{ user_manual_url }}.
 {% endblock %}

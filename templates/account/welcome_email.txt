@@ -1,13 +1,16 @@
 {% extends "email_base.txt" %}
-
+{% block salutation %}
+Congratulations {{ first_name }},
+{% endblock %}
 {% block email_body %}
 Welcome to Pay4Me Mall. Here are your log-in details:
+Your account has been successfully created on the Pay4Me mall. Please find
+your details below.
 
 Username: {{ username }}
 Password: {{ password }}
 
-Your password is system-generated and secure, even the administrator has no knowledge of it. 
-You would not be able to change it yet, we are working on that feature. In the meantime, keep it safe.
+Please ensure that you change your password to a safe but memorable password. Remember that passwords are personal and should not be disclosed to anyone under any circumstances.
 
-Log in here: {{ login_url }}
+To place an order, log in here: {{ login_url }}
 {% endblock %}

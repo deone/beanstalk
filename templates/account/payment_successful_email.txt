@@ -1,7 +1,11 @@
 {% extends "email_base.txt" %}
-
+{% block salutation %}
+Congratulations {{ first_name }},
+{% endblock %}
 {% block email_body %}
-Your payment has been confirmed.
+Your payment was successful. Below is a breakdown of the transaction.
+
+Transaction details:
 
 Amount: N{{ amount }}
 Payment Mode: {{ payment_mode }}

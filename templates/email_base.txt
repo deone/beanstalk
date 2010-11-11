@@ -1,4 +1,15 @@
-Hi {{ first_name }},
+{% block salutation %}{% endblock %}
 {% block email_body %}{% endblock %}
 Kind regards,
 The Pay4Me Mall Team.
+
+Footnote: This email is generated from an Automated Transaction Alert Service. You are getting this email because you successfully completed a transaction. Please DO NOT reply this mail. Contact our customer service should you require additional information.
+
+The information contained and transmitted by this E-MAIL is proprietary to
+Pay4Me Mall and/or its Customer and is intended for use only by the individual or entity to which it is addressed, and may contain information that is privileged, confidential or exempt from a disclosure under applicable law.
+
+If this is a forwarded message, the content of this E-MAIL may not have been sent with the authority of Pay4Me Mall. Pay4Me Mall shall not be liable for any mails sent without due authorisation or through unauthorised access.
+
+If you are not the intended recipient, an agent of the intended recipient or a person responsible for delivering the information to the named recipient, you are notified that any use, distribution, transmission, printing, copying or dissemination of this information in any way or in any manner is strictly prohibited.
+
+If you have received this communication in error, please delete this mail and notify us immediately at info@pay4memall.com.

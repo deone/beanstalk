@@ -1,9 +1,13 @@
 {% extends "email_base.txt" %}
-
+{% block salutation %}
+Good day {{ first_name }},
+{% endblock %}
 {% block email_body %}
 Thank you for your order.
 
-Purchasing Information
+Below are the details of your order:
+Name: {{ buyer_name }}
+
 Email Address: {{ buyer_email }}
 
 Shipping Address:
@@ -17,8 +21,7 @@ Subtotal of Items: N{{ product_total }}
 Shipping & Handling: N{{ delivery_total }}
 Total for this Order: N{{ order_total }}
 
-Delivery estimate:
-Shipping estimate for these items:
+Please allow for 14 working days for your order to be delivered.
 
 {% for item in items %}
 {{ item.quantity }} {{ item.product.name }}
