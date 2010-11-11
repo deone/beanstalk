@@ -11,9 +11,7 @@
             </description>
             <price>{{ order_total }}</price>
             <currency>naira</currency>
-            <parameters>
-                <parameter name="appno">4096</parameter>
-            </parameters>
+	    <parameters></parameters>
         </item>
     </merchant-service>
 </order>
