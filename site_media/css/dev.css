@@ -1,3 +1,14 @@
+a:link	{
+    text-decoration: underline;
+}
+#nav a	{
+    text-decoration: none;
+}
+#footer ul li	{
+    float: left;
+    display: block;
+    margin-right: 20px;
+}
 #nav #selectMenu	{
     margin-top: 0px;
 }

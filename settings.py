@@ -121,7 +121,7 @@ USER_MANUAL_NAME = "Pay4Me_Mall_User_Manual.pdf"
 
 """ Email title settings """
 
-WELCOME_EMAIL_TITLE = "Account Created on Pay4Me Mall"
+WELCOME_EMAIL_TITLE = "Your Pay4Me Mall Account"
 STORE_CREATION_EMAIL_TITLE = "Store Created on Pay4Me Mall"
 BUYER_ORDER_CONFIRMATION_EMAIL_TITLE = "Order Confirmation - Order %s"
 MERCHANT_ORDER_CONFIRMATION_EMAIL_TITLE = "Order Placed on %s"

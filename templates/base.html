@@ -30,7 +30,7 @@
 				{% if user.is_staff %}
 				    <a href="/admin/">ADMIN</a> | 
 				{% endif %}
-				<a href="{% url account_logout %}">SIGN OUT</a>
+				<a href="{% url change_password %}">CHANGE PASSWORD</a> | <a href="{% url account_logout %}">SIGN OUT</a>
 			    {% else %}
 				<a href="{% url account_login %}">SIGN IN</a> | <a href="{% url account_register %}">REGISTER</a>
 			    {% endif %}
@@ -39,7 +39,7 @@
 			    <a href="{% url preview_cart %}"><img src="{{ MEDIA_URL }}img/checkout.gif" alt="CHECKOUT"/></a>
 			</div>
 			<div class="clear"></div>
-			<form id="mall_search" method="get" action="{#{% url haystack_search %}#}">
+			<form id="mall_search" method="get" action="{% url haystack_search %}">
 			    {{ mall_search_form.q }}
 			</form>
 		    {% endblock %}
@@ -79,8 +79,11 @@
 	    <ul>
 		<li><a href="#">About Pay4Me Mall</a></li>
 		<li><a href="#">Contact Us</a></li>
+		<li><a href="#">Delivery Policy</a></li>
+		<li><a href="#">Privacy Policy</a></li>
+		<li><a href="#">Terms and Conditions</a></li>
 		<li><a href="#">How to Pay</a></li>
-		<li><a href="#">Support</a></li>
+		<li><a href="#">FAQs</a></li>
 	    </ul>
 	    <img src="{{ MEDIA_URL }}img/pay4me.gif" style="float:right; margin:10px;">
 	    <div class="clear"></div>
