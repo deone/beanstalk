@@ -1,12 +1,15 @@
 from django.shortcuts import render_to_response, redirect, get_object_or_404
 from django.template import RequestContext, Context
-from django.template.loader import get_template
+from django.template.loader import get_template, render_to_string
 from django.conf import settings
+from django.core.mail import send_mail, EmailMultiAlternatives
+from django.utils.html import strip_tags
 
 from django.contrib.sites.models import Site
 from django.contrib.auth import authenticate, login as auth_login
 
 import helpers as h
+from traceback import print_exc
 
 from account.forms import *
 
@@ -26,16 +29,21 @@ def register(request, template="account/register.html", form_class=RegisterForm)
 	    username, password = form.save()
 	    user = get_object_or_404(User, username__iexact=username)
 
-	    mail_template = get_template("account/welcome_email.txt")
-	    message = mail_template.render(Context({
-			    "first_name": user.first_name,
-			    "username": username,
-			    "password": password,
-			    "login_url": "http://%s/account/login/" % Site.objects.all()[0],
-			}))
+	    subject, from_email, to = settings.WELCOME_EMAIL_TITLE, settings.EMAIL_SENDER, user.email
+
+	    html_content = render_to_string("account/welcome_email.html",
+		    {"first_name": user.first_name,
+		    "username": username,
+		    "password": password,
+		    "login_url": "http://%s/account/login/" % Site.objects.all()[0]}
+		    )
+	    text_content = strip_tags(html_content)
+
+	    msg = EmailMultiAlternatives(subject, text_content, from_email, [to])
+	    msg.attach_alternative(html_content, "text/html")
 
 	    try:
-		user.email_user(settings.WELCOME_EMAIL_TITLE, message, settings.EMAIL_SENDER)
+		msg.send()
 	    except Exception, e:
 		user.delete()
 	    else:
@@ -78,4 +86,16 @@ def set_delivery_address(request, template="account/delivery.html", form_class=D
 
     context = h.get_global_context_variables(request.session._session)
     context.update({"delivery_form": form,})
+    return render_to_response(template, context, context_instance=RequestContext(request))
+
+def change_password(request, template="account/change_password.html", form_class=ChangePasswordForm):
+    if request.method == "POST":
+	form = form_class(request.POST)
+	if form.is_valid():
+	    form.save(request.user)
+    else:
+	form = form_class()
+
+    context = h.get_global_context_variables(request.session._session)
+    context.update({"change_password_form": form,})
     return render_to_response(template, context, context_instance=RequestContext(request))

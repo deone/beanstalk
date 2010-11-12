@@ -1,0 +1,60 @@
+{% extends "email_base.html" %}
+{% block salutation %}
+<p>Dear {{ first_name }},</p>
+{% endblock %}
+{% block email_body %}
+<p>Welcome to Pay4Me Mall! We can't wait to get you started! Here are your log-in details:</p>
+
+<p>
+    Username: {{ username }}<br/>
+    Password: {{ password }}
+</p>
+
+<p>
+    Please use this link to log into your account: <a href="{{ login_url }}">{{ login_url }}</a><br/>
+    It is easy to discover all the amazing benefits you can get from the Pay4Me Mall.
+</p>
+
+<table>
+    <tr>
+	<th colspan=4 style="text-align: left; text-transform: capitalize;">Discover stores that cater to your specific needs</th>
+    </tr>
+    <tr>
+	<td colspan=4>
+	    3Stiches - <i>urban boutique offering clothing for both men and women</i><br/>
+	    Spar Groceries – <i>for your everyday needs</i><br/>
+	    Debonair Bookstore – <i>get great books at great prices</i><br/>
+	    Flowers Talk – <i>roses are red, violets are blue..we have flowers to serve you in every manner!</i>
+	</td>
+    </tr>
+    <tr>
+	<td>&nbsp;</td>
+    </tr>
+    <tr>
+	<th colspan=4 style="text-align: left; text-transform: capitalize;">A few handy Pay4Me mall tips</th>
+    </tr>
+    <tr>
+	<th colspan=4 style="text-align: left; text-transform: capitalize;">Compare Prices</th>
+    </tr>
+    <tr>
+	<td>
+	    We ensure you get the best offers!<br/>
+	    Shop for items and compare prices from different stores on the Pay4Me Mall and make the most of your budget.<br/>
+	    Mary Kay – skincare and make-up specially for you.<br/>
+	</td>
+    </tr>
+    <tr>
+	<td>&nbsp;</td>
+    </tr>
+    <tr>
+	<th style="text-align: left; text-transform: capitalize;">Featured Products</th>
+    </tr>
+    <tr>
+	<td>&nbsp;</td>
+	<td>&nbsp;</td>
+	<td>&nbsp;</td>
+	<td>&nbsp;</td>
+    </tr>
+</table>
+
+{% endblock %}
