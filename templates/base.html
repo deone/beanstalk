@@ -30,7 +30,7 @@
 				{% if user.is_staff %}
 				    <a href="/admin/">ADMIN</a> | 
 				{% endif %}
-				<a href="{% url change_password %}">CHANGE PASSWORD</a> | <a href="{% url account_logout %}">SIGN OUT</a>
+				<!--<a href="{% url change_password %}">CHANGE PASSWORD</a> |--> <a href="{% url account_logout %}">SIGN OUT</a>
 			    {% else %}
 				<a href="{% url account_login %}">SIGN IN</a> | <a href="{% url account_register %}">REGISTER</a>
 			    {% endif %}
@@ -56,7 +56,7 @@
 	    {% endfor %}
 		<div class="clear"></div>
 	    </ul>
-	    
+	    {% block stores_depts_list %}
 	    <div id="selectMenu">
 		<select id="store_list">
 		    <option value="">Stores</option>
@@ -71,19 +71,20 @@
 		{% endfor %}
 		</select>
 	    </div>
+	    {% endblock %}
 	    <div class="clear"></div>
 	</div>
 	{% block content %}{% endblock %}
 	<div class="clear"></div>
 	<div id="footer">
 	    <ul>
-		<li><a href="about/">About Pay4Me Mall</a></li>
-		<li><a href="about/contact/">Contact Us</a></li>
-		<li><a href="about/delivery_policy/">Delivery Policy</a></li>
-		<li><a href="about/privacy_policy/">Privacy Policy</a></li>
-		<li><a href="about/terms/">Terms and Conditions</a></li>
-		<li><a href="about/how_to_pay/">How to Pay</a></li>
-		<li><a href="about/faq/">FAQ</a></li>
+		<li><a href="/about/">About Pay4Me Mall</a></li>
+		<li><a href="/about/contact/">Contact Us</a></li>
+		<li><a href="/about/delivery_policy/">Delivery Policy</a></li>
+		<li><a href="/about/privacy_policy/">Privacy Policy</a></li>
+		<li><a href="/about/terms/">Terms and Conditions</a></li>
+		<li><a href="/about/how_to_pay/">How to Pay</a></li>
+		<li><a href="/about/faq/">FAQ</a></li>
 	    </ul>
 	    <img src="{{ MEDIA_URL }}img/pay4me.gif" style="float:right; margin:10px;">
 	    <div class="clear"></div>
