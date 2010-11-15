@@ -17,7 +17,8 @@
 		{% thumbnail product.image 160x160 crop as thumb %}
 		<img src="{{ thumb }}" width="{{ thumb.width }}" height="{{ thumb.height }}"/>
 		<div class="clear"></div>
-		<span>{{ product.name }}<br/><b>{{ product.product_group.store.name }}</b></a></span>
+		<span>{{ product.name }}</a><br/>
+		<a href="{{ product.product_group.store.get_absolute_url }}"><b>{{ product.product_group.store.name }}</b></a></span>
 	    <h2>N{{ product.price }}</h2>
 	</div>
 	{% endfor %}
