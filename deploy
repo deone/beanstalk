@@ -1,0 +1,5 @@
+#!/bin/bash
+
+cp -r apache/ about/ templates/ account/ mall/ store/ payment/ shopping_cart/ /usr/local/www/pay4memall/
+cp -r site_media/css/ site_media/js/ site_media/img/ /usr/local/www/pay4memall/site_media/
+cp helpers.* __init__.* manage.py settings* urls.* abstract_model.* search_sites.* /usr/local/www/pay4memall/
