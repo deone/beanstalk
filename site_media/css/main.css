@@ -7,8 +7,12 @@ body{
 h1{ color:#2c6ca5;  font-size:18px; font-weight:normal; line-height:18px; margin-bottom:10px; margin-top:15px; text-transform:uppercase;}
 h2 {margin-bottom:10px; color:#2c6ca5; font-weight:normal;}
 a img { border:none;} 
-a{text-decoration:none; color:#838383; }
-a:hover{color:#2c6ca5;}
+a   {
+    text-decoration:none; color:#2c6ca5;
+}
+a:hover	{
+    text-decoration: underline;
+}
 .clear{clear:both;}
 
 #heading{ margin-top:10px;}
@@ -34,7 +38,8 @@ a:hover{color:#2c6ca5;}
 
 #productItem{ float:left; width:183px; padding:2px; text-align:center; line-height:14px; margin-bottom:10px; margin-top:10px; height:220px;}
 #productItem img{ margin-bottom:15px; margin-top:15px;}
-#productItem h2{color:#2c6ca5; font-size:12px; line-height:14px; margin:0px; }
+#productItem h2{color:#838383; font-size:12px; line-height:14px; margin:0px; }
+
 
 #productPage{background:url("/site_media/img/leftProdctPage.gif") repeat-y 0px 0px; }
 
