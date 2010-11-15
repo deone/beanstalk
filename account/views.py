@@ -88,7 +88,7 @@ def set_delivery_address(request, template="account/delivery.html", form_class=D
     context.update({"delivery_form": form,})
     return render_to_response(template, context, context_instance=RequestContext(request))
 
-def change_password(request, template="account/change_password.html", form_class=ChangePasswordForm):
+"""def change_password(request, template="account/change_password.html", form_class=ChangePasswordForm):
     if request.method == "POST":
 	form = form_class(request.POST)
 	if form.is_valid():
@@ -98,4 +98,4 @@ def change_password(request, template="account/change_password.html", form_class
 
     context = h.get_global_context_variables(request.session._session)
     context.update({"change_password_form": form,})
-    return render_to_response(template, context, context_instance=RequestContext(request))
+    return render_to_response(template, context, context_instance=RequestContext(request))"""

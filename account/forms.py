@@ -109,3 +109,15 @@ class DeliveryAddressForm(forms.Form):
 	    user_profile.delivery_address = self.cleaned_data["delivery_address"]
 
 	user_profile.save()
+
+
+"""class ChangePasswordForm(forms.Form):
+    old_password = forms.CharField(widget=forms.PasswordInput())
+    new_password = forms.CharField(widget=forms.PasswordInput())
+    password_again = forms.CharField(widget=forms.PasswordInput())
+
+    def clean(self):
+	pass
+
+    def save(self, user):
+	print user"""
