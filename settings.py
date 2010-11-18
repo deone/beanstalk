@@ -84,6 +84,7 @@ INSTALLED_APPS = (
     'store',
     'mall',
     'shopping_cart',
+    'about',
     'payment',
     'haystack',
     'sorl.thumbnail',

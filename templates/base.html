@@ -30,7 +30,7 @@
 				{% if user.is_staff %}
 				    <a href="/admin/">ADMIN</a> | 
 				{% endif %}
-				<!--<a href="{% url change_password %}">CHANGE PASSWORD</a> |--> <a href="{% url account_logout %}">SIGN OUT</a>
+				| <a href="{% url account_logout %}">SIGN OUT</a>
 			    {% else %}
 				<a href="{% url account_login %}">SIGN IN</a> | <a href="{% url account_register %}">REGISTER</a>
 			    {% endif %}
