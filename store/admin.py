@@ -1,7 +1,9 @@
-from django.conf import settings
+from django.core.mail import send_mail, EmailMultiAlternatives
 from django.template import Context
-from django.template.loader import get_template
+from django.template.loader import render_to_string
 from django.template.defaultfilters import slugify
+from django.conf import settings
+from django.utils.html import strip_tags
 
 from django.contrib import admin
 from django.contrib.sites.models import Site
@@ -78,17 +80,24 @@ class StoreAdmin(admin.ModelAdmin):
 	    obj.owner.set_password(password)
 	    obj.owner.save()
 
-	    mail_template = get_template("store/store_creation_email.txt")
-	    message = mail_template.render(Context({
-				"first_name": obj.owner.first_name,
-				"store_home_url": "http://%s/%s/" % (Site.objects.all()[0], store_slug),
-				"admin_url": "http://%s/admin/" % Site.objects.all()[0],
-				"username": obj.owner.username,
-				"password": password,
-				"user_manual_url": "http://%s/%s" % (Site.objects.all()[0], settings.USER_MANUAL_NAME)
-			    }))
+	    subject, from_email, to = settings.STORE_CREATION_EMAIL_TITLE % obj.name, settings.EMAIL_SENDER, obj.owner.email
 
-	    obj.owner.email_user(settings.STORE_CREATION_EMAIL_TITLE % obj.name, message, settings.EMAIL_SENDER)
+	    html_content = render_to_string("store/store_creation_email.html",
+		    {
+			"first_name": obj.owner.first_name,
+			"store_name": obj.name,
+			"store_home_url": "http://%s/%s/" % (Site.objects.all()[0], store_slug),
+			"admin_url": "http://%s/admin/" % Site.objects.all()[0],
+			"username": obj.owner.username,
+			"password": password,
+			"user_manual_url": "http://%s/%s" % (Site.objects.all()[0], settings.USER_MANUAL_NAME)
+		    })
+	    text_content = strip_tags(html_content)
+
+	    msg = EmailMultiAlternatives(subject, text_content, from_email, [to])
+	    msg.attach_alternative(html_content, "text/html")
+
+	    msg.send()
 	    obj.save()
 	else:
 	    obj.save()

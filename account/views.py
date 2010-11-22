@@ -1,8 +1,8 @@
-from django.shortcuts import render_to_response, redirect, get_object_or_404
+from django.core.mail import EmailMultiAlternatives
 from django.template import RequestContext, Context
-from django.template.loader import get_template, render_to_string
+from django.template.loader import render_to_string
+from django.shortcuts import render_to_response, redirect, get_object_or_404
 from django.conf import settings
-from django.core.mail import send_mail, EmailMultiAlternatives
 from django.utils.html import strip_tags
 
 from django.contrib.sites.models import Site
