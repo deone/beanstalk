@@ -105,6 +105,11 @@ INSTALLED_APPS = (
     'sorl.thumbnail',
 )
 
+AUTHENTICATION_BACKENDS = (
+    'account.email-auth.EmailBackend',
+    'django.contrib.auth.backends.ModelBackend',
+)
+
 HAYSTACK_SEARCH_ENGINE = "whoosh"
 HAYSTACK_SITECONF = "pay4memall.search_sites"
 HAYSTACK_WHOOSH_PATH = "/home/hercules/pay4memall_index"
@@ -138,7 +143,7 @@ USER_MANUAL_NAME = "Pay4Me_Mall_User_Manual.pdf"
 """ Email title settings """
 
 WELCOME_EMAIL_TITLE = "Your Pay4Me Mall Account"
-STORE_CREATION_EMAIL_TITLE = "Store Created on Pay4Me Mall"
+STORE_CREATION_EMAIL_TITLE = "Your Store %s Has Been Created on the Pay4Me Mall"
 BUYER_ORDER_CONFIRMATION_EMAIL_TITLE = "Order Confirmation - Order %s"
 MERCHANT_ORDER_CONFIRMATION_EMAIL_TITLE = "Order Placed on %s"
 PAYMENT_SUCCESSFUL_EMAIL_TITLE = "Payment Confirmation - Order %s"
