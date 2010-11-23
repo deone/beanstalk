@@ -41,7 +41,7 @@
 	    <a href="{{ product.get_absolute_url }}">
 		<img src="{{ thumb }}" width="{{ thumb.width }}" height="{{ thumb.height }}"/>
 		<div class="clear"></div>
-		<span>{{ product.name }}<br/><b>{{ product.product_group.store.name }}</b></a></span>
+		<span>{{ product.name }}</span>
 	    <h2>{{ product.price }}</h2>
 	</div>
     {% endfor %}

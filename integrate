@@ -12,7 +12,7 @@ git merge $1
 echo "ok"
 
 echo -n "Pushing to aerix..."
-git push aerix master
+git push origin master
 echo "ok"
 
 git checkout $1
