@@ -26,11 +26,11 @@
 			    </span>
 			    <br/>
 			    {% if user.is_authenticated %}
-				<b>Welcome {{ user.first_name }}</b> | <!--<a href="#">ACCOUNT</a> | -->
+				<b>Welcome {{ user.first_name }}</b>
 				{% if user.is_staff %}
 				    <a href="/admin/">ADMIN</a> | 
 				{% endif %}
-				| <a href="{% url account_logout %}">SIGN OUT</a>
+				| <a href="{% url auth_password_change %}">CHANGE PASSWORD</a> | <a href="{% url account_logout %}">SIGN OUT</a>
 			    {% else %}
 				<a href="{% url account_login %}">SIGN IN</a> | <a href="{% url account_register %}">REGISTER</a>
 			    {% endif %}
