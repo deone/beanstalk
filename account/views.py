@@ -23,8 +23,6 @@ def register(request, redirect=None, template="account/register.html"):
 	if form.is_valid():
 	    user = form.save(request)
 
-	    
-
 	    next = request.POST.get('next', '')
 	    if not next:
 		if redirect:
@@ -43,6 +41,8 @@ def register(request, redirect=None, template="account/register.html"):
     return render_to_response(template, context, context_instance=RequestContext(request))
 
 def login(request, template="account/login.html", form_class=LoginForm):
+    # We might need to re-write this to look something
+    # like `django.contrib.auth.views.login` soon.
     if request.method == "POST":
 	form = form_class(request.POST)
 
@@ -53,7 +53,7 @@ def login(request, template="account/login.html", form_class=LoginForm):
 	form = form_class()
 
     context = h.get_global_context_variables(request.session._session)
-    context.update({"login_form": form,})
+    context.update({"form": form,})
 
     return render_to_response(template, context, context_instance=RequestContext(request))
 
