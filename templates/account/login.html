@@ -7,7 +7,7 @@
 	    <p>New customer? <a href="{% url account_register %}">Register</a></p>
 	    <form action="." method="post">{% csrf_token %}
 		<ul>
-		    {{ login_form.as_ul }}
+		    {{ form.as_ul }}
 		    <li><label><br/></label><input type="submit" value="Sign In"/></li>
 		</ul>
 	    </form>
