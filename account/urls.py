@@ -8,6 +8,8 @@ urlpatterns = patterns('account.views',
 )
 
 urlpatterns += patterns('django.contrib.auth.views',
+    url(r'^password_change/$', 'password_change', {'template_name': 'registration/password_change_form.html'}, 'auth_password_change'),
+    url(r'^password_change/done/$', 'password_change_done', {'template_name': 'registration/password_change_done.html'}, 'auth_password_change_done'),
     url(r'^logout/$', 'logout', {'next_page': '/'}, name='account_logout'),
 )
 

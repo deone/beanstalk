@@ -94,7 +94,7 @@ class RegisterForm(forms.Form):
 		"first_name": user.first_name,
 		"username": username,
 		"password": password,
-		"login_url": "http://%s/account/login/" % Site.objects.get_current().domain
+		"login_url": "http://%s%s" % (Site.objects.get_current().domain, urlresolvers.reverse('account_login')) 
 	}
 
 	result = send_notification(subject, sender, mail_template, *recipients, **context_vars)
@@ -120,7 +120,7 @@ class LoginForm(forms.Form):
 	user = authenticate(username=email, password=password)
 
 	if user is None:
-	    raise forms.ValidationError("Wrong Username and Password combination")
+	    raise forms.ValidationError(ugettext("Wrong Username and Password combination"))
 	else:
 	    self.user = user
 
