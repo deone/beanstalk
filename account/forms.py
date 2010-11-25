@@ -2,8 +2,12 @@ from django import forms
 from django.contrib.auth import authenticate, login
 from django.contrib.auth.models import User
 from django.core.exceptions import ValidationError
+from django.utils.translation import ugettext_lazy as _, ugettext
+from django.conf import settings
+from django.contrib.sites.models import Site
 
 from account.models import Profile
+from mail import send_notification
 
 import random
 import string
@@ -21,24 +25,30 @@ def generate_password():
 
 def validate_alpha(value):
     if not value.isalpha():
-	raise ValidationError("Names must not contain numbers")
+	raise ValidationError(ugettext("Names must not contain numbers"))
 
 class RegisterForm(forms.Form):
-    title = forms.ChoiceField(choices=TITLE_CHOICES)
-    first_name = forms.CharField(max_length=30, validators=[validate_alpha])
-    last_name = forms.CharField(max_length=30, validators=[validate_alpha])
-    email = forms.EmailField(max_length=75)
-    mobile = forms.CharField(max_length=13, help_text="e.g. 2348023450000. Country code + number")
-    address = forms.CharField(max_length=200)
-    city = forms.CharField(max_length=20)
-    state = forms.CharField(max_length=20)
-    country = forms.CharField(max_length=50)
+    title = forms.ChoiceField(label=_('Title'), 
+	    choices=TITLE_CHOICES)
+    first_name = forms.CharField(label=_('First Name'), 
+	    max_length=30, validators=[validate_alpha])
+    last_name = forms.CharField(label=_('Last Name'), 
+	    max_length=30, validators=[validate_alpha])
+    email = forms.EmailField(label=_('Email Address'), 
+	    max_length=75)
+    mobile = forms.CharField(label=_('Mobile Phone No.'), max_length=13, 
+	    help_text=_("e.g. 2348023450000. Country code + number"))
+    address = forms.CharField(label=_('Address'), max_length=200)
+    city = forms.CharField(label=_('City'), max_length=20)
+    state = forms.CharField(label=_('State'), max_length=20)
+    country = forms.CharField(label=_('Country'), max_length=50)
+    next = forms.CharField(max_length=200, required=False, widget=forms.HiddenInput())
 
     def clean_email(self):
 	if self.cleaned_data["email"] in [object.email for object in User.objects.all()]:
-	    raise forms.ValidationError("Email belongs to another user.")
+	    raise forms.ValidationError(ugettext("Email belongs to another user."))
 	if len(self.cleaned_data["email"]) > 30:
-	    raise forms.ValidationError("Email too long.")
+	    raise forms.ValidationError(ugettext("Email too long."))
 	return self.cleaned_data["email"]
 
     def clean_mobile(self):
@@ -46,26 +56,53 @@ class RegisterForm(forms.Form):
 	    raise ValidationError("Please enter a valid phone number")
 	return self.cleaned_data["mobile"]
 
-    def save(self):
-	username = email = self.cleaned_data["email"]
+    def save(self, request):
+	data = self.cleaned_data
+	username = email = data["email"]
 	password = generate_password()
-	title = self.cleaned_data["title"]
-	first_name = self.cleaned_data["first_name"]
-	last_name = self.cleaned_data["last_name"]
-	mobile = self.cleaned_data["mobile"]
-	address = self.cleaned_data["address"]
-	city = self.cleaned_data["city"]
-	state = self.cleaned_data["state"]
-	country = self.cleaned_data["country"]
+	title = data["title"]
+	first_name = data["first_name"]
+	last_name = data["last_name"]
+	mobile = data["mobile"]
+	address = data["address"]
+	city = data["city"]
+	state = data["state"]
+	country = data["country"]
 	
+	# Create user and corresponding profile
 	user = User.objects.create_user(username, email, password)
 	user.first_name = first_name
 	user.last_name = last_name
+
 	user.save()
 	profile = Profile.objects.create(user=user, title=title, mobile=mobile, 
 	    address=address, city=city, state=state, country=country)
 
-	return username, password
+	# Authenticate and log user in
+	user = authenticate(username=username, password=password)
+	login(request, user)
+
+	# Send welcome email
+	subject, sender = settings.WELCOME_EMAIL_TITLE, settings.EMAIL_SENDER
+
+	recipients = []
+	recipients.append(user.email)
+
+	mail_template = "account/welcome_email.html"
+
+	context_vars = {
+		"first_name": user.first_name,
+		"username": username,
+		"password": password,
+		"login_url": "http://%s/account/login/" % Site.objects.get_current().domain
+	}
+
+	result = send_notification(subject, sender, mail_template, *recipients, **context_vars)
+
+	if result is not True:
+	    user.delete()
+
+	return user
 
 
 class LoginForm(forms.Form):

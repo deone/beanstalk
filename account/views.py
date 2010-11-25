@@ -1,11 +1,7 @@
-from django.core.mail import EmailMultiAlternatives
-from django.template import RequestContext, Context
-from django.template.loader import render_to_string
+from django.core import urlresolvers
+from django.http import HttpResponseRedirect
+from django.template import RequestContext
 from django.shortcuts import render_to_response, redirect, get_object_or_404
-from django.conf import settings
-from django.utils.html import strip_tags
-
-from django.contrib.sites.models import Site
 from django.contrib.auth import authenticate, login as auth_login
 
 import helpers as h
@@ -19,40 +15,27 @@ def index(request, template="account/index.html"):
     return render_to_response(template, {
     }, context_instance=RequestContext(request))
 
-def register(request, template="account/register.html", form_class=RegisterForm):
+def register(request, redirect=None, template="account/register.html"):
     """ Buyers' registration page. """
 
     if request.method == "POST":
-	form = form_class(request.POST)
+	form = RegisterForm(request.POST)
 	if form.is_valid():
-	    # This ain't DRY.
-	    username, password = form.save()
-	    user = get_object_or_404(User, username__iexact=username)
+	    user = form.save(request)
 
-	    subject, from_email, to = settings.WELCOME_EMAIL_TITLE, settings.EMAIL_SENDER, user.email
+	    
 
-	    html_content = render_to_string("account/welcome_email.html",
-		    {"first_name": user.first_name,
-		    "username": username,
-		    "password": password,
-		    "login_url": "http://%s/account/login/" % Site.objects.all()[0]}
-		    )
-	    text_content = strip_tags(html_content)
-
-	    msg = EmailMultiAlternatives(subject, text_content, from_email, [to])
-	    msg.attach_alternative(html_content, "text/html")
-
-	    try:
-		msg.send()
-	    except Exception, e:
-		user.delete()
-	    else:
-		user = authenticate(username=username, password=password)
-		auth_login(request, user)
-
-	    template = "account/feedback.html"
+	    next = request.POST.get('next', '')
+	    if not next:
+		if redirect:
+		    next = redirect
+		else:
+		    next = urlresolvers.reverse('registration_feedback')
+	    return HttpResponseRedirect(next)
     else:
-	form = form_class()
+	initial_data = {}
+	initial_data['next'] = request.GET.get('next', '')
+	form = RegisterForm(initial=initial_data)
 
     context = h.get_global_context_variables(request.session._session)
     context.update({"register_form": form,})

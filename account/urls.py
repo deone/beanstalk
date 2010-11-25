@@ -10,3 +10,8 @@ urlpatterns = patterns('account.views',
 urlpatterns += patterns('django.contrib.auth.views',
     url(r'^logout/$', 'logout', {'next_page': '/'}, name='account_logout'),
 )
+
+urlpatterns += patterns('django.views.generic',
+	(r'^register/feedback/$', 'simple.direct_to_template',
+	 {'template': 'account/feedback.html', 'extra_context': {}}, 'registration_feedback'),
+)
