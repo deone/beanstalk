@@ -1,4 +1,4 @@
-{% extends "email_base.txt" %}
+{% extends "email_base.html" %}
 {% block salutation %}
 Good day {{ first_name }},
 {% endblock %}
@@ -18,7 +18,7 @@ Order Grand Total: N{{ order_total }}
 Order Summary
 Order ID: {{ order_id }}
 Subtotal of Items: N{{ product_total }}
-Shipping & Handling: N{{ delivery_total }}
+Shipping &amp; Handling: N{{ delivery_total }}
 Total for this Order: N{{ order_total }}
 
 Please allow for 14 working days for your order to be delivered.
