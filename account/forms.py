@@ -101,7 +101,7 @@ class RegisterForm(forms.Form):
 
 	result = send_notification(subject, sender, mail_template, *recipients, **context_vars)
 
-	if result is not True:
+	if not result:
 	    user.delete()
 
 	return user

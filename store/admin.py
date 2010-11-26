@@ -12,6 +12,7 @@ from django.contrib.auth.models import User
 from store.models import *
 from store.forms import StoreModelForm, ProductModelForm
 from account.forms import generate_password
+from mail import send_notification
 
 class ProductDetailInline(admin.TabularInline):
     model = ProductDetail
@@ -80,25 +81,28 @@ class StoreAdmin(admin.ModelAdmin):
 	    obj.owner.set_password(password)
 	    obj.owner.save()
 
-	    subject, from_email, to = settings.STORE_CREATION_EMAIL_TITLE % obj.name, settings.EMAIL_SENDER, obj.owner.email
+	    subject, sender = settings.STORE_CREATION_EMAIL_TITLE % obj.name, settings.EMAIL_SENDER
 
-	    html_content = render_to_string("store/store_creation_email.html",
-		    {
+	    recipients = []
+	    recipients.append(obj.owner.email)
+	    recipients.append(settings.EMAIL_COPY_ADDRESS)
+
+	    mail_template = 'store/store_creation_email.html'
+
+	    context_vars = {
 			"first_name": obj.owner.first_name,
 			"store_name": obj.name,
-			"store_home_url": "http://%s/%s/" % (Site.objects.all()[0], store_slug),
-			"admin_url": "http://%s/admin/" % Site.objects.all()[0],
+			"store_home_url": "http://%s/%s/" % (Site.objects.get_current().domain, store_slug),
+			"admin_url": "http://%s/admin/" % Site.objects.get_current().domain,
 			"username": obj.owner.username,
 			"password": password,
-			"user_manual_url": "http://%s/%s" % (Site.objects.all()[0], settings.USER_MANUAL_NAME)
-		    })
-	    text_content = strip_tags(html_content)
+			"user_manual_url": "http://%s/%s" % (Site.objects.get_current().domain, settings.USER_MANUAL_NAME)
+		    }
 
-	    msg = EmailMultiAlternatives(subject, text_content, from_email, [to])
-	    msg.attach_alternative(html_content, "text/html")
+	    result = send_notification(subject, sender, mail_template, *recipients, **context_vars)
 
-	    msg.send()
-	    obj.save()
+	    if result:
+		obj.save() 
 	else:
 	    obj.save()
 

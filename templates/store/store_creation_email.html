@@ -3,25 +3,21 @@
 <p>Dear {{ first_name }},</p>
 {% endblock %}
 {% block email_body %}
-<p>Your store {{ store_name }} has been created on Pay4Me Mall.</p>
+<p>Welcome to the Pay4Me Mall! Your store {{ store_name }} has been created on Pay4Me Mall.</p>
 
 <p>
-    Your access URLs are:
-</p>
-<p>
+    Your access URLs are:<br/>
     Store Front: {{ store_home_url }}<br/>
-    Store Administration: {{ admin_url }}<br/>
+    Store Administration: {{ admin_url }}
 </p>
 
 <p>
-    Your Store Administration login details are:
-</p>
-<p>
+    Your Store Administration login details are:<br/>
     Username: {{ username }}<br/>
     Password: {{ password }}
 </p>
 
 <p>
-    To get started with Store Administration, here's the user manual: {{ user_manual_url }}.
+    To get started with Store Administration, please download the <a href="{{ user_manual_url }}">user manual</a>.
 </p>
 {% endblock %}
