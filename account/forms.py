@@ -2,6 +2,7 @@ from django import forms
 from django.contrib.auth import authenticate, login
 from django.contrib.auth.models import User
 from django.core.exceptions import ValidationError
+from django.core import urlresolvers
 from django.utils.translation import ugettext_lazy as _, ugettext
 from django.conf import settings
 from django.contrib.sites.models import Site
@@ -87,14 +88,15 @@ class RegisterForm(forms.Form):
 
 	recipients = []
 	recipients.append(user.email)
+	recipients.append(settings.EMAIL_COPY_ADDRESS)
 
-	mail_template = "account/welcome_email.html"
+	mail_template = 'account/welcome_email.html'
 
 	context_vars = {
-		"first_name": user.first_name,
-		"username": username,
-		"password": password,
-		"login_url": "http://%s%s" % (Site.objects.get_current().domain, urlresolvers.reverse('account_login')) 
+		'first_name': user.first_name,
+		'username': username,
+		'password': password,
+		'login_url': "http://%s%s" % (Site.objects.get_current().domain, urlresolvers.reverse('account_login')) 
 	}
 
 	result = send_notification(subject, sender, mail_template, *recipients, **context_vars)
@@ -114,13 +116,13 @@ class LoginForm(forms.Form):
     def clean(self):
 	if self._errors:
 	    return
-	email = self.cleaned_data["email"]
-	password = self.cleaned_data["password"]
+	email = self.cleaned_data['email']
+	password = self.cleaned_data['password']
 
 	user = authenticate(username=email, password=password)
 
 	if user is None:
-	    raise forms.ValidationError(ugettext("Wrong Username and Password combination"))
+	    raise forms.ValidationError(ugettext('Wrong Username and Password combination'))
 	else:
 	    self.user = user
 
@@ -139,10 +141,10 @@ class DeliveryAddressForm(forms.Form):
     def save(self, user):
 	user_profile = user.get_profile()
 
-	if self.cleaned_data["delivery_address"] == "":
-	    user_profile.delivery_address = "%s, %s, %s, %s" % (user_profile.address, 
+	if self.cleaned_data['delivery_address'] == '':
+	    user_profile.delivery_address = '%s, %s, %s, %s' % (user_profile.address, 
 		    user_profile.city, user_profile.state, user_profile.country)
 	else:
-	    user_profile.delivery_address = self.cleaned_data["delivery_address"]
+	    user_profile.delivery_address = self.cleaned_data['delivery_address']
 
 	user_profile.save()

@@ -131,10 +131,12 @@ AUTH_PROFILE_MODULE = "account.Profile"
 
 EMAIL_HOST = "smtp2289.socketlabs-od.com"
 EMAIL_PORT = 25
-
-EMAIL_SENDER = "Pay4Me Mall<no-reply@notification.pay4memall.com>"
 EMAIL_HOST_USER = "swglobal"
 EMAIL_HOST_PASSWORD = "wnMVRrZ8Q5nZ"
+
+EMAIL_SENDER = "Pay4Me Mall<no-reply@notification.pay4memall.com>"
+EMAIL_COPY_ADDRESS = "support@pay4memall.com"
+
 
 IMAGE_FORMATS = ["JPEG", "PNG", "GIF"]
 STORE_LOGO_WIDTH = 160
