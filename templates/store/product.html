@@ -18,7 +18,7 @@
 	    <b>{{ product.product_group.store.name }}</b><br/>
 	    <p>{{ product.description }}</p>
 	    <p><h3>N{{ product.price }}</h3></p>
-	    <form id="add_to_cart" method="post" action=".">
+	    <form id="add_to_cart" method="post" action=".">{% csrf_token %}
 		<ul>
 		    <li>
 			{{ shopping_cart_form.as_ul }}
