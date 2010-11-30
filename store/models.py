@@ -81,6 +81,7 @@ class ProductDetail(CommonInfo):
 class Order(models.Model):
     # Change this to PAYMENT_PENDING, PAYMENT_SUCCESSFUL, ORDER_DELIVERED
     PENDING, DONE = 1, 0
+
     # Change this to ORDER_STATUS_CHOICES
     PAYMENT_STATUS_CHOICES = (
 	    (PENDING, "Pending"),

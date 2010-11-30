@@ -1,31 +1,61 @@
 {% extends "email_base.html" %}
 {% block salutation %}
-Good day {{ first_name }},
+<p>Dear {{ first_name }},</p>
 {% endblock %}
 {% block email_body %}
-Thank you for your order.
+<p>Thank you for your order. Please see below details of this order:</p>
 
-Below are the details of your order:
-Name: {{ buyer_name }}
+<p>
+    <b>Billed To:</b><br/>
+    {{ buyer_email }}<br/>
+    {{ first_name }} {{ last_name }}<br/>
+    {{ buyer_delivery_address }}.<br/>
+    Order Number: {{ order_id }}<br/>
+    Order Date and Time: {{ order_date }}<br/>
+    Order Total: N{{ order_total }}<br/>
+    Order Status: {{ order_status }}
+</p>
 
-Email Address: {{ buyer_email }}
+<!--Subtotal of Items: N{{ product_total }}<br/>
+Shipping &amp; Handling: N{{ delivery_total }}<br/>
+Total for this Order: N{{ order_total }}<br/>-->
 
-Shipping Address:
-{{ buyer_delivery_address }}
+<table cellspacing=10>
+    <tr>
+	<th style="text-align: left;">S/No.</th>
+	<th style="text-align: left;">Store</th>
+	<th style="text-align: left;">Description</th>
+	<th style="text-align: left;">Quantity</th>
+	<th style="text-align: left;">Unit Price</th>
+	<th style="text-align: left;">Total Price</th>
+    </tr>
+    {% for item in items %}
+    <tr>
+	<td>{{ forloop.counter }}</td>
+	<td><a href="{{ item.store_url }}">{{ item.product.product_group.store.name }}</a></td>
+	<td>{{ item.product.name }}</td>
+	<td>{{ item.quantity }}</td>
+	<td>{{ item.product.price }}</td>
+	<td>{{ item.product_total }}</td>
+    </tr>
+    {% endfor %}
+    <tr>
+	<td colspan=5><b>Sub-total</b></td>
+	<td>N{{ product_total }}</td>
+    <tr>
+	<td colspan=5><b>Shipping/Delivery Charges</b></td>
+	<td>N{{ delivery_total }}</td>
+    </tr>
+    <tr>
+	<td colspan=5><b>Grand Total</b></td>
+	<td>N{{ order_total }}</td>
+</table>
 
-Order Grand Total: N{{ order_total }}
+<p>
+    You can complete this order by making your payment either through Ewallet, Pay@Bank or VISA, all available at www.pay4memall.com.
+</p>
+<p>
+    Please retain this for records. 
+</p>
 
-Order Summary
-Order ID: {{ order_id }}
-Subtotal of Items: N{{ product_total }}
-Shipping &amp; Handling: N{{ delivery_total }}
-Total for this Order: N{{ order_total }}
-
-Please allow for 14 working days for your order to be delivered.
-
-{% for item in items %}
-{{ item.quantity }} {{ item.product.name }}
-N{{ item.product.price }}
-Sold by: {{ item.store_url }}
-{% endfor %}
 {% endblock %}

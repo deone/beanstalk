@@ -1,12 +1,14 @@
-from django.conf import settings
 from django.http import HttpResponse
-from django.shortcuts import redirect, get_list_or_404
-from django.template.loader import get_template
+from django.template.loader import render_to_string, get_template
 from django.template import Context
+from django.conf import settings
+from django.shortcuts import redirect, get_list_or_404
+from django.utils.html import strip_tags
+
 from django.contrib.sites.models import Site
 
-from store.models import Product, Order, OrderedItem
-
+from store.models import Product, Order, OrderedItem 
+from mail import send_notification
 import helpers as h
 
 import datetime
@@ -59,7 +61,7 @@ def index(request):
     items_ordered_by_buyer = OrderedItem.objects.filter(order__order_id=order_id)
     send_order_confirmation(*items_ordered_by_buyer)
 
-    request.session.flush()
+    #request.session.flush()
 
     url = get_gateway_url(order_id, order_total)
     return redirect(urllib.unquote(url))
@@ -173,23 +175,36 @@ def send_order_confirmation(*ordered_items):
     delivery_total = reduce(add, [item.delivery_total for item in ordered_items])
     order_total = product_total + delivery_total
 
-    mail_template = get_template("account/buyer_order_confirmation_email.txt")
+    subject, sender = settings.BUYER_ORDER_CONFIRMATION_EMAIL_TITLE % order_id, settings.EMAIL_SENDER
+
+    recipients = []
+    recipients.append(buyer.email)
+
+    mail_template = 'account/buyer_order_confirmation_email.html'
 
     for item in ordered_items:
-	item.store_url = "http://%s/%s" % (Site.objects.all()[0], item.product.product_group.store.slug)
+	item.store_url = "http://%s/%s" % (Site.objects.get_current().domain, item.product.product_group.store.slug)
 
-    message = mail_template.render(Context({
-		    "first_name": buyer.first_name,
-		    "buyer_email": buyer.email,
-		    "buyer_delivery_address": buyer.get_profile().delivery_address,
-		    "order_total": order_total,
-		    "order_id": order_id,
-		    "product_total": product_total,
-		    "delivery_total": delivery_total,
-		    "items": ordered_items,
-		}))
+    if ordered_items[0].order.status != 1:
+	status = "Successful"
+    else:
+	status = "Pending"
 
-    buyer.email_user(settings.BUYER_ORDER_CONFIRMATION_EMAIL_TITLE % order_id, message, settings.EMAIL_SENDER)
+    context_vars = {
+	'first_name': buyer.first_name,
+	'last_name': buyer.last_name,
+	'buyer_email': buyer.email,
+	'buyer_delivery_address': buyer.get_profile().delivery_address,
+	'order_total': order_total,
+	'order_id': order_id,
+	'product_total': product_total,
+	'delivery_total': delivery_total,
+	'items': ordered_items,
+	'order_date': ordered_items[0].order.created_at,
+	'order_status': 'Payment %s' % status,
+    }
+
+    result = send_notification(subject, sender, mail_template, *recipients, **context_vars)
 
     return HttpResponse(mimetype="text/plain", content="OK")
 
