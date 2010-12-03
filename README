@@ -1,0 +1,1 @@
+Line 18 in templates/payment/request.xml should be removed before moving into production. The parameter appno is not supported on the live gateway. 
