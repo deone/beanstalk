@@ -1,0 +1,38 @@
+{% extends "email_base.html" %}
+
+{% block salutation %}
+<p>Dear Esteemed Merchant,</p>
+{% endblock %}
+
+{% block email_body %}
+<p>The following items were purchased from your store Amaze Mobiles and payment has been 
+received on your behalf. Please find below details of this transaction:</p>
+
+<table cellspacing=10>
+    <tr>
+	<th style="text-align: left;">S/No.</th>
+	<th style="text-align: left;">Description</th>
+	<th style="text-align: left;">Quantity</th>
+	<th style="text-align: left;">Unit Price</th>
+	<th style="text-align: left;">Total Price</th>
+    </tr>
+    {% for item in items %}
+    <tr>
+	<td>{{ forloop.counter }}</td>
+	<td>{{ item.product.name }}</td>
+	<td>{{ item.quantity }}</td>
+	<td>{{ item.product.price }}</td>
+	<td>{{ item.product_total }}</td>
+    </tr>
+    {% endfor %}
+</table>
+
+<p>
+Shipping Address:<br/>
+{{ buyer_delivery_address }}
+</p>
+
+<p>Kindly visit  {{ admin_url }} to view more details of this transaction.</p>
+
+Thank you for your cooperation.
+{% endblock %}

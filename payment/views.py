@@ -61,7 +61,7 @@ def index(request):
     items_ordered_by_buyer = OrderedItem.objects.filter(order__order_id=order_id)
     send_order_confirmation(*items_ordered_by_buyer)
 
-    #request.session.flush()
+    request.session.flush()
 
     url = get_gateway_url(order_id, order_total)
     return redirect(urllib.unquote(url))
@@ -130,8 +130,10 @@ def process_payment_response(request):
 
     #send_mail("Pay4Me Mall response debug", message, "dayo@aerixnigeria.com", ["oosikoya@pay4me.com"])
 
-    merchant_order_mail_template = get_template("store/merchant_order_confirmation_email.txt")
-    payment_success_template = get_template("account/payment_successful_email.txt")
+    merchant_order_mail_template = 'store/merchant_order_confirmation_email.html'
+    #payment_success_template = get_template("account/payment_successful_email.txt")
+
+    recipients = []
 
     store_orders = get_list_or_404(Order, order_id=order_id)
 
@@ -148,17 +150,19 @@ def process_payment_response(request):
 	# Subtract ordered item quantity from product quantity.
 	update_stock(so.ordereditem_set.all())
 
-	merchant_order_confirmation = merchant_order_mail_template.render(Context({
-	    "first_name": so.store.owner.first_name,
-	    "store_name": so.store.name,
-	    "items": so.ordereditem_set.all(),
-	    "buyer_delivery_address": so.buyer.get_profile().delivery_address,
-	    "admin_url": "http://%s/admin/" % Site.objects.all()[0],
-	}))
+	recipients.append(so.store.owner.email)
 
-	so.store.owner.email_user(settings.MERCHANT_ORDER_CONFIRMATION_EMAIL_TITLE % so.store.name, merchant_order_confirmation, settings.EMAIL_SENDER)
+	context_vars = {
+	    'store_name': so.store.name,
+	    'items': so.ordereditem_set.all(),
+	    'buyer_delivery_address': so.buyer.get_profile().delivery_address,
+	    'admin_url': "http://%s/admin/" % Site.objects.get_current().domain,
+	}
 
-    send_receipt(order_id, payment_success_template)
+	send_notification(settings.MERCHANT_ORDER_CONFIRMATION_EMAIL_TITLE % so.store.name, settings.EMAIL_SENDER,
+		merchant_order_mail_template, *recipients, **context_vars)
+
+    #send_receipt(order_id, payment_success_template)
     return HttpResponse(mimetype="text/plain", content="OK")
 
 def update_stock(ordered_items):

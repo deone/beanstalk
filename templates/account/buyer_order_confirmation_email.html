@@ -16,10 +16,6 @@
     Order Status: {{ order_status }}
 </p>
 
-<!--Subtotal of Items: N{{ product_total }}<br/>
-Shipping &amp; Handling: N{{ delivery_total }}<br/>
-Total for this Order: N{{ order_total }}<br/>-->
-
 <table cellspacing=10>
     <tr>
 	<th style="text-align: left;">S/No.</th>
@@ -42,6 +38,7 @@ Total for this Order: N{{ order_total }}<br/>-->
     <tr>
 	<td colspan=5><b>Sub-total</b></td>
 	<td>N{{ product_total }}</td>
+    </tr>
     <tr>
 	<td colspan=5><b>Shipping/Delivery Charges</b></td>
 	<td>N{{ delivery_total }}</td>
@@ -49,6 +46,7 @@ Total for this Order: N{{ order_total }}<br/>-->
     <tr>
 	<td colspan=5><b>Grand Total</b></td>
 	<td>N{{ order_total }}</td>
+    </tr>
 </table>
 
 <p>
