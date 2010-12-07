@@ -1,0 +1,70 @@
+{% extends "email_base.html" %}
+{% block salutation %}{% endblock %}
+{% block email_body %}
+<p>Payment Confirmation.</p>
+
+<p>
+    Billed To:<br/>
+    {{ buyer.email }}<br/>
+    {{ buyer.first_name }} {{ buyer.last_name }}<br/>
+    {{ buyer.get_profile.delivery_address }}<br/>
+    {{ order_id }}<br/>
+    {{ receipt_date }}
+</p>
+
+<table cellspacing=10>
+    <tr>
+	<td><b>Order Details</b></td>
+    </tr>
+    <tr>
+	<th style="text-align: left;">S/No.</th>
+	<th style="text-align: left;">Store</th>
+	<th style="text-align: left;">Product</th>
+	<th style="text-align: left;">Quantity</th>
+	<th style="text-align: left;">Total Price</th>
+    </tr>
+    {% for item in items %}
+    <tr>
+	<td>{{ forloop.counter }}</td>
+	<td>
+	    <a href="http://{{ site.domain }}/{{ item.product.product_group.store.slug }}">
+		{{ item.product.product_group.store.name }}
+	    </a>
+	</td>
+	<td>{{ item.product.name }}</td>
+	<td>{{ item.quantity }}</td>
+	<td>{{ item.product_total }}</td>
+    </tr>
+    {% endfor %}
+    <tr>
+	<td colspan=4><b>Shipping/Delivery Charges</b></td>
+	<td>{{ delivery_charge }}</td>
+    </tr>
+    <tr>
+	<td colspan=4><b>Order Total:</b></td>
+	<td>{{ order_total }}</td>
+    </tr>
+    <tr>
+	<td colspan=4><b>Order Status:</b></td>
+	<td>Paid</td>
+    </tr>
+    <tr>
+    {% ifequal payment_mode "bank" %}
+	<td colspan=4><b>Bank Name:</b></td>
+	<td>{{ bank_name }}</td>
+	<td colspan=4><b>Bank Branch:</b></td>
+	<td>{{ bank_branch }}</td>
+    {% else %}
+	<td colspan=4><b>Mode of Payment:</b></td>
+	<td>{{ payment_mode }}</td>
+    {% endifequal %}
+    </tr>
+    <tr>
+	<td colspan=5><em>Note: Please allow 3 days for delivery.</em></td>
+    </tr>
+</table>
+
+<p>
+    Please retain this for records. 
+</p>
+{% endblock %}

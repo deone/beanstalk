@@ -131,9 +131,6 @@ def process_payment_response(request):
     #send_mail("Pay4Me Mall response debug", message, "dayo@aerixnigeria.com", ["oosikoya@pay4me.com"])
 
     merchant_order_mail_template = 'store/merchant_order_confirmation_email.html'
-    #payment_success_template = get_template("account/payment_successful_email.txt")
-
-    recipients = []
 
     store_orders = get_list_or_404(Order, order_id=order_id)
 
@@ -148,8 +145,9 @@ def process_payment_response(request):
 	so.save()
 
 	# Subtract ordered item quantity from product quantity.
-	update_stock(so.ordereditem_set.all())
+	#update_stock(so.ordereditem_set.all())
 
+	recipients = []
 	recipients.append(so.store.owner.email)
 
 	context_vars = {
@@ -159,10 +157,10 @@ def process_payment_response(request):
 	    'admin_url': "http://%s/admin/" % Site.objects.get_current().domain,
 	}
 
-	send_notification(settings.MERCHANT_ORDER_CONFIRMATION_EMAIL_TITLE % so.store.name, settings.EMAIL_SENDER,
-		merchant_order_mail_template, *recipients, **context_vars)
+	#send_notification(settings.MERCHANT_ORDER_CONFIRMATION_EMAIL_TITLE % so.store.name, settings.EMAIL_SENDER,
+		#merchant_order_mail_template, *recipients, **context_vars)
 
-    #send_receipt(order_id, payment_success_template)
+    send_receipt(order_id)
     return HttpResponse(mimetype="text/plain", content="OK")
 
 def update_stock(ordered_items):
@@ -212,17 +210,30 @@ def send_order_confirmation(*ordered_items):
 
     return HttpResponse(mimetype="text/plain", content="OK")
 
-def send_receipt(order_id, email_template):
+def send_receipt(order_id):
     ordered_items = OrderedItem.objects.filter(order__order_id=order_id)
-    amount = reduce(add, [item.product_total + item.delivery_total for item in ordered_items])
+    subject, sender = settings.PAYMENT_SUCCESSFUL_EMAIL_TITLE, settings.EMAIL_SENDER
 
-    receipt = email_template.render(Context({
-		    "first_name": ordered_items[0].order.buyer.first_name,
-		    "amount": amount,
-		    "payment_mode": ordered_items[0].order.payment_mode,
-		    "bank_name": ordered_items[0].order.bank_name,
-		    "bank_branch": ordered_items[0].order.bank_branch,
-		}))
+    recipients = []
+    recipients.append(ordered_items[0].order.buyer.email)
 
-    ordered_items[0].order.buyer.email_user(settings.PAYMENT_SUCCESSFUL_EMAIL_TITLE % ordered_items[0].order.order_id, \
-	    receipt, settings.EMAIL_SENDER)
+    mail_template = "account/payment_successful_email.html"
+    ordered_items = OrderedItem.objects.filter(order__order_id=order_id)
+
+    delivery_charge = reduce(add, [item.delivery_total for item in ordered_items])
+    order_total = reduce(add, [item.product_total + item.delivery_total for item in ordered_items])
+
+    context_vars = {
+	'site': Site.objects.get_current(),
+	'buyer': ordered_items[0].order.buyer,
+	'order_id': order_id,
+	'receipt_date': ordered_items[0].order.created_at,
+	'items': ordered_items,
+	'delivery_charge': delivery_charge,
+	'order_total': order_total,
+	'payment_mode': ordered_items[0].order.payment_mode,
+	'bank_name': ordered_items[0].order.bank_name,
+	'bank_branch': ordered_items[0].order.bank_branch,
+    }
+
+    send_notification(subject % order_id, sender, mail_template, *recipients, **context_vars)
