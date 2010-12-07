@@ -145,7 +145,7 @@ def process_payment_response(request):
 	so.save()
 
 	# Subtract ordered item quantity from product quantity.
-	#update_stock(so.ordereditem_set.all())
+	update_stock(so.ordereditem_set.all())
 
 	recipients = []
 	recipients.append(so.store.owner.email)
@@ -157,8 +157,8 @@ def process_payment_response(request):
 	    'admin_url': "http://%s/admin/" % Site.objects.get_current().domain,
 	}
 
-	#send_notification(settings.MERCHANT_ORDER_CONFIRMATION_EMAIL_TITLE % so.store.name, settings.EMAIL_SENDER,
-		#merchant_order_mail_template, *recipients, **context_vars)
+	send_notification(settings.MERCHANT_ORDER_CONFIRMATION_EMAIL_TITLE % so.store.name, settings.EMAIL_SENDER, 
+		merchant_order_mail_template, *recipients, **context_vars)
 
     send_receipt(order_id)
     return HttpResponse(mimetype="text/plain", content="OK")
@@ -184,26 +184,15 @@ def send_order_confirmation(*ordered_items):
 
     mail_template = 'account/buyer_order_confirmation_email.html'
 
-    for item in ordered_items:
-	item.store_url = "http://%s/%s" % (Site.objects.get_current().domain, item.product.product_group.store.slug)
-
-    if ordered_items[0].order.status != 1:
-	status = "Successful"
-    else:
-	status = "Pending"
-
     context_vars = {
-	'first_name': buyer.first_name,
-	'last_name': buyer.last_name,
-	'buyer_email': buyer.email,
-	'buyer_delivery_address': buyer.get_profile().delivery_address,
+	'site': Site.objects.get_current(),
+	'buyer': buyer,
 	'order_total': order_total,
 	'order_id': order_id,
 	'product_total': product_total,
 	'delivery_total': delivery_total,
 	'items': ordered_items,
 	'order_date': ordered_items[0].order.created_at,
-	'order_status': 'Payment %s' % status,
     }
 
     result = send_notification(subject, sender, mail_template, *recipients, **context_vars)
