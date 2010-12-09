@@ -12,8 +12,9 @@ from account.forms import *
 def index(request, template="account/index.html"):
     """ Account home, shows the user's account settings. """
 
-    return render_to_response(template, {
-    }, context_instance=RequestContext(request))
+    context = h.get_global_context_variables(request.session._session)
+
+    return render_to_response(template, context, context_instance=RequestContext(request))
 
 def register(request, redirect=None, template="account/register.html"):
     """ Buyers' registration page. """
@@ -28,7 +29,7 @@ def register(request, redirect=None, template="account/register.html"):
 		if redirect:
 		    next = redirect
 		else:
-		    next = urlresolvers.reverse('registration_feedback')
+		    next = urlresolvers.reverse('account_profile')
 	    return HttpResponseRedirect(next)
     else:
 	initial_data = {}
